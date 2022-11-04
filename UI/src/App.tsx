@@ -21,7 +21,7 @@ export default function App() {
           <Route path="/teams/:teamId" element={<Team />} />
           <Route path="/pokemon" element={<Pokemon />} />
           <Route path="/pokemon/:userId" element={<CreatedPokemon />} />
-          <Route path="/pokemon/create/:id" element={<CreatePokemon />} />
+          <Route path="/pokemon/create/:pokemonName" element={<CreatePokemon />} />
         </Routes>
       </div>
     </div>

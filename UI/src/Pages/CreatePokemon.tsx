@@ -1,16 +1,22 @@
-import { useQueries, useQuery } from '@tanstack/react-query'
+import { useQueries } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
-import fetchHeldItems from '../Utils/fetchHeldItems'
-import fetchSinglePokemon from '../Utils/fetchSinglePokemon'
+import fetchHeldItems from '../Utils/fetch/fetchHeldItems'
+import fetchSinglePokemon from '../Utils/fetch/fetchSinglePokemon'
+import { formatString } from '../Utils/formatString'
+
+import { stats } from '../assets/stats'
+import { moves } from '../assets/movesOrder'
+import { natures } from '../assets/natures'
+import PokemonCard from '../Components/PokemonCard'
 
 export default function CreatePokemon() {
-  const { id } = useParams()
+  const { pokemonName } = useParams()
 
   const results = useQueries({
     queries: [
       {
-        queryKey: ['pokemon', id],
-        queryFn: () => fetchSinglePokemon(id),
+        queryKey: ['pokemon', pokemonName],
+        queryFn: () => fetchSinglePokemon(pokemonName),
         staleTime: Infinity,
       },
       {
@@ -23,47 +29,6 @@ export default function CreatePokemon() {
 
   const pokemon = results[0].data
 
-  const stats = [
-    'Hitpoints',
-    'Attack',
-    'Defense',
-    'Special Attack',
-    'Special Defense',
-    'Speed',
-  ]
-  const moves = ['First', 'Second', 'Third', 'Fourth']
-  const natures = [
-    'Adamant',
-    'Bashful',
-    'Bold',
-    'Brave',
-    'Calm',
-    'Careful',
-    'Docile',
-    'Gentle',
-    'Hardy',
-    'Hasty',
-    'Impish',
-    'Jolly',
-    'Lax',
-    'Lonely',
-    'Mild',
-    'Modest',
-    'Naive',
-    'Naughty',
-    'Quiet',
-    'Quirky',
-    'Rash',
-    'Relaxed',
-    'Sassy',
-    'Serious',
-    'Timid',
-  ]
-
-  const formatString = (string: string) => {
-    return `${string.charAt(0).toUpperCase()}${string.slice(1)}`
-  }
-
   if (results[0].isLoading) return <div>Loading...</div>
 
   return (
@@ -72,17 +37,7 @@ export default function CreatePokemon() {
         <>
           <h2>Creating pokemon</h2>
           <div className="lg:flex justify-center gap-10">
-            <div>
-              <img src={pokemon.sprites.front_default} />
-              <h3>{formatString(pokemon.name)}</h3>
-              <div className="flex justify-between">
-                {pokemon.types.map((type: { type: { name: string } }) => {
-                  return (
-                    <h4 key={type.type.name}>{formatString(type.type.name)}</h4>
-                  )
-                })}
-              </div>
-            </div>
+            <PokemonCard pokemonName={pokemon.name}/>
             <div>
               <form className="flex flex-col gap-2">
                 <label className="flex flex-col">
@@ -118,8 +73,8 @@ export default function CreatePokemon() {
                         {pokemon.moves
                           .sort(
                             (
-                              a: { move: { name: string } },
-                              b: { move: { name: string } },
+                              a,
+                              b,
                             ) => {
                               if (a.move.name < b.move.name) {
                                 return -1
