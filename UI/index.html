@@ -7,6 +7,19 @@
     <title>Griff's Team-Builder</title>
   </head>
   <body>
+    <script>
+      const theme = localStorage.getItem('theme')
+      if (
+        window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches && !theme
+      ) {
+          document.documentElement.classList.add('dark')
+      }
+
+      if(theme === 'dark'){
+        document.documentElement.classList.add('dark')
+      }
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
