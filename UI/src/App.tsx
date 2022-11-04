@@ -10,9 +10,9 @@ import NavBar from './Components/NavBar'
 
 export default function App() {
   return (
-    <div className="xl:container mx-auto bg-black">
-      <div className="px-4 text-white">
-        <NavBar />
+    <div className="xl:container mx-auto min-h-screen">
+      <NavBar />
+      <div className="p-4">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/teams" element={<Teams />} />
