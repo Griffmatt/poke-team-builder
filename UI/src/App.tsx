@@ -7,6 +7,7 @@ import Pokemon from './Pages/Pokemon'
 import CreatedPokemon from './Pages/CreatedPokemon'
 
 import NavBar from './Components/NavBar'
+import CreatePokemon from './Pages/CreatePokemon'
 
 export default function App() {
   return (
@@ -16,9 +17,11 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/teams" element={<Teams />} />
-          <Route path="/teams/:id" element={<Team />} />
+          <Route path="/teams/:userId" element={<Teams />} />
+          <Route path="/teams/:teamId" element={<Team />} />
           <Route path="/pokemon" element={<Pokemon />} />
-          <Route path="/pokemon/:id" element={<CreatedPokemon />} />
+          <Route path="/pokemon/:userId" element={<CreatedPokemon />} />
+          <Route path="/pokemon/create/:id" element={<CreatePokemon />} />
         </Routes>
       </div>
     </div>
