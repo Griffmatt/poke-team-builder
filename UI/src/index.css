@@ -6,6 +6,14 @@ body {
     @apply bg-white placeholder:text-black dark:bg-black dark:text-white w-screen mx-auto overflow-x-hidden;
   }
 
+  h1{
+    @apply font-extrabold text-xl;
+  }
+
+  h2{
+    @apply font-bold text-lg;
+  }
+
 input{
   @apply rounded-xl bg-slate-200 p-1 px-3 text-black;
 }

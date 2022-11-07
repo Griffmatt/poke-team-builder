@@ -3,10 +3,13 @@ import './index.css'
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
+
 import App from './App'
-import { ThemeContextProvider } from './Context/themeContext'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+import { ThemeContextProvider } from './Context/themeContext'
+import { UserContextProvider } from './Context/userContext'
 
 export const queryClient = new QueryClient()
 
@@ -15,7 +18,9 @@ createRoot(document.getElementById('root') as HTMLElement).render(
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <ThemeContextProvider>
-          <App />
+          <UserContextProvider>
+            <App />
+          </UserContextProvider>
         </ThemeContextProvider>
       </QueryClientProvider>
     </BrowserRouter>

@@ -31,12 +31,8 @@ export default function NavBar() {
       >
         Teams
       </NavLink>
-      <button onClick={handleDarkMode}>
-        <h2>{darkMode ? 'Light' : 'Dark'}</h2>
-      </button>
-      <button>
-        <h2>{user ? 'Logout' : 'Login'}</h2>
-      </button>
+      <button onClick={handleDarkMode}>{darkMode ? 'Light' : 'Dark'}</button>
+      <button>{user ? 'Logout' : 'Login'}</button>
     </div>
   )
 }

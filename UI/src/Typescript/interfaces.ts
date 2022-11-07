@@ -1,3 +1,8 @@
+
+export interface HeldItem{
+    name: string
+}
+
 export interface Pokemon{
     name: string,
     types: Pokemon_Type[],
@@ -14,8 +19,8 @@ interface Images{
     front_default: string
 }
 
-interface Abilities{
-    ability: string
+export interface Abilities{
+    ability: {name: string}
 }
 
 interface Moves{

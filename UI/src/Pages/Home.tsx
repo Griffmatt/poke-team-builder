@@ -11,7 +11,7 @@ export default function Home() {
       {pokemonArr?.slice(0, 48).map((pokemon, index) => {
         return (
           <Link
-            to={`/pokemon/create/${pokemon.name}`}
+            to={`/create/${pokemon.name}`}
             key={pokemon.name}
             className="p-2"
           >

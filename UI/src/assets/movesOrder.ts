@@ -1,1 +1,1 @@
-export const moves = ['First', 'Second', 'Third', 'Fourth']
+export const movesOrder = ['First', 'Second', 'Third', 'Fourth']

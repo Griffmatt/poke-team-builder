@@ -5,12 +5,16 @@ import fetchSinglePokemon from '../Utils/fetch/fetchSinglePokemon'
 import { formatString } from '../Utils/formatString'
 
 import { stats } from '../assets/stats'
-import { moves } from '../assets/movesOrder'
+import { movesOrder } from '../assets/movesOrder'
 import { natures } from '../assets/natures'
+
+import { useUserContext } from '../Context/userContext'
+
 import PokemonCard from '../Components/PokemonCard'
 
 export default function CreatePokemon() {
   const { pokemonName } = useParams()
+  const { currentUser } = useUserContext()
 
   const results = useQueries({
     queries: [
@@ -27,89 +31,115 @@ export default function CreatePokemon() {
     ],
   })
 
+  const submitForm = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    console.log("HI")
+  }
+
   const pokemon = results[0].data
+  const heldItems = results[1].data
 
   if (results[0].isLoading) return <div>Loading...</div>
 
   return (
     <>
-      {pokemon && (
+      {pokemon && heldItems && (
         <>
-          <h2>Creating pokemon</h2>
+          <h1>Creating pokemon</h1>
           <div className="lg:flex justify-center gap-10">
-            <PokemonCard pokemonName={pokemon.name}/>
-            <div>
-              <form className="flex flex-col gap-2">
+            <PokemonCard pokemonName={pokemon.name} />
+            <div className="bg-slate-700 p-4 rounded-2xl">
+              <form className="flex flex-col gap-2" onSubmit={(event) => submitForm(event)}>
+                <h2>Pokemon Info</h2>
                 <label className="flex flex-col">
                   Name <input defaultValue={formatString(pokemon.name)} />
                 </label>
                 <label className="flex flex-col">
-                  Ability{' '}
+                  Ability
                   <select>
-                    {pokemon.abilities.map((ability: any) => {
+                    {pokemon.abilities.map((ability) => {
                       return (
-                        <option>{formatString(ability.ability.name)}</option>
+                        <option key={ability.ability.name}>
+                          {formatString(ability.ability.name)}
+                        </option>
                       )
                     })}
                   </select>
                 </label>
                 <label className="flex flex-col">
-                  Nature{' '}
+                  Nature
                   <select className="text-black">
                     {natures.map((nature: string) => {
-                      return <option>{nature}</option>
+                      return <option key={nature}>{nature}</option>
                     })}
                   </select>
                 </label>
                 <label className="flex flex-col">
-                  Held Item <input />
+                  Held Item
+                  <select>
+                    {heldItems.sort((a, b) => {
+                            if (a.name < b.name) {
+                              return -1
+                            }
+                            if (a.name > b.name) {
+                              return 1
+                            }
+                            return 0
+                          }).map((heldItem: any) => {
+                      return (
+                        <option key={heldItem.name}>
+                          {formatString(heldItem.name)}
+                        </option>
+                      )
+                    })}
+                  </select>
                 </label>
-                <h4>Moves</h4>
-                {moves.map((move) => {
+                <h2>Moves</h2>
+                {movesOrder.map((order, moveOrderIndex) => {
                   return (
-                    <label className="flex flex-col">
-                      {move} Move{' '}
+                    <label className="flex flex-col" key={order}>
+                      {order} Move
                       <select className="text-black">
                         {pokemon.moves
-                          .sort(
-                            (
-                              a,
-                              b,
-                            ) => {
-                              if (a.move.name < b.move.name) {
-                                return -1
-                              }
-                              if (a.move.name > b.move.name) {
-                                return 1
-                              }
-                              return 0
+                          .sort((a, b) => {
+                            if (a.move.name < b.move.name) {
+                              return -1
+                            }
+                            if (a.move.name > b.move.name) {
+                              return 1
+                            }
+                            return 0
+                          })
+                          .map(
+                            (move: { move: { name: string } }, moveIndex) => {
+                              return (
+                                <option selected={moveOrderIndex === moveIndex} key={move.move.name}>
+                                  {formatString(move.move.name)}
+                                </option>
+                              )
                             },
-                          )
-                          .map((move: { move: { name: string } }) => {
-                            return (
-                              <option>{formatString(move.move.name)}</option>
-                            )
-                          })}
+                          )}
                       </select>
                     </label>
                   )
                 })}
-                <h4>Evs</h4>
+                <h2>Evs</h2>
                 {stats.map((stat) => {
                   return (
-                    <label className="flex flex-col">
-                      {stat} <input type="number" />
+                    <label className="flex flex-col" key={stat}>
+                      {stat} <input type="number" defaultValue={0} />
                     </label>
                   )
                 })}
-                <h4>Ivs</h4>
+                <h2>Ivs</h2>
                 {stats.map((stat) => {
                   return (
-                    <label className="flex flex-col">
-                      {stat} <input type="number" />
+                    <label className="flex flex-col" key={stat}>
+                      {stat} <input type="number" defaultValue={31} />
                     </label>
                   )
                 })}
+                <button className="bg-slate-500 p-4 rounded-xl" type="submit">Create Pokemon</button>
               </form>
             </div>
           </div>
