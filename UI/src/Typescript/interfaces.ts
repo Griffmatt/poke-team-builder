@@ -8,7 +8,8 @@ export interface Pokemon{
     types: Pokemon_Type[],
     sprites: Images,
     abilities: Abilities[],
-    moves: Moves[]
+    moves: Moves[],
+    id: number
 }
 
 interface Pokemon_Type{

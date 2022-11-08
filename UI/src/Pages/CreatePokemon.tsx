@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useQueries } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
@@ -13,7 +14,7 @@ import { natures } from '../assets/natures'
 import { useUserContext } from '../Context/userContext'
 
 import PokemonCard from '../Components/PokemonCard'
-import { useState } from 'react'
+import postCreatedPokemon from '../Utils/post/postCreatedPokemon'
 
 interface Stats {
   hitpointsEv: number
@@ -93,10 +94,6 @@ export default function CreatePokemon() {
     ],
   })
 
-  const submitCreatedPokemon = (pokemonData: any) => {
-    console.log(pokemonData)
-  }
-
   const pokemon = results[0].data
   const heldItems = results[1].data
 
@@ -114,12 +111,12 @@ export default function CreatePokemon() {
                 className="flex flex-col gap-2"
                 onSubmit={handleSubmit((data) =>{
                   if(currentUser === null) return
-                  submitCreatedPokemon({...data, ...evs, userId: currentUser.id})
+                  postCreatedPokemon({...data, ...evs, userId: currentUser.id, pokemonId: pokemon.id})
                 })}
               >
                 <h2>Pokemon Info</h2>
                 <label className="flex flex-col">
-                  Name{' '}
+                  Name
                   <input
                     defaultValue={formatString(pokemon.name)}
                     {...register('name')}
