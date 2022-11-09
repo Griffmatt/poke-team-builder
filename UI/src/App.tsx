@@ -1,4 +1,4 @@
-import { Routes, Route, Outlet, Link } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 
 import Home from './Pages/Home'
 import TopTeams from './Pages/TopTeams'
@@ -7,24 +7,7 @@ import Team from './Pages/Team'
 
 import NavBar from './Components/NavBar'
 import CreatePokemon from './Pages/CreatePokemon'
-import { useUserContext } from './Context/userContext'
 import CreatedPokemon from './Pages/CreatedPokemon/CreatedPokemon'
-
-const CreatedPokemonLayout = () => {
-  const { currentUser } = useUserContext()
-
-  return (
-    <>
-      {currentUser ? (
-        <div className="flex gap-4 justify-center">
-          <Link to={'/pokemon'}>Top Pokemon</Link>
-          <Link to={`/pokemon/${currentUser.id}`}>Your Pokemon</Link>
-        </div>
-      ) : null}
-      <Outlet />
-    </>
-  )
-}
 
 export default function App() {
   return (
