@@ -12,6 +12,16 @@ export interface Pokemon{
     id: number
 }
 
+export interface CreatedPokemon{
+    id: number,
+    user_id: number,
+    pokemon_id: number,
+    name: string,
+    ability: string,
+    nature: string,
+    held_item: string
+}
+
 interface Pokemon_Type{
     type: {name: string}
 }

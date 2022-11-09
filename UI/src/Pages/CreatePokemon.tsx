@@ -1,7 +1,7 @@
-import { useState } from 'react'
 import { useQueries } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 
 import fetchHeldItems from '../Utils/fetch/fetchHeldItems'
 import fetchSinglePokemon from '../Utils/fetch/fetchSinglePokemon'
@@ -15,8 +15,10 @@ import { useUserContext } from '../Context/userContext'
 
 import PokemonCard from '../Components/PokemonCard'
 import postCreatedPokemon from '../Utils/post/postCreatedPokemon'
+import useHandleEvChange from '../Hooks/useHandleEvChange'
+import useHandleIvChange from '../Hooks/useHandleIvChange'
 
-interface Stats {
+interface EvStats {
   hitpointsEv: number
   attackEv: number
   defenseEv: number
@@ -25,59 +27,24 @@ interface Stats {
   speedEv: number
 }
 
+interface IvStats{
+  hitpointsIv: number
+  attackIv: number
+  defenseIv: number
+  specialAttackIv: number
+  specialDefenseIv: number
+  speedIv: number
+}
+
 export default function CreatePokemon() {
   const { pokemonName } = useParams()
   const { currentUser } = useUserContext()
   const { register, handleSubmit } = useForm()
+  const navigate = useNavigate()
 
-  const [evs, setEvs] = useState({
-    hitpointsEv: 0,
-    attackEv: 0,
-    defenseEv: 0,
-    specialAttackEv: 0,
-    specialDefenseEv: 0,
-    speedEv: 0,
-  })
+  const { evs, decreaseEv, increaseEv, handleEvChange } = useHandleEvChange()
 
-  const decreaseEv = (currentStat: string) => {
-    if (evs[currentStat as keyof Stats] - 4 < 0) return
-    setEvs({
-      ...evs,
-      [currentStat]:
-        evs[currentStat as keyof Stats] -
-        (((4 + (evs[currentStat as keyof Stats] % 4)) % 4) || 4),
-    })
-  }
-
-  const increaseEv = (currentStat: string) => {
-    let total = 4
-    for (const stat in evs) {
-      total += evs[stat as keyof Stats]
-    }
-    if (total > 510 || evs[currentStat as keyof Stats] + 4 > 252) return
-    setEvs({
-      ...evs,
-      [currentStat]:
-        evs[currentStat as keyof Stats] +
-        (4 - (evs[currentStat as keyof Stats] % 4)),
-    })
-  }
-
-  const handleEvChange = (value: number, currentStat: string) => {
-    let total = 510
-
-    for (const stat in evs) {
-      if (stat === currentStat) continue
-      total -= evs[stat as keyof Stats]
-    }
-
-    if (value > total || value > 252) {
-      setEvs({ ...evs, [currentStat]: Math.min(252, total) })
-      return
-    }
-
-    setEvs({ ...evs, [currentStat]: value })
-  }
+  const { ivs, decreaseIv, increaseIv, handleIvChange } = useHandleIvChange()
 
   const results = useQueries({
     queries: [
@@ -104,144 +71,188 @@ export default function CreatePokemon() {
       {pokemon && heldItems && (
         <>
           <h1>Creating pokemon</h1>
-          <div className="lg:flex justify-center gap-10">
-            <PokemonCard pokemonName={pokemon.name} />
-            <div className="bg-slate-700 p-4 rounded-2xl">
-              <form
-                className="flex flex-col gap-2"
-                onSubmit={handleSubmit((data) =>{
-                  if(currentUser === null) return
-                  postCreatedPokemon({...data, ...evs, userId: currentUser.id, pokemonId: pokemon.id})
-                })}
-              >
-                <h2>Pokemon Info</h2>
-                <label className="flex flex-col">
-                  Name
-                  <input
-                    defaultValue={formatString(pokemon.name)}
-                    {...register('name')}
-                  />
-                </label>
-                <label className="flex flex-col">
-                  Ability
-                  <select {...register('ability')}>
-                    {pokemon.abilities.map((ability) => {
+          <form
+            className="grid lg:grid-cols-4 gap-3 p-2"
+            onSubmit={handleSubmit(async (data) => {
+              if (currentUser === null) return
+              const response = await postCreatedPokemon({
+                ...data,
+                ...ivs,
+                ...evs,
+                userId: currentUser.id,
+                pokemonId: pokemon.id,
+              })
+              if (response === 200) navigate(`/created-pokemon/${currentUser.id}`)
+            })}
+          >
+            <div className="md:col-span-2 md:row-span-3 w-full">
+              <PokemonCard pokemonName={pokemon.name} />
+            </div>
+            <div>
+              <h2>Pokemon Info</h2>
+              <label className="flex flex-col">
+                Name
+                <input
+                  defaultValue={formatString(pokemon.name)}
+                  {...register('name')}
+                />
+              </label>
+              <label className="flex flex-col">
+                Ability
+                <select {...register('ability')}>
+                  {pokemon.abilities.map((ability) => {
+                    return (
+                      <option key={ability.ability.name}>
+                        {formatString(ability.ability.name)}
+                      </option>
+                    )
+                  })}
+                </select>
+              </label>
+              <label className="flex flex-col">
+                Nature
+                <select className="text-black" {...register('nature')}>
+                  {natures.map((nature: string) => {
+                    return <option key={nature}>{nature}</option>
+                  })}
+                </select>
+              </label>
+              <label className="flex flex-col">
+                Held Item
+                <select {...register('heldItem')}>
+                  {heldItems
+                    .sort((a, b) => {
+                      if (a.name < b.name) {
+                        return -1
+                      }
+                      if (a.name > b.name) {
+                        return 1
+                      }
+                      return 0
+                    })
+                    .map((heldItem: any) => {
                       return (
-                        <option key={ability.ability.name}>
-                          {formatString(ability.ability.name)}
+                        <option key={heldItem.name}>
+                          {formatString(heldItem.name)}
                         </option>
                       )
                     })}
-                  </select>
-                </label>
-                <label className="flex flex-col">
-                  Nature
-                  <select className="text-black" {...register('nature')}>
-                    {natures.map((nature: string) => {
-                      return <option key={nature}>{nature}</option>
-                    })}
-                  </select>
-                </label>
-                <label className="flex flex-col">
-                  Held Item
-                  <select {...register('heldItem')}>
-                    {heldItems
-                      .sort((a, b) => {
-                        if (a.name < b.name) {
-                          return -1
-                        }
-                        if (a.name > b.name) {
-                          return 1
-                        }
-                        return 0
-                      })
-                      .map((heldItem: any) => {
-                        return (
-                          <option key={heldItem.name}>
-                            {formatString(heldItem.name)}
-                          </option>
-                        )
-                      })}
-                  </select>
-                </label>
-                <h2>Moves</h2>
-                {movesOrder.map((order) => {
-                  return (
-                    <label className="flex flex-col" key={order}>
-                      {order} Move
-                      <select
-                        className="text-black"
-                        {...register(`${order.toLowerCase()}Move`)}
-                      >
-                        {pokemon.moves
-                          .sort((a, b) => {
-                            if (a.move.name < b.move.name) {
-                              return -1
-                            }
-                            if (a.move.name > b.move.name) {
-                              return 1
-                            }
-                            return 0
-                          })
-                          .map((move: { move: { name: string } }) => {
-                            return (
-                              <option key={move.move.name}>
-                                {formatString(move.move.name)}
-                              </option>
-                            )
-                          })}
-                      </select>
-                    </label>
-                  )
-                })}
-                <h2>Evs</h2>
-                {stats.map((stat) => {
-                  return (
-                    <label className="flex flex-col" key={stat.evValue}>
-                      {stat.name}
+                </select>
+              </label>
+            </div>
+            <div>
+              <h2>Moves</h2>
+              {movesOrder.map((order) => {
+                return (
+                  <label className="flex flex-col" key={order}>
+                    {order} Move
+                    <select
+                      className="text-black"
+                      {...register(`${order.toLowerCase()}Move`)}
+                    >
+                      {pokemon.moves
+                        .sort((a, b) => {
+                          if (a.move.name < b.move.name) {
+                            return -1
+                          }
+                          if (a.move.name > b.move.name) {
+                            return 1
+                          }
+                          return 0
+                        })
+                        .map((move: { move: { name: string } }) => {
+                          return (
+                            <option key={move.move.name}>
+                              {formatString(move.move.name)}
+                            </option>
+                          )
+                        })}
+                    </select>
+                  </label>
+                )
+              })}
+            </div>
+            <div>
+              <h2>Evs</h2>
+              {stats.map((stat) => {
+                return (
+                  <label className="flex flex-col" key={stat.evValue}>
+                    {stat.name}
+                    <div className="flex gap-2 w-full">
                       <button
+                        className="bg-slate-700 w-8 rounded-xl"
                         onClick={() => decreaseEv(stat.evValue)}
                         type="button"
                       >
                         -
                       </button>
                       <input
+                        className="w-full"
                         type="number"
-                        value={evs[stat.evValue as keyof Stats]}
+                        value={evs[stat.evValue as keyof EvStats]}
                         onChange={(event) =>
-                          handleEvChange(Number(event.target.value), stat.evValue)
+                          handleEvChange(
+                            Number(event.target.value),
+                            stat.evValue,
+                          )
                         }
                       />
                       <button
+                        className="bg-slate-700 w-8 rounded-xl"
                         onClick={() => increaseEv(stat.evValue)}
                         type="button"
                       >
                         +
                       </button>
-                    </label>
-                  )
-                })}
-                <h2>Ivs</h2>
-                {stats.map((stat) => {
-                  return (
-                    <label className="flex flex-col" key={stat.ivValue}>
-                      {stat.name}
-                      <input
-                        type="number"
-                        defaultValue={31}
-                        {...register(stat.ivValue, {
-                          valueAsNumber: true,
-                        })}
-                      />
-                    </label>
-                  )
-                })}
-                <button className="bg-slate-500 p-4 rounded-xl" type="submit">
-                  Create Pokemon
-                </button>
-              </form>
+                    </div>
+                  </label>
+                )
+              })}
             </div>
-          </div>
+            <div>
+              <h2>Ivs</h2>
+              {stats.map((stat) => {
+                return (
+                  <label className="flex flex-col" key={stat.ivValue}>
+                    {stat.name}
+                    <div className="flex gap-2 w-full">
+                      <button
+                        className="bg-slate-700 w-8 rounded-xl"
+                        onClick={() => decreaseIv(stat.ivValue)}
+                        type="button"
+                      >
+                        -
+                      </button>
+                      <input
+                      className="w-full"
+                        type="number"
+                        value={ivs[stat.ivValue as keyof IvStats]}
+                        onChange={(event) =>
+                          handleIvChange(
+                            Number(event.target.value),
+                            stat.ivValue,
+                          )
+                        }
+                      />
+                      <button
+                        className="bg-slate-700 w-8 rounded-xl"
+                        onClick={() => increaseIv(stat.ivValue)}
+                        type="button"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </label>
+                )
+              })}
+            </div>
+            <button
+              className="bg-slate-500 p-4 rounded-xl w-full md:col-span-2"
+              type="submit"
+            >
+              Create Pokemon
+            </button>
+          </form>
         </>
       )}
     </>

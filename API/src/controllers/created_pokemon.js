@@ -2,9 +2,16 @@ const pool = require("../db");
 
 const queries = require("../queries/created_pokemon");
 
+const getAllCreatedPokemon = (req, res) => {
+  pool.query(queries.getAllCreatedPokemon, (error, results) => {
+    if (error) throw error;
+    res.status(200).json(results.rows);
+  });
+};
+
 const getAllUsersPokemon = (req, res) => {
-  const id = parseInt(req.params.id);
-  pool.query(queries.getAllUsersPokemon, id, (error, results) => {
+  const id = parseInt(req.params.userId);
+  pool.query(queries.getAllUsersPokemon, [id], (error, results) => {
     if (error) throw error;
     res.status(200).json(results.rows);
   });
@@ -44,8 +51,6 @@ const postPokemon = (req, res) => {
     speedIv,
   } = req.body;
 
-  console.log(req.body)
-
   pool.query(
     `
     WITH pokemon AS (INSERT INTO created_pokemon (user_id, pokemon_id, "name", ability, nature, held_item) VALUES (${userId}, ${pokemonId}, '${name}', '${ability}', '${nature}', '${heldItem}') RETURNING id), 
@@ -57,10 +62,9 @@ const postPokemon = (req, res) => {
 
     (error) => {
       if (error) {
-        console.log(error)
         throw error
       }
-      console.log("Success");
+      res.status(200).json(req.body)
     }
   ); 
 };
@@ -68,5 +72,6 @@ const postPokemon = (req, res) => {
 module.exports = {
   getAllUsersPokemon,
   getPokemon,
+  getAllCreatedPokemon,
   postPokemon,
 };
