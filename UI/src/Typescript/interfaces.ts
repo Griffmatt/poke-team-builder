@@ -1,39 +1,42 @@
-
-export interface HeldItem{
-    name: string
+export interface HeldItem {
+  name: string
 }
 
-export interface Pokemon{
-    name: string,
-    types: Pokemon_Type[],
-    sprites: Images,
-    abilities: Abilities[],
-    moves: Moves[],
-    id: number
+export interface Pokemon {
+  name: string
+  types: Pokemon_Type[]
+  sprites: Images
+  abilities: Abilities[]
+  moves: Moves[]
+  id: number
 }
 
-export interface CreatedPokemon{
-    id: number,
-    user_id: number,
-    pokemon_id: number,
-    name: string,
-    ability: string,
-    nature: string,
-    held_item: string
+export interface CreatedPokemon {
+  id: number
+  user_id: number
+  pokemon_id: number
+  name: string
+  ability: string
+  nature: string
+  held_item: string
+  first_move: string
+  second_move: string
+  third_move: string
+  fourth_move: string
 }
 
-interface Pokemon_Type{
-    type: {name: string}
+interface Pokemon_Type {
+  type: { name: string }
 }
 
-interface Images{
-    front_default: string
+interface Images {
+  front_default: string
 }
 
-export interface Abilities{
-    ability: {name: string}
+export interface Abilities {
+  ability: { name: string }
 }
 
-interface Moves{
-    move: {name: string}
+interface Moves {
+  move: { name: string }
 }

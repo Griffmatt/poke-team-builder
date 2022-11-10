@@ -1,20 +1,26 @@
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import PokemonCard from '../../../Components/PokemonCard'
 import PokemonGrid from '../../../Components/PokemonGrid'
 import { CreatedPokemon } from '../../../Typescript/interfaces'
 import fetchUsersPokemon from '../../../Utils/fetch/fetchUsersPokemon'
+import postTeam from '../../../Utils/post/postTeam'
 
 export default function CreateTeam() {
   const { userId } = useParams()
+  const navigate = useNavigate()
+
   const { data: pokemonArr, isLoading } = useQuery(['user', userId], () =>
     fetchUsersPokemon(userId),
   )
   const [teamName, setTeamName] = useState('New Team')
   const [selectedPokemon, setSelectedPokemon] = useState<CreatedPokemon[]>([])
 
-  const filteredPokemonArr = pokemonArr?.filter(pokemon => !selectedPokemon.some(pokemonOnTeam => pokemon.id === pokemonOnTeam.id))
+  const filteredPokemonArr = pokemonArr?.filter(
+    (pokemon) =>
+      !selectedPokemon.some((pokemonOnTeam) => pokemon.id === pokemonOnTeam.id),
+  )
 
   const addPokemonToTeam = (pokemon: CreatedPokemon) => {
     if (selectedPokemon.length >= 6) return null
@@ -28,7 +34,6 @@ export default function CreateTeam() {
   }
 
   const removePokemonFromTeam = (id: number) => {
-
     const filterOutPokemon = selectedPokemon.filter(
       (pokemon) => pokemon.id !== id,
     )
@@ -36,14 +41,28 @@ export default function CreateTeam() {
     setSelectedPokemon(filterOutPokemon)
   }
 
-  const createTeam = () =>{
+  const createTeam = async () => {
     if (selectedPokemon.length < 6) return null
 
-    const pokemonIds = selectedPokemon.map(pokemon => {
-        return pokemon.id
+    const pokemonIds = selectedPokemon.map((pokemon) => {
+      return pokemon.id
     })
 
-    console.log({user_id: userId, pokemon_ids: pokemonIds, team_name: teamName, team_style: 'double'})
+    console.log({
+      userId: userId,
+      pokemonIds: pokemonIds,
+      teamName: teamName,
+      teamStyle: 'double',
+    })
+
+    if (userId == null) return
+    const response = await postTeam({
+      user_id: Number(userId),
+      pokemon_ids: pokemonIds,
+      team_name: teamName,
+      team_style: 'double',
+    })
+    if (response === 200) navigate(`/teams/${userId}`)
   }
 
   if (isLoading) return <div></div>
@@ -53,29 +72,34 @@ export default function CreateTeam() {
       <h1>Creating New Team</h1>
       <div className="grid gap-3">
         <input
-        className="md:w-[40vw] lg:w-[25vw]"
+          className="md:w-[40vw] lg:w-[25vw]"
           value={teamName}
           onChange={(event) => setTeamName(event?.target.value)}
         />
         {pokemonArr && (
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
-            {selectedPokemon.length === 0? <div className="w-full aspect-[4/5]"></div>:
-            selectedPokemon.map((pokemon) => {
-              return (
-                <div
-                  key={pokemon.id}
-                  onClick={() => removePokemonFromTeam(pokemon.id)}
-                >
-                  <PokemonCard
-                    pokemonName={pokemon.pokemon_id}
-                    createdPokemon={pokemon}
-                  />
-                </div>
-              )
-            })}
+            {selectedPokemon.length === 0 ? (
+              <div className="w-full aspect-[4/5]"></div>
+            ) : (
+              selectedPokemon.map((pokemon) => {
+                return (
+                  <div
+                    key={pokemon.id}
+                    onClick={() => removePokemonFromTeam(pokemon.id)}
+                  >
+                    <PokemonCard
+                      pokemonName={pokemon.pokemon_id}
+                      createdPokemon={pokemon}
+                    />
+                  </div>
+                )
+              })
+            )}
           </div>
         )}
-        <button className="p-3 bg-slate-700 rounded-2xl" onClick={createTeam}>Create Team</button>
+        <button className="p-3 bg-slate-700 rounded-2xl" onClick={createTeam}>
+          Create Team
+        </button>
       </div>
       <h1>Griffin's Pokemon</h1>
       {pokemonArr && (

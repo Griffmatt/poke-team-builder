@@ -27,7 +27,7 @@ interface EvStats {
   speedEv: number
 }
 
-interface IvStats{
+interface IvStats {
   hitpointsIv: number
   attackIv: number
   defenseIv: number
@@ -76,13 +76,15 @@ export default function CreatePokemon() {
             onSubmit={handleSubmit(async (data) => {
               if (currentUser === null) return
               const response = await postCreatedPokemon({
-                ...data,
+                ...data as {name: string, ability: string, nature:string, held_item: string, first_move: string, second_move: string, third_move: string, fourth_move: string},
                 ...ivs,
                 ...evs,
-                userId: currentUser.id,
-                pokemonId: pokemon.id,
+                user_id: currentUser.id,
+                pokemon_id: pokemon.id,
+                id: 0,
               })
-              if (response === 200) navigate(`/created-pokemon/${currentUser.id}`)
+              if (response === 200)
+                navigate(`/created-pokemon/${currentUser.id}`)
             })}
           >
             <div className="md:col-span-2 md:row-span-3 w-full">
@@ -148,7 +150,7 @@ export default function CreatePokemon() {
                     {order} Move
                     <select
                       className="text-black"
-                      {...register(`${order.toLowerCase()}Move`)}
+                      {...register(`${order.toLowerCase()}_move`)}
                     >
                       {pokemon.moves
                         .sort((a, b) => {
@@ -224,7 +226,7 @@ export default function CreatePokemon() {
                         -
                       </button>
                       <input
-                      className="w-full"
+                        className="w-full"
                         type="number"
                         value={ivs[stat.ivValue as keyof IvStats]}
                         onChange={(event) =>
