@@ -2,8 +2,19 @@ const pool = require("../db")
 const queries = require('../queries/teams')
 
 const getAllUsersTeams= (req, res) => {
-    const id = parseInt(req.params.id)
-    pool.query(queries.getAllUsersTeams, (error, results) => {
+    const userId = parseInt(req.params.userId)
+    pool.query(
+        queries.getAllUsersTeams, [userId],
+        (error, results) => {
+        if(error) throw error
+        res.status(200).json(results.rows)
+    })
+}
+
+const getAllTeams= (req, res) => {
+    pool.query(
+        queries.getAllTeams,
+        (error, results) => {
         if(error) throw error
         res.status(200).json(results.rows)
     })
@@ -23,9 +34,9 @@ const postTeam = (req, res) => {
 
     pool.query(
     `
-        WITH team AS (INSERT INTO team (user_id, team_style, team_name) VALUES (${user_id}, '${team_name}', '${team_style}') RETURNING team_id)
+        WITH team AS (INSERT INTO team (user_id, team_style, team_name) VALUES (${user_id}, '${team_style}', '${team_name}') RETURNING id)
 
-        INSERT INTO pokemon_on_team VALUES (${pokemon_ids[0]}, (SELECT team_id FROM team)),(${pokemon_ids[1]}, (SELECT team_id FROM team)), (${pokemon_ids[2]}, (SELECT team_id FROM team)), (${pokemon_ids[3]}, (SELECT team_id FROM team)), (${pokemon_ids[4]}, (SELECT team_id FROM team)), (${pokemon_ids[5]}, (SELECT team_id FROM team));
+        INSERT INTO pokemon_on_team VALUES (${pokemon_ids[0]}, (SELECT id FROM team)),(${pokemon_ids[1]}, (SELECT id FROM team)), (${pokemon_ids[2]}, (SELECT id FROM team)), (${pokemon_ids[3]}, (SELECT id FROM team)), (${pokemon_ids[4]}, (SELECT id FROM team)), (${pokemon_ids[5]}, (SELECT id FROM team));
     `,
 
     (error) => {
@@ -38,7 +49,8 @@ const postTeam = (req, res) => {
 }
 
 module.exports = {
+    getAllTeams,
     getAllUsersTeams,
     getTeam,
-    postTeam
+    postTeam,
 }

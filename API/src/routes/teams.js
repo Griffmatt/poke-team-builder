@@ -1,12 +1,14 @@
 const { Router } = require('express')
 
-const { getAllUsersTeams, getTeam, postTeam } = require('../controllers/teams')
+const { getAllTeams, getAllUsersTeams, getTeam, postTeam } = require('../controllers/teams')
 
 const router = Router()
 
-router.get('/:id', getAllUsersTeams)
+router.get('/', getAllTeams)
 
-router.get('/team/:id', getTeam)
+router.get('/:userId', getAllUsersTeams)
+
+router.get('/team/:userId', getTeam)
 
 router.post('/', postTeam)
 

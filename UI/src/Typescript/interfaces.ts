@@ -27,6 +27,7 @@ export interface CreatedPokemon {
 
 export interface UsersCreatedTeam{
   team_id: number,
+  user_id: number,
   team_name: string,
   pokemon: UserTeam[]
 }

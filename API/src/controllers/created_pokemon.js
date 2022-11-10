@@ -10,16 +10,16 @@ const getAllCreatedPokemon = (req, res) => {
 };
 
 const getAllUsersPokemon = (req, res) => {
-  const id = parseInt(req.params.userId);
-  pool.query(queries.getAllUsersPokemon, [id], (error, results) => {
+  const userId = parseInt(req.params.userId);
+  pool.query(queries.getAllUsersPokemon, [userId], (error, results) => {
     if (error) throw error;
     res.status(200).json(results.rows);
   });
 };
 
 const getPokemon = (req, res) => {
-  const id = parseInt(req.params.id);
-  pool.query(queries.getAllUsersPokemon, id, (error, results) => {
+  const userId = parseInt(req.params.userId);
+  pool.query(queries.getAllUsersPokemon, [userId], (error, results) => {
     if (error) throw error;
     res.status(200).json(results.rows);
   });

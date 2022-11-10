@@ -26,9 +26,9 @@ import {
   
   export function UserContextProvider({ children }: Props) {
     const [currentUser] = useState({
-        id: 2,
-        name:"Griffin",
-        userName:"griffin"
+        id: 1,
+        name:"text_user",
+        userName:"test_user"
 
     })
   

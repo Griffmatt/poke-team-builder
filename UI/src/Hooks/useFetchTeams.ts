@@ -13,6 +13,7 @@ export function useFetchTeams(
   data?.forEach((pokemon) => {
     const key = pokemonMap.get(pokemon.id) ?? []
     pokemonMap.set(pokemon.id, {
+        user_id: pokemon.user_id,
       team_name: pokemon.team_name,
       pokemon: [...(key.pokemon ?? []), pokemon],
     })

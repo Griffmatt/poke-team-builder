@@ -1,62 +1,22 @@
 import { useQuery } from '@tanstack/react-query'
-import { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import PokemonCard from '../../../Components/PokemonCard'
 import PokemonGrid from '../../../Components/PokemonGrid'
-import { CreatedPokemon } from '../../../Typescript/interfaces'
+import { useCreateTeam } from '../../../Hooks/useCreateTeam'
 import fetchUsersPokemon from '../../../Utils/fetch/fetchUsersPokemon'
-import postTeam from '../../../Utils/post/postTeam'
 
 export default function CreateTeam() {
   const { userId } = useParams()
-  const navigate = useNavigate()
-
   const { data: pokemonArr, isLoading } = useQuery(['user', userId], () =>
     fetchUsersPokemon(userId),
   )
-  const [teamName, setTeamName] = useState('New Team')
-  const [selectedPokemon, setSelectedPokemon] = useState<CreatedPokemon[]>([])
+
+  const { addPokemonToTeam, removePokemonFromTeam, createTeam, selectedPokemon, teamName, setTeamName } = useCreateTeam(userId)
 
   const filteredPokemonArr = pokemonArr?.filter(
     (pokemon) =>
       !selectedPokemon.some((pokemonOnTeam) => pokemon.id === pokemonOnTeam.id),
   )
-
-  const addPokemonToTeam = (pokemon: CreatedPokemon) => {
-    if (selectedPokemon.length >= 6) return null
-    const containsPokemon = selectedPokemon.find(
-      (pokemonOnTeam) => pokemonOnTeam.id === pokemon.id,
-    )
-
-    if (containsPokemon) return null
-
-    setSelectedPokemon([...selectedPokemon, pokemon])
-  }
-
-  const removePokemonFromTeam = (id: number) => {
-    const filterOutPokemon = selectedPokemon.filter(
-      (pokemon) => pokemon.id !== id,
-    )
-
-    setSelectedPokemon(filterOutPokemon)
-  }
-
-  const createTeam = async () => {
-    if (selectedPokemon.length < 6) return null
-
-    const pokemonIds = selectedPokemon.map((pokemon) => {
-      return pokemon.id
-    })
-
-    if (userId == null) return
-    const response = await postTeam({
-      user_id: Number(userId),
-      pokemon_ids: pokemonIds,
-      team_name: teamName,
-      team_style: 'double',
-    })
-    if (response === 200) navigate(`/teams/${userId}`)
-  }
 
   if (isLoading) return <div></div>
 
