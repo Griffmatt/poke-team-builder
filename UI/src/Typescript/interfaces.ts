@@ -25,6 +25,21 @@ export interface CreatedPokemon {
   fourth_move: string
 }
 
+export interface UsersCreatedTeam{
+  team_id: number,
+  team_name: string,
+  pokemon: UserTeam[]
+}
+export interface UserTeam{
+  id: number,
+  user_id: number,
+  team_style: string,
+  team_name: string,
+  created_pokemon_id: number,
+  name: string,
+  pokemon_id: number
+}
+
 interface Pokemon_Type {
   type: { name: string }
 }

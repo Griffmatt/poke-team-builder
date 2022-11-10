@@ -1,15 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
-import { CreatedPokemon } from '../Typescript/interfaces'
 
 import fetchSinglePokemon from '../Utils/fetch/fetchSinglePokemon'
 import { formatString } from '../Utils/formatString'
 
 interface Props {
   pokemonName?: string | number,
-  createdPokemon?: CreatedPokemon
+  createdPokemonName?: string
 }
 
-export default function PokemonCard({ pokemonName, createdPokemon }: Props) {
+export default function PokemonCard({ pokemonName, createdPokemonName }: Props) {
   const { data: pokemon, isLoading } = useQuery(['pokemon', pokemonName], () =>
     fetchSinglePokemon(pokemonName),
   )
@@ -22,7 +21,7 @@ export default function PokemonCard({ pokemonName, createdPokemon }: Props) {
           <div className="aspect-square lg:w-full">
             <img src={pokemon.sprites.front_default} className="h-full"/>
           </div>
-          <h3>{formatString(createdPokemon?.name ?? pokemon.name)}</h3>
+          <h3>{formatString(createdPokemonName ?? pokemon.name)}</h3>
           <div className="flex justify-center gap-2">
             {pokemon.types.map((type) => {
               return (

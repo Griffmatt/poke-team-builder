@@ -22,7 +22,7 @@ export default function CreatedPokemon() {
               <div key={pokemon.id} className="p-2">
                 <PokemonCard
                   pokemonName={pokemon.pokemon_id}
-                  createdPokemon={pokemon}
+                  createdPokemonName={pokemon.name}
                 />
               </div>
             )

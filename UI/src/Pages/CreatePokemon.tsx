@@ -76,7 +76,16 @@ export default function CreatePokemon() {
             onSubmit={handleSubmit(async (data) => {
               if (currentUser === null) return
               const response = await postCreatedPokemon({
-                ...data as {name: string, ability: string, nature:string, held_item: string, first_move: string, second_move: string, third_move: string, fourth_move: string},
+                ...(data as {
+                  name: string
+                  ability: string
+                  nature: string
+                  held_item: string
+                  first_move: string
+                  second_move: string
+                  third_move: string
+                  fourth_move: string
+                }),
                 ...ivs,
                 ...evs,
                 user_id: currentUser.id,
@@ -182,7 +191,7 @@ export default function CreatePokemon() {
                     {stat.name}
                     <div className="flex gap-2 w-full">
                       <button
-                        className="bg-slate-700 w-8 rounded-xl"
+                        className="bg-slate-200 dark:bg-slate-600 w-8 rounded-xl"
                         onClick={() => decreaseEv(stat.evValue)}
                         type="button"
                       >
@@ -200,7 +209,7 @@ export default function CreatePokemon() {
                         }
                       />
                       <button
-                        className="bg-slate-700 w-8 rounded-xl"
+                        className="bg-slate-200 dark:bg-slate-600 w-8 rounded-xl"
                         onClick={() => increaseEv(stat.evValue)}
                         type="button"
                       >
@@ -219,7 +228,7 @@ export default function CreatePokemon() {
                     {stat.name}
                     <div className="flex gap-2 w-full">
                       <button
-                        className="bg-slate-700 w-8 rounded-xl"
+                        className="bg-slate-200 dark:bg-slate-600 w-8 rounded-xl"
                         onClick={() => decreaseIv(stat.ivValue)}
                         type="button"
                       >
@@ -237,7 +246,7 @@ export default function CreatePokemon() {
                         }
                       />
                       <button
-                        className="bg-slate-700 w-8 rounded-xl"
+                        className="bg-slate-200 dark:bg-slate-600 w-8 rounded-xl"
                         onClick={() => increaseIv(stat.ivValue)}
                         type="button"
                       >
@@ -249,7 +258,7 @@ export default function CreatePokemon() {
               })}
             </div>
             <button
-              className="bg-slate-500 p-4 rounded-xl w-full md:col-span-2"
+              className="bg-slate-200 dark:bg-slate-600 p-4 rounded-xl w-full md:col-span-2"
               type="submit"
             >
               Create Pokemon

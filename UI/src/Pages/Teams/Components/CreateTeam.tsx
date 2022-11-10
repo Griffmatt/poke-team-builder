@@ -48,13 +48,6 @@ export default function CreateTeam() {
       return pokemon.id
     })
 
-    console.log({
-      userId: userId,
-      pokemonIds: pokemonIds,
-      teamName: teamName,
-      teamStyle: 'double',
-    })
-
     if (userId == null) return
     const response = await postTeam({
       user_id: Number(userId),
@@ -89,7 +82,7 @@ export default function CreateTeam() {
                   >
                     <PokemonCard
                       pokemonName={pokemon.pokemon_id}
-                      createdPokemon={pokemon}
+                      createdPokemonName={pokemon.name}
                     />
                   </div>
                 )
@@ -97,7 +90,7 @@ export default function CreateTeam() {
             )}
           </div>
         )}
-        <button className="p-3 bg-slate-700 rounded-2xl" onClick={createTeam}>
+        <button className="p-3 bg-slate-200 dark:bg-slate-600 rounded-2xl" onClick={createTeam}>
           Create Team
         </button>
       </div>
@@ -113,7 +106,7 @@ export default function CreateTeam() {
               >
                 <PokemonCard
                   pokemonName={pokemon.pokemon_id}
-                  createdPokemon={pokemon}
+                  createdPokemonName={pokemon.name}
                 />
               </div>
             )
