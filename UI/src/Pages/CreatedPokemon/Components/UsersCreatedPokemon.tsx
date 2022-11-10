@@ -3,11 +3,13 @@ import { useParams } from 'react-router-dom'
 
 import PokemonCard from '../../../Components/PokemonCard'
 import PokemonGrid from '../../../Components/PokemonGrid'
+import { useUserContext } from '../../../Context/userContext'
 
 import fetchUsersPokemon from '../../../Utils/fetch/fetchUsersPokemon'
 
 export default function UsersCreatedPokemon() {
   const { userId } = useParams()
+  const { currentUser } = useUserContext()
 
   const { data: pokemonArr, isLoading } = useQuery(['user', userId], () =>
     fetchUsersPokemon(userId),
@@ -16,7 +18,7 @@ export default function UsersCreatedPokemon() {
   if (isLoading) return <div></div>
   return (
     <>
-      <h1>Griffin's Pokemon</h1>
+      <h1>{currentUser.name}'s Pokemon</h1>
       {pokemonArr && (
         <PokemonGrid>
           {pokemonArr.map((pokemon) => {
