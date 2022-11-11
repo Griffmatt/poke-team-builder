@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import PokemonCard from '../../../Components/PokemonCard'
 import { useUserContext } from '../../../Context/userContext'
 import { UsersCreatedTeam } from '../../../Typescript/interfaces'
-import deleteTeam from '../../../Utils/delete/deleteTeam'
+import useDeleteTeam from '../../../Utils/delete/useDeleteTeam'
 import fetchUser from '../../../Utils/fetch/fetchUser'
 
 interface Props {
@@ -13,9 +13,12 @@ interface Props {
 export default function TeamRow({ team }: Props) {
   const { userId } = useParams()
   const { currentUser } = useUserContext()
+
   const { data: teamsUser, isLoading } = useQuery(['user', team.user_id], () =>
     fetchUser(team.user_id),
   )
+  const deleteTeamMutation = useDeleteTeam(team.team_id, userId)
+
   if (isLoading) return <div></div>
 
   return (
@@ -24,15 +27,13 @@ export default function TeamRow({ team }: Props) {
         <div key={team.team_id} className="grid gap-4">
           <div className="flex justify-between align-middle">
             <div>
-            <h2>{team.team_name}</h2>
-            <h2>
-              {teamsUser.name}
-            </h2>
+              <h2>{team.team_name}</h2>
+              <h2>{teamsUser.name}</h2>
             </div>
             {Number(userId) === currentUser.id ? (
               <button
                 className="bg-slate-200 dark:bg-slate-600 py-2 px-4 rounded-2xl"
-                onClick={() => deleteTeam(team.team_id)}
+                onClick={() => deleteTeamMutation.mutate()}
               >
                 Delete Team
               </button>

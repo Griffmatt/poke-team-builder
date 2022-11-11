@@ -5,7 +5,7 @@ export function useFetchTeams(
   fetchCallBack: () => Promise<UserTeam[]>,
   userId?: string,
 ) {
-  const { data, isLoading } = useQuery(['teams', userId], fetchCallBack)
+  const { data, isLoading } = useQuery(['teams', userId ?? null], fetchCallBack)
 
   const pokemonMap = new Map()
   const pokeArr = [] as UsersCreatedTeam[]
