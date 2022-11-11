@@ -1,6 +1,6 @@
 const { Router } = require('express')
 
-const { getAllTeams, getAllUsersTeams, getTeam, postTeam } = require('../controllers/teams')
+const { getAllTeams, getAllUsersTeams, getTeam, postTeam, deleteTeam } = require('../controllers/teams')
 
 const router = Router()
 
@@ -11,5 +11,7 @@ router.get('/:userId', getAllUsersTeams)
 router.get('/team/:userId', getTeam)
 
 router.post('/', postTeam)
+
+router.delete('/team/:teamId', deleteTeam)
 
 module.exports = router

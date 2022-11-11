@@ -48,9 +48,22 @@ const postTeam = (req, res) => {
   ); 
 }
 
+const deleteTeam = (req, res) => {
+    const teamId = parseInt(req.body.teamId)
+    pool.query(queries.deleteTeam, [teamId],
+        (error) => {
+          if (error) {
+            throw error
+          }
+          res.status(200).json(req.body)
+        }
+      )
+}
+
 module.exports = {
     getAllTeams,
     getAllUsersTeams,
     getTeam,
     postTeam,
+    deleteTeam,
 }

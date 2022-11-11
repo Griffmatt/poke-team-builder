@@ -90,7 +90,6 @@ export default function CreatePokemon() {
                 ...evs,
                 user_id: currentUser.id,
                 pokemon_id: pokemon.id,
-                id: 0,
               })
               if (response === 200)
                 navigate(`/created-pokemon/${currentUser.id}`)

@@ -23,6 +23,17 @@ export interface CreatedPokemon {
   second_move: string
   third_move: string
   fourth_move: string
+  attackEv: number
+  defenseEv: number
+  specialAttackEv: number
+  specialDefenseEv: number
+  speedEv: number
+  hitpointsIv: number
+  attackIv: number
+  defenseIv: number
+  specialAttackIv: number
+  specialDefenseIv: number
+  speedIv: number
 }
 
 export interface UsersCreatedTeam{

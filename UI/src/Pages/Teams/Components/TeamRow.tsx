@@ -1,6 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
+import { useParams } from 'react-router-dom'
 import PokemonCard from '../../../Components/PokemonCard'
+import { useUserContext } from '../../../Context/userContext'
 import { UsersCreatedTeam } from '../../../Typescript/interfaces'
+import deleteTeam from '../../../Utils/delete/deleteTeam'
 import fetchUser from '../../../Utils/fetch/fetchUser'
 
 interface Props {
@@ -8,20 +11,34 @@ interface Props {
 }
 
 export default function TeamRow({ team }: Props) {
+  const { userId } = useParams()
+  const { currentUser } = useUserContext()
   const { data: teamsUser, isLoading } = useQuery(['user', team.user_id], () =>
     fetchUser(team.user_id),
   )
-
   if (isLoading) return <div></div>
 
   return (
     <>
       {teamsUser && (
-        <div key={team.team_id} className="grid gap-2">
-          <h2>
-            {team.team_name}- Created By: Trainer {teamsUser.name}
-          </h2>
-          <div className="grid grid-cols-3 md:grid-cols-6">
+        <div key={team.team_id} className="grid gap-4">
+          <div className="flex justify-between align-middle">
+            <div>
+            <h2>{team.team_name}</h2>
+            <h2>
+              {teamsUser.name}
+            </h2>
+            </div>
+            {Number(userId) === currentUser.id ? (
+              <button
+                className="bg-slate-200 dark:bg-slate-600 py-2 px-4 rounded-2xl"
+                onClick={() => deleteTeam(team.team_id)}
+              >
+                Delete Team
+              </button>
+            ) : null}
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-6">
             {team.pokemon.map((pokemon, index) => {
               return (
                 <div key={index} className="p-2">
