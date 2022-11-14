@@ -1,10 +1,10 @@
 import axios from 'axios'
 
-import { UserTeam } from '../../Typescript/interfaces'
+import { UsersCreatedTeam } from '../../Typescript/interfaces'
 
 const url = import.meta.env.VITE_BASE_URL
 
 export default async function fetchTeams() {
-  const response = await axios.get<UserTeam[]>(`${url}/teams`)
+  const response = await axios.get<UsersCreatedTeam[]>(`${url}/teams`)
   return response.data ?? null
 }

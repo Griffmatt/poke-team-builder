@@ -1,13 +1,11 @@
-import { useParams } from 'react-router-dom'
-
-import { useFetchTeams } from '../../../Hooks/useFetchTeams'
+import { useQuery } from '@tanstack/react-query'
 import fetchTeams from '../../../Utils/fetch/fetchTeams'
 import DisplayTeams from './DisplayTeams'
 
 export default function TopTeams() {
-  const { userId } = useParams()
 
-  const { pokeArr, isLoading } = useFetchTeams(fetchTeams, userId)
+
+  const { data: pokeArr, isLoading } = useQuery(['teams'], fetchTeams)
 
   if (isLoading) return <div></div>
 
