@@ -1,29 +1,29 @@
-const pool = require("../db");
+const pool = require('../db')
 
-const queries = require("../queries/created_pokemon");
+const queries = require('../queries/created_pokemon')
 
 const getAllCreatedPokemon = (req, res) => {
   pool.query(queries.getAllCreatedPokemon, (error, results) => {
-    if (error) throw error;
-    res.status(200).json(results.rows);
-  });
-};
+    if (error) throw error
+    res.status(200).json(results.rows)
+  })
+}
 
 const getAllUsersPokemon = (req, res) => {
-  const userId = parseInt(req.params.userId);
+  const userId = parseInt(req.params.userId)
   pool.query(queries.getAllUsersPokemon, [userId], (error, results) => {
-    if (error) throw error;
-    res.status(200).json(results.rows);
-  });
-};
+    if (error) throw error
+    res.status(200).json(results.rows)
+  })
+}
 
 const getPokemon = (req, res) => {
-  const userId = parseInt(req.params.userId);
+  const userId = parseInt(req.params.userId)
   pool.query(queries.getAllUsersPokemon, [userId], (error, results) => {
-    if (error) throw error;
-    res.status(200).json(results.rows);
-  });
-};
+    if (error) throw error
+    res.status(200).json(results.rows)
+  })
+}
 
 const postPokemon = (req, res) => {
   const {
@@ -48,8 +48,8 @@ const postPokemon = (req, res) => {
     defenseIv,
     specialAttackIv,
     specialDefenseIv,
-    speedIv,
-  } = req.body;
+    speedIv
+  } = req.body
 
   pool.query(
     `
@@ -66,12 +66,12 @@ const postPokemon = (req, res) => {
       }
       res.status(200).json(req.body)
     }
-  ); 
-};
+  )
+}
 
 module.exports = {
   getAllUsersPokemon,
   getPokemon,
   getAllCreatedPokemon,
-  postPokemon,
-};
+  postPokemon
+}

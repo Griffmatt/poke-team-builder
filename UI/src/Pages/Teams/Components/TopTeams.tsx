@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
-import fetchTeams from '../../../Utils/fetch/fetchTeams'
+import fetchTopTeams from '../../../Utils/fetch/fetchTopTeams'
 import DisplayTeams from './DisplayTeams'
 
 export default function TopTeams() {
 
 
-  const { data: pokeArr, isLoading } = useQuery(['teams'], fetchTeams)
+  const { data: pokeArr, isLoading } = useQuery(['teams'], fetchTopTeams)
 
   if (isLoading) return <div></div>
 

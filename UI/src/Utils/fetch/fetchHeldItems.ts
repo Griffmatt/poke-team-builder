@@ -2,7 +2,7 @@ import axios from 'axios'
 
 import { HeldItem } from '../../Typescript/interfaces'
 
-interface Data{
+interface Data {
   results: HeldItem[]
 }
 

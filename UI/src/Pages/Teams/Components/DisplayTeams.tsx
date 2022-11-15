@@ -1,3 +1,4 @@
+import React from 'react'
 import { UsersCreatedTeam } from '../../../Typescript/interfaces'
 import TeamRow from './TeamRow'
 
@@ -9,7 +10,11 @@ export default function DisplayTeams({ pokeArr }: Props) {
   return (
     <div className="grid gap-4">
       {pokeArr.map((team) => {
-        return <TeamRow team={team} />
+        return (
+          <React.Fragment key={team.team_id}>
+            <TeamRow team={team} />
+          </React.Fragment>
+        )
       })}
     </div>
   )

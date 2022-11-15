@@ -40,6 +40,7 @@ export interface UsersCreatedTeam{
   team_id: number,
   user_id: number,
   team_name: string,
+  team_style: string,
   pokemon: UserTeam[]
 }
 export interface UserTeam{

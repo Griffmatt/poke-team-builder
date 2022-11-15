@@ -16,29 +16,26 @@ export default function useDeleteTeam(teamId: number, userId?: string) {
 
   const deleteTeamMutation = useMutation({
     mutationFn: deleteTeam,
-    // When mutate is called:
+
     onMutate: async () => {
-      // Cancel any outgoing refetches
-      // (so they don't overwrite our optimistic update)
       await queryClient.cancelQueries({ queryKey: ['teams', userId] })
 
-      // Snapshot the previous value
-      const previousTeams = queryClient.getQueryData(['teams', userId]) as UserTeam[]
-        console.log(previousTeams)
-      // Optimistically update to the new value
-      queryClient.setQueryData(['teams', userId], previousTeams.filter(pokemon => pokemon.id === teamId))
+      const previousTeams = queryClient.getQueryData([
+        'teams',
+        userId,
+      ]) as UserTeam[]
+      queryClient.setQueryData(
+        ['teams', userId],
+        previousTeams.filter((pokemon) => pokemon.id === teamId),
+      )
 
-      // Return a context object with the snapshotted value
       return { previousTeams }
     },
-    // If the mutation fails,
-    // use the context returned from onMutate to roll back
     onError: (err, team, context) => {
       queryClient.setQueryData(['teams', userId], context?.previousTeams)
     },
-    // Always refetch after error or success:
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['teams', userId]})
+      queryClient.invalidateQueries({ queryKey: ['teams', userId] })
     },
   })
 

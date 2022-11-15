@@ -8,9 +8,7 @@ export default function UsersTeams() {
   const { userId } = useParams()
   const { currentUser } = useUserContext()
 
-
   const { data: pokeArr, isLoading } = useQuery(['teams', userId], () => fetchUsersTeams(userId))
-
 
   if (isLoading) return <div></div>
 

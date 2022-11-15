@@ -24,7 +24,7 @@ export default function TeamRow({ team }: Props) {
   return (
     <>
       {teamsUser && (
-        <div key={team.team_id} className="grid gap-4">
+        <div className="grid gap-4">
           <div className="flex justify-between align-middle">
             <div>
               <h2>{team.team_name}</h2>
