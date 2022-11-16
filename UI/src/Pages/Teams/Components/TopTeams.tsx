@@ -3,8 +3,6 @@ import fetchTopTeams from '../../../Utils/fetch/fetchTopTeams'
 import DisplayTeams from './DisplayTeams'
 
 export default function TopTeams() {
-
-
   const { data: pokeArr, isLoading } = useQuery(['teams'], fetchTopTeams)
 
   if (isLoading) return <div></div>

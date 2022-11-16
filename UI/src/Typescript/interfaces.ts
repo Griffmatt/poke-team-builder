@@ -37,7 +37,7 @@ export interface CreatedPokemon {
 }
 
 export interface UsersCreatedTeam{
-  team_id: number,
+  id: number,
   user_id: number,
   team_name: string,
   team_style: string,

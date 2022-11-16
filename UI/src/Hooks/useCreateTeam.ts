@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { CreatedPokemon } from '../Typescript/interfaces'
-import postTeam from '../Utils/post/postTeam'
+import { postTeam } from '../Utils/post/postTeam'
+
 
 export function useCreateTeam(userId?: string) {
   const navigate = useNavigate()
@@ -31,7 +32,7 @@ export function useCreateTeam(userId?: string) {
     if (selectedPokemon.length < 6) return null
 
     const pokemonIds = selectedPokemon.map((pokemon) => {
-      return pokemon.id
+      return { created_pokemon_id: pokemon.id, name: pokemon.name, pokemon_id: pokemon.pokemon_id }
     })
 
     if (userId == null) return

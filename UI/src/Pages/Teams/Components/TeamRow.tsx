@@ -17,7 +17,7 @@ export default function TeamRow({ team }: Props) {
   const { data: teamsUser, isLoading } = useQuery(['user', team.user_id], () =>
     fetchUser(team.user_id),
   )
-  const deleteTeamMutation = useDeleteTeam(team.team_id, userId)
+  const deleteTeamMutation = useDeleteTeam(team.id, userId)
 
   if (isLoading) return <div></div>
 

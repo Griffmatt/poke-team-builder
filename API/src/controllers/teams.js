@@ -1,20 +1,18 @@
 const pool = require('../db')
 const queries = require('../queries/teams')
 
-const { formatTeamData } = require('../utils/formatTeamData')
-
 const getAllUsersTeams = (req, res) => {
   const userId = parseInt(req.params.userId)
   pool.query(queries.getAllUsersTeams, [userId], (error, results) => {
     if (error) throw error
-    res.status(200).json(formatTeamData(results.rows))
+    res.status(200).json(results.rows)
   })
 }
 
 const getAllTeams = (req, res) => {
   pool.query(queries.getAllTeams, (error, results) => {
     if (error) throw error
-    res.status(200).json(formatTeamData(results.rows))
+    res.status(200).json(results.rows)
   })
 }
 
@@ -33,20 +31,21 @@ const postTeam = (req, res) => {
     `
         WITH team AS (INSERT INTO team (user_id, team_style, team_name) VALUES (${user_id}, '${team_style}', '${team_name}') RETURNING id)
 
-        INSERT INTO pokemon_on_team VALUES (${pokemon_ids[0]}, (SELECT id FROM team)),(${pokemon_ids[1]}, (SELECT id FROM team)), (${pokemon_ids[2]}, (SELECT id FROM team)), (${pokemon_ids[3]}, (SELECT id FROM team)), (${pokemon_ids[4]}, (SELECT id FROM team)), (${pokemon_ids[5]}, (SELECT id FROM team));
+        INSERT INTO pokemon_on_team VALUES (${pokemon_ids[0].created_pokemon_id}, (SELECT id FROM team)),(${pokemon_ids[1].created_pokemon_id}, (SELECT id FROM team)), (${pokemon_ids[2].created_pokemon_id}, (SELECT id FROM team)), (${pokemon_ids[3].created_pokemon_id}, (SELECT id FROM team)), (${pokemon_ids[4].created_pokemon_id}, (SELECT id FROM team)), (${pokemon_ids[5].created_pokemon_id}, (SELECT id FROM team)) RETURNING (SELECT id FROM team);
     `,
 
-    (error) => {
+    (error, results) => {
       if (error) {
         throw error
       }
-      res.status(200).json(req.body)
+      res.status(200).json(results.rows)
     }
   )
 }
 
 const deleteTeam = (req, res) => {
   const teamId = parseInt(req.body.teamId)
+  console.log(req)
   pool.query(queries.deleteTeam, [teamId], (error) => {
     if (error) {
       throw error
