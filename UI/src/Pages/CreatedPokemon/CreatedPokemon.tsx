@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import { useUserContext } from '../../Context/userContext'
-import TopCreatedPokemon from './Components/TopCreatedPokemon'
+import CreatePokemonGrid from './Components/CreatePokemonGrid'
 import UsersCreatedPokemon from './Components/UsersCreatedPokemon'
 
 export default function CreatedPokemon() {
@@ -12,15 +12,15 @@ export default function CreatedPokemon() {
       {currentUser ? (
         <div className="flex gap-4 justify-center">
           <Link
-            to={'/created-pokemon'}
+            to={'/pokemon'}
             className={`${
               userId ? '' : 'border-b-2 border-black dark:border-white'
             }`}
           >
-            Top Pokemon
+            Create Pokemon
           </Link>
           <Link
-            to={`/created-pokemon/${currentUser.id}`}
+            to={`/pokemon/${currentUser.id}`}
             className={`${
               userId ? 'border-b-2 border-black dark:border-white' : ''
             }`}
@@ -29,7 +29,7 @@ export default function CreatedPokemon() {
           </Link>
         </div>
       ) : null}
-      {userId ? <UsersCreatedPokemon /> : <TopCreatedPokemon />}
+      {userId ? <UsersCreatedPokemon /> : <CreatePokemonGrid />}
     </>
   )
 }

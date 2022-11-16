@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
-import PokemonCard from '../../../Components/PokemonCard'
-import { useUserContext } from '../../../Context/userContext'
-import { UsersCreatedTeam } from '../../../Typescript/interfaces'
-import useDeleteTeam from '../../../Utils/delete/useDeleteTeam'
-import fetchUser from '../../../Utils/fetch/fetchUser'
+import PokemonCard from './PokemonCard'
+import { useUserContext } from '../Context/userContext'
+import { UsersCreatedTeam } from '../Typescript/interfaces'
+import useDeleteTeam from '../Utils/delete/useDeleteTeam'
+import fetchUser from '../Utils/fetch/fetchUser'
 
 interface Props {
   team: UsersCreatedTeam
@@ -26,7 +26,7 @@ export default function TeamRow({ team }: Props) {
       {teamsUser && (
         <div className="grid gap-4">
           <div className="flex justify-between align-middle">
-            <div>
+            <div className="flex gap-3">
               <h2>{team.team_name}</h2>
               <h2>{teamsUser.name}</h2>
             </div>

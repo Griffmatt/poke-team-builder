@@ -13,11 +13,11 @@ export default function CreatedPokemon() {
 
   if (isLoading) return <div></div>
   return (
-    <>
+    <div className="grid gap-4">
       <h1>Top Created pokemon</h1>
       {pokemonArr && (
         <PokemonGrid>
-          {pokemonArr.map((pokemon) => {
+          {pokemonArr.slice(0,6).map((pokemon) => {
             return (
               <div key={pokemon.id} className="p-2">
                 <PokemonCard
@@ -29,6 +29,6 @@ export default function CreatedPokemon() {
           })}
         </PokemonGrid>
       )}
-    </>
+    </div>
   )
 }

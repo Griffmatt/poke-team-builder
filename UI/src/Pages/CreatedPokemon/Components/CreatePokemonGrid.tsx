@@ -1,13 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import PokemonCard from '../../../Components/PokemonCard'
+import PokemonGrid from '../../../Components/PokemonGrid'
+import { Pokemon } from '../../../Typescript/interfaces'
+import fetchPokemon from '../../../Utils/fetch/fetchPokemon'
 
-import PokemonCard from '../Components/PokemonCard'
-import PokemonGrid from '../Components/PokemonGrid'
-import { Pokemon } from '../Typescript/interfaces'
-import fetchPokemon from '../Utils/fetch/fetchPokemon'
-
-export default function Home() {
+export default function CreatePokemonGrid() {
   let timer: number | undefined
   const [filteredPokemon, setFilteredPokemon] = useState<Pokemon[]>()
   const { data, isLoading } = useQuery(['pokemon'], fetchPokemon)
@@ -18,7 +17,9 @@ export default function Home() {
     timer = setTimeout(
       () =>
         setFilteredPokemon(
-          data?.filter((pokemon) => pokemon.name.startsWith(filterValue.toLowerCase())),
+          data?.filter((pokemon) =>
+            pokemon.name.startsWith(filterValue.toLowerCase()),
+          ),
         ),
       1000,
     )
@@ -28,16 +29,16 @@ export default function Home() {
   return (
     <>
       <div className="flex justify-between flex-col md:flex-row">
-        <h1>Choose A Pokemon</h1>
+        <h1>Choose A Pokemon To Create</h1>
         <input
-        className="md:w-[40vw] lg:w-[20vw]"
+          className="md:w-[40vw] lg:w-[20vw]"
           type="text"
           placeholder="Search For a Pokemon..."
           onChange={(event) => debounceFilter(event.target.value)}
         />
       </div>
       <PokemonGrid>
-      {pokemonArr?.slice(0, 48).map((pokemon) => {
+        {pokemonArr?.slice(0, 48).map((pokemon) => {
           return (
             <Link
               to={`/create/${pokemon.name}`}

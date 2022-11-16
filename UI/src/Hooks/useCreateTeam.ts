@@ -4,7 +4,7 @@ import { CreatedPokemon } from '../Typescript/interfaces'
 import { postTeam } from '../Utils/post/postTeam'
 
 
-export function useCreateTeam(userId?: string) {
+export function useCreateTeam(userId?: number) {
   const navigate = useNavigate()
   const [selectedPokemon, setSelectedPokemon] = useState<CreatedPokemon[]>([])
   const [teamName, setTeamName] = useState('New Team')

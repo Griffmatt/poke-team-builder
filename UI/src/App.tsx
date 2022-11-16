@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 
-import Home from './Pages/Home'
+import Home from './Pages/Home/Home'
 
 import Teams from './Pages/Teams/Teams'
 import Team from './Pages/Team'
@@ -16,13 +16,12 @@ export default function App() {
       <div className="p-4">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/teams" element={<Teams currentMenu="top-teams"/>} />
-          <Route path="/teams/:userId" element={<Teams currentMenu="your-teams"/>} />
-          <Route path="/teams/create/:userId" element={<Teams currentMenu="create-team"/>} />
+          <Route path="/teams" element={<Teams />} />
+          <Route path="/teams/:userId" element={<Teams />} />
           <Route path="/teams/:userId/:teamId" element={<Team />} />
-          <Route path="/created-pokemon" element={<CreatedPokemon />} />
-          <Route path="/created-pokemon/:userId" element={<CreatedPokemon />} />
-          <Route path="/create/:pokemonName" element={<CreatePokemon />} />
+          <Route path="/pokemon" element={<CreatedPokemon />} />
+          <Route path="/pokemon/:userId" element={<CreatedPokemon />} />
+          <Route path="/pokemon/:pokemonName" element={<CreatePokemon />} />
         </Routes>
       </div>
     </div>

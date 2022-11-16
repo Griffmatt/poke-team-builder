@@ -10,8 +10,8 @@ import fetchUsersPokemon from '../../../Utils/fetch/fetchUsersPokemon'
 export default function UsersCreatedPokemon() {
   const { userId } = useParams()
   const { currentUser } = useUserContext()
-
-  const { data: pokemonArr, isLoading } = useQuery(['user', userId], () =>
+  console.log(userId)
+  const { data: pokemonArr, isLoading } = useQuery(['usersPokemon', userId], () =>
     fetchUsersPokemon(userId),
   )
 

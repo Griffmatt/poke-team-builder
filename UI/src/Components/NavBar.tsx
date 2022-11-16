@@ -16,7 +16,7 @@ export default function NavBar() {
         Home
       </NavLink>
       <NavLink
-        to="/created-pokemon"
+        to="/pokemon"
         className={({ isActive }) =>
           isActive ? 'border-b-2 border-black dark:border-white' : undefined
         }

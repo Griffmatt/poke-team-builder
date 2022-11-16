@@ -1,18 +1,18 @@
 import { useQuery } from '@tanstack/react-query'
-import { useParams } from 'react-router-dom'
 import PokemonCard from '../../../Components/PokemonCard'
 import PokemonGrid from '../../../Components/PokemonGrid'
+import { useUserContext } from '../../../Context/userContext'
 import { useCreateTeam } from '../../../Hooks/useCreateTeam'
 import fetchUsersPokemon from '../../../Utils/fetch/fetchUsersPokemon'
 
 export default function CreateTeam() {
-  const { userId } = useParams()
-  const { data: pokemonArr, isLoading } = useQuery(['user', userId], () =>
-    fetchUsersPokemon(userId),
+  const { currentUser } = useUserContext()
+  const { data: pokemonArr, isLoading } = useQuery(['usersPokemon', currentUser.id], () =>
+    fetchUsersPokemon(currentUser.id.toString())
   )
 
-  const { addPokemonToTeam, removePokemonFromTeam, createTeam, selectedPokemon, teamName, setTeamName } = useCreateTeam(userId)
-
+  const { addPokemonToTeam, removePokemonFromTeam, createTeam, selectedPokemon, teamName, setTeamName } = useCreateTeam(currentUser.id)
+  console.log(pokemonArr)
   const filteredPokemonArr = pokemonArr?.filter(
     (pokemon) =>
       !selectedPokemon.some((pokemonOnTeam) => pokemon.id === pokemonOnTeam.id),

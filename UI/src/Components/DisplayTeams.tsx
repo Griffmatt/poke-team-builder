@@ -1,5 +1,5 @@
 import React from 'react'
-import { UsersCreatedTeam } from '../../../Typescript/interfaces'
+import { UsersCreatedTeam } from '../Typescript/interfaces'
 import TeamRow from './TeamRow'
 
 interface Props {
