@@ -11,7 +11,7 @@ export default function DisplayTeams({ pokeArr }: Props) {
     <div className="grid gap-4">
       {pokeArr.map((team) => {
         return (
-          <React.Fragment key={team.team_id}>
+          <React.Fragment key={team.id}>
             <TeamRow team={team} />
           </React.Fragment>
         )

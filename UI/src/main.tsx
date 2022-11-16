@@ -13,7 +13,8 @@ import { UserContextProvider } from './Context/userContext'
 
 export const queryClient = new QueryClient()
 
-createRoot(document.getElementById('root') as HTMLElement).render(
+const root = createRoot(document.getElementById('root') as HTMLElement)
+root.render(
   <React.StrictMode>
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
