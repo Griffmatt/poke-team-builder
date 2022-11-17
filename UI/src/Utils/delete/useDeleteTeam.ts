@@ -24,9 +24,9 @@ export default function useDeleteTeam(teamId: number, userId?: string) {
         'userTeams',
         userId,
       ]) as UserTeam[]
-      console.log(teamId)
+
       queryClient.setQueryData(
-        ['teams', userId],
+        ['userTeams', userId],
         previousTeams.filter((team) => team.id === teamId),
       )
 

@@ -41,7 +41,7 @@ export default function CreatePokemonGrid() {
         {pokemonArr?.slice(0, 48).map((pokemon) => {
           return (
             <Link
-              to={`/create/${pokemon.name}`}
+              to={`/pokemon/create/${pokemon.name}`}
               key={pokemon.name}
               className="p-2"
             >

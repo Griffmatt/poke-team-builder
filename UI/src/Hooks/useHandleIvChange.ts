@@ -1,40 +1,33 @@
 import { useState } from "react"
+import { IvStats } from "../Typescript/interfaces"
 
-interface Stats {
-  hitpointsIv: number
-  attackIv: number
-  defenseIv: number
-  specialAttackIv: number
-  specialDefenseIv: number
-  speedIv: number
-}
 
-export default function useHandleEvChange() {
+export default function useHandleEvChange(defaultStats?: IvStats) {
 
     const [ivs, setIvs] = useState({
-      hitpointsIv: 31,
-      attackIv: 31,
-      defenseIv: 31,
-      specialAttackIv: 31,
-      specialDefenseIv: 31,
-      speedIv: 31,
+      hitpointsIv: defaultStats?.hitpointsIv ?? 31,
+      attackIv: defaultStats?.attackIv ?? 31,
+      defenseIv: defaultStats?.defenseIv ?? 31,
+      specialAttackIv:  defaultStats?.specialAttackIv ?? 31,
+      specialDefenseIv: defaultStats?.specialDefenseIv ?? 31,
+      speedIv: defaultStats?.speedIv ?? 31,
     })
   
   const decreaseIv = (currentStat: string) => {
-      if (ivs[currentStat as keyof Stats] <= 0) return
+      if (ivs[currentStat as keyof IvStats] <= 0) return
       
       setIvs({
         ...ivs,
-        [currentStat]: ivs[currentStat as keyof Stats] - 1
+        [currentStat]: ivs[currentStat as keyof IvStats] - 1
       })
     }
   
      const increaseIv = (currentStat: string) => {
-        if (ivs[currentStat as keyof Stats] >= 31) return
+        if (ivs[currentStat as keyof IvStats] >= 31) return
       
         setIvs({
           ...ivs,
-          [currentStat]: ivs[currentStat as keyof Stats] + 1
+          [currentStat]: ivs[currentStat as keyof IvStats] + 1
         })
     }
   

@@ -1,6 +1,8 @@
 const getAllUsersPokemon = 'SELECT * FROM created_pokemon WHERE $1 = user_id'
 const getAllCreatedPokemon = 'SELECT * FROM created_pokemon'
-const getPokemon = 'SELECT * FROM product WHERE $1 = id'
+const getPokemon = `WITH stats_added AS (SELECT created_pokemon.*, JSON_OBJECT_AGG(stat, "value") as stats FROM created_pokemon INNER JOIN pokemon_stats ON created_pokemon.id = pokemon_stats.pokemon_id  WHERE $1 = id GROUP BY "id"),
+moves as (SELECT pokemon_id, ARRAY_AGG("move") as moves FROM pokemon_moves WHERE $1 = pokemon_id GROUP BY pokemon_id)
+SELECT stats_added.*, moves FROM stats_added INNER JOIN moves  ON stats_added.id = moves.pokemon_id;`
 
 module.exports = {
   getAllUsersPokemon,

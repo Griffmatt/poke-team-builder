@@ -51,12 +51,12 @@ export default function CreatePokemon() {
       {
         queryKey: ['pokemon', pokemonName],
         queryFn: () => fetchSinglePokemon(pokemonName),
-        staleTime: Infinity,
+        staleTime: 100000,
       },
       {
         queryKey: ['held-items'],
         queryFn: fetchHeldItems,
-        staleTime: Infinity,
+        staleTime: 100000,
       },
     ],
   })
@@ -89,10 +89,10 @@ export default function CreatePokemon() {
                 ...ivs,
                 ...evs,
                 user_id: currentUser.id,
-                pokemon_id: pokemon.id,
+                pokemon_id: pokemon.id
               })
               if (response === 200)
-                navigate(`/created-pokemon/${currentUser.id}`)
+                navigate(`/pokemon/${currentUser.id}`)
             })}
           >
             <div className="md:col-span-2 md:row-span-3 w-full">

@@ -12,7 +12,6 @@ export default function CreateTeam() {
   )
 
   const { addPokemonToTeam, removePokemonFromTeam, createTeam, selectedPokemon, teamName, setTeamName } = useCreateTeam(currentUser.id)
-  console.log(pokemonArr)
   const filteredPokemonArr = pokemonArr?.filter(
     (pokemon) =>
       !selectedPokemon.some((pokemonOnTeam) => pokemon.id === pokemonOnTeam.id),

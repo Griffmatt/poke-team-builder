@@ -19,37 +19,37 @@ export interface CreatedPokemon {
   ability: string
   nature: string
   held_item: string
-  first_move: string
-  second_move: string
-  third_move: string
-  fourth_move: string
-  attackEv: number
-  defenseEv: number
-  specialAttackEv: number
-  specialDefenseEv: number
-  speedEv: number
-  hitpointsIv: number
-  attackIv: number
-  defenseIv: number
-  specialAttackIv: number
-  specialDefenseIv: number
-  speedIv: number
+  moves: string[]
+  stats: {
+    hitpointsEv: number
+    attackEv: number
+    defenseEv: number
+    specialAttackEv: number
+    specialDefenseEv: number
+    speedEv: number
+    hitpointsIv: number
+    attackIv: number
+    defenseIv: number
+    specialAttackIv: number
+    specialDefenseIv: number
+    speedIv: number
+  }
 }
 
-export interface UsersCreatedTeam{
-  id: number,
-  user_id: number,
-  team_name: string,
-  team_style: string,
+export interface UsersCreatedTeam {
+  id: number
+  user_id: number
+  team_name: string
+  team_style: string
   pokemon: UserTeam[]
 }
-export interface UserTeam{
-  id: number,
-  user_id: number,
-  team_style: string,
-  team_name: string,
-  created_pokemon_id: number,
-  name: string,
+export interface UserTeam {
+  id: number
+  user_id: number
+  team_style: string
+  team_name: string
+  created_pokemon_id: number
+  name: string
   pokemon_id: number
 }
 
@@ -67,4 +67,22 @@ export interface Abilities {
 
 interface Moves {
   move: { name: string }
+}
+
+export interface EvStats {
+  hitpointsEv: number
+  attackEv: number
+  defenseEv: number
+  specialAttackEv: number
+  specialDefenseEv: number
+  speedEv: number
+}
+
+export interface IvStats {
+  hitpointsIv: number
+  attackIv: number
+  defenseIv: number
+  specialAttackIv: number
+  specialDefenseIv: number
+  speedIv: number
 }

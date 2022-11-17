@@ -45,7 +45,6 @@ const postTeam = (req, res) => {
 
 const deleteTeam = (req, res) => {
   const teamId = parseInt(req.body.teamId)
-  console.log(req)
   pool.query(queries.deleteTeam, [teamId], (error) => {
     if (error) {
       throw error

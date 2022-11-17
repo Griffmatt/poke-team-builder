@@ -1,47 +1,39 @@
 import { useState } from "react"
+import { EvStats } from "../Typescript/interfaces"
 
-interface Stats {
-  hitpointsEv: number
-  attackEv: number
-  defenseEv: number
-  specialAttackEv: number
-  specialDefenseEv: number
-  speedEv: number
-}
-
-export default function useHandleEvChange() {
+export default function useHandleEvChange(defaultStats?: EvStats) {
 
   const [evs, setEvs] = useState({
-    hitpointsEv: 0,
-    attackEv: 0,
-    defenseEv: 0,
-    specialAttackEv: 0,
-    specialDefenseEv: 0,
-    speedEv: 0,
+    hitpointsEv: defaultStats?.hitpointsEv ?? 0,
+    attackEv: defaultStats?.attackEv ?? 0,
+    defenseEv: defaultStats?.defenseEv ?? 0,
+    specialAttackEv: defaultStats?.specialAttackEv ?? 0,
+    specialDefenseEv: defaultStats?.specialDefenseEv ?? 0,
+    speedEv: defaultStats?.speedEv ??0,
   })
 
 const decreaseEv = (currentStat: string) => {
-    if (evs[currentStat as keyof Stats] <= 0) return
+    if (evs[currentStat as keyof EvStats] <= 0) return
     
     setEvs({
       ...evs,
       [currentStat]:
-        evs[currentStat as keyof Stats] -
-        ((evs[currentStat as keyof Stats] % 4) || 4),
+        evs[currentStat as keyof EvStats] -
+        ((evs[currentStat as keyof EvStats] % 4) || 4),
     })
   }
 
    const increaseEv = (currentStat: string) => {
     let total = 4
     for (const stat in evs) {
-      total += evs[stat as keyof Stats]
+      total += evs[stat as keyof EvStats]
     }
-    if (total > 510 || evs[currentStat as keyof Stats] + 4 > 252) return
+    if (total > 510 || evs[currentStat as keyof EvStats] + 4 > 252) return
     setEvs({
       ...evs,
       [currentStat]:
-        evs[currentStat as keyof Stats] +
-        (4 - (evs[currentStat as keyof Stats] % 4)),
+        evs[currentStat as keyof EvStats] +
+        (4 - (evs[currentStat as keyof EvStats] % 4)),
     })
   }
 
@@ -53,7 +45,7 @@ const decreaseEv = (currentStat: string) => {
     }
     for (const stat in evs) {
       if (stat === currentStat) continue
-      total -= evs[stat as keyof Stats]
+      total -= evs[stat as keyof EvStats]
     }
 
     if (value > total || value > 252) {
