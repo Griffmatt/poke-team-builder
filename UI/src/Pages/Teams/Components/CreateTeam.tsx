@@ -3,7 +3,7 @@ import PokemonCard from '../../../Components/PokemonCard'
 import PokemonGrid from '../../../Components/PokemonGrid'
 import { useUserContext } from '../../../Context/userContext'
 import { useCreateTeam } from '../../../Hooks/useCreateTeam'
-import fetchUsersPokemon from '../../../Utils/fetch/Database/fetchUsersCreatedPokemon'
+import fetchUsersCreatedPokemon from '../../../Utils/fetch/Database/fetchUsersCreatedPokemon'
 
 export default function CreateTeam() {
   const { currentUser } = useUserContext()
