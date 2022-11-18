@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useUserContext } from '../../../Context/userContext'
-import fetchUsersTeams from '../../../Utils/fetch/fetchUsersTeams'
+import fetchUsersTeams from '../../../Utils/fetch/Database/fetchUsersTeams'
 import DisplayTeams from '../../../Components/DisplayTeams'
 import { useQuery } from '@tanstack/react-query'
 

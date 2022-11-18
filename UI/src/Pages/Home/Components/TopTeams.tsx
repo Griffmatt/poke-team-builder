@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import fetchTopTeams from '../../../Utils/fetch/fetchTopTeams'
+import fetchTopTeams from '../../../Utils/fetch/Database/fetchTopTeams'
 import DisplayTeams from '../../../Components/DisplayTeams'
 
 export default function TopTeams() {

@@ -4,7 +4,7 @@ import PokemonCard from './PokemonCard'
 import { useUserContext } from '../Context/userContext'
 import { UsersCreatedTeam } from '../Typescript/interfaces'
 import useDeleteTeam from '../Utils/delete/useDeleteTeam'
-import fetchUser from '../Utils/fetch/fetchUser'
+import fetchUser from '../Utils/fetch/Database/fetchUser'
 
 interface Props {
   team: UsersCreatedTeam

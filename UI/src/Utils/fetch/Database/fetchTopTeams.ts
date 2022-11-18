@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { UsersCreatedTeam } from '../../Typescript/interfaces'
+import { UsersCreatedTeam } from '../../../Typescript/interfaces'
 
 const url = import.meta.env.VITE_BASE_URL
 

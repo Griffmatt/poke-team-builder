@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import PokemonCard from '../../../Components/PokemonCard'
 import PokemonGrid from '../../../Components/PokemonGrid'
 import { Pokemon } from '../../../Typescript/interfaces'
-import fetchPokemon from '../../../Utils/fetch/fetchPokemon'
+import fetchPokemon from '../../../Utils/fetch/Poke_Api/fetchPokemon'
 
 export default function CreatePokemonGrid() {
   let timer: number | undefined

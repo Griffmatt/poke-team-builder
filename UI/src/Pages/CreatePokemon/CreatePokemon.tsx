@@ -2,8 +2,8 @@ import { useQueries } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
 
 
-import fetchHeldItems from '../../Utils/fetch/fetchHeldItems'
-import fetchSinglePokemon from '../../Utils/fetch/fetchSinglePokemon'
+import fetchHeldItems from '../../Utils/fetch/Poke_Api/fetchHeldItems'
+import fetchSinglePokemon from '../../Utils/fetch/Poke_Api/fetchSinglePokemon'
 import FormCreatePokemon from './Components/FormCreatePokemon'
 
 

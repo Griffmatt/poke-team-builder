@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { HeldItem } from '../../Typescript/interfaces'
+import { HeldItem } from '../../../Typescript/interfaces'
 
 interface Data {
   results: HeldItem[]

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import fetchSinglePokemon from '../Utils/fetch/fetchSinglePokemon'
+import fetchSinglePokemon from '../Utils/fetch/Poke_Api/fetchSinglePokemon'
 import { formatString } from '../Utils/formatString'
 
 interface Props {

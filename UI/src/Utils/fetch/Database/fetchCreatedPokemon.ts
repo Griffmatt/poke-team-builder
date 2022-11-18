@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { CreatedPokemon } from '../../Typescript/interfaces'
+import { CreatedPokemon } from '../../../Typescript/interfaces'
 
 const url = import.meta.env.VITE_BASE_URL
 

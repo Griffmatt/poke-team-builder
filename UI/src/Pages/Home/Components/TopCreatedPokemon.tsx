@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import PokemonCard from '../../../Components/PokemonCard'
 import PokemonGrid from '../../../Components/PokemonGrid'
 
-import fetchAllCreatedPokemon from '../../../Utils/fetch/fetchAllCreatedPokemon'
+import fetchAllCreatedPokemon from '../../../Utils/fetch/Database/fetchAllCreatedPokemon'
 
 export default function CreatedPokemon() {
   const { data: pokemonArr, isLoading } = useQuery(

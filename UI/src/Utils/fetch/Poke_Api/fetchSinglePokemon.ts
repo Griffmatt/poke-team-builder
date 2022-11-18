@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Pokemon } from '../../Typescript/interfaces'
+import { Pokemon } from '../../../Typescript/interfaces'
 
 const url = import.meta.env.VITE_POKE_API_URL
 
