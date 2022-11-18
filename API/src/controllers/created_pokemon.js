@@ -33,31 +33,17 @@ const postPokemon = (req, res) => {
     ability,
     nature,
     heldItem,
-    first_move,
-    second_move,
-    third_move,
-    fourth_move,
-    hitpointsEv,
-    attackEv,
-    defenseEv,
-    specialAttackEv,
-    specialDefenseEv,
-    speedEv,
-    hitpointsIv,
-    attackIv,
-    defenseIv,
-    specialAttackIv,
-    specialDefenseIv,
-    speedIv
+    moves,
+    stats
   } = req.body
 
   pool.query(
     `
     WITH pokemon AS (INSERT INTO created_pokemon (user_id, pokemon_id, "name", ability, nature, held_item) VALUES (${user_id}, ${pokemon_id}, '${name}', '${ability}', '${nature}', '${heldItem}') RETURNING id), 
     
-    stats AS (INSERT INTO pokemon_stats (pokemon_id, stat, value) VALUES ((SELECT id FROM pokemon), 'hitpointsEv', ${hitpointsEv}), ((SELECT id FROM pokemon), 'attackEv', ${attackEv}), ((SELECT id FROM pokemon), 'defenseEv', ${defenseEv}), ((SELECT id FROM pokemon), 'specialAttackEv', ${specialAttackEv}), ((SELECT id FROM pokemon), 'specialDefenseEv', ${specialDefenseEv}), ((SELECT id FROM pokemon), 'speedEv', ${speedEv}), ((SELECT id FROM pokemon), 'hitpointsIv', ${hitpointsIv}), ((SELECT id FROM pokemon), 'attackIv', ${attackIv}), ((SELECT id FROM pokemon), 'defenseIv', ${defenseIv}), ((SELECT id FROM pokemon), 'specialAttackIv', ${specialAttackIv}), ((SELECT id FROM pokemon), 'specialDefenseIv', ${specialDefenseIv}), ((SELECT id FROM pokemon), 'speedIv', ${speedIv}))
+    stats AS (INSERT INTO pokemon_stats (pokemon_id, stat, value) VALUES ((SELECT id FROM pokemon), 'hitpointsEv', ${stats.hitpointsEv}), ((SELECT id FROM pokemon), 'attackEv', ${stats.attackEv}), ((SELECT id FROM pokemon), 'defenseEv', ${stats.defenseEv}), ((SELECT id FROM pokemon), 'specialAttackEv', ${stats.specialAttackEv}), ((SELECT id FROM pokemon), 'specialDefenseEv', ${stats.specialDefenseEv}), ((SELECT id FROM pokemon), 'speedEv', ${stats.speedEv}), ((SELECT id FROM pokemon), 'hitpointsIv', ${stats.hitpointsIv}), ((SELECT id FROM pokemon), 'attackIv', ${stats.attackIv}), ((SELECT id FROM pokemon), 'defenseIv', ${stats.defenseIv}), ((SELECT id FROM pokemon), 'specialAttackIv', ${stats.specialAttackIv}), ((SELECT id FROM pokemon), 'specialDefenseIv', ${stats.specialDefenseIv}), ((SELECT id FROM pokemon), 'speedIv', ${stats.speedIv}))
 
-    INSERT INTO pokemon_moves (pokemon_id, move, move_order) VALUES ((SELECT id FROM pokemon), '${first_move}', 'first'), ((SELECT id FROM pokemon), '${second_move}', 'second'), ((SELECT id FROM pokemon), '${third_move}', 'third'), ((SELECT id FROM pokemon), '${fourth_move}', 'fourth');
+    INSERT INTO pokemon_moves (pokemon_id, move, move_order) VALUES ((SELECT id FROM pokemon), '${moves[0]}', 'first'), ((SELECT id FROM pokemon), '${moves[1]}', 'second'), ((SELECT id FROM pokemon), '${moves[2]}', 'third'), ((SELECT id FROM pokemon), '${moves[3]}', 'fourth');
     `,
 
     (error) => {

@@ -5,7 +5,7 @@ import fetchSinglePokemon from '../../../Utils/fetch/fetchSinglePokemon'
 
 import fetchHeldItems from '../../../Utils/fetch/fetchHeldItems'
 import fetchCreatedPokemon from '../../../Utils/fetch/fetchCreatedPokemon'
-import FormCreatedPokemon from './FormCreatedPokemon'
+import FormCreatedPokemon from './FormUpdatePokemon'
 
 export default function CreatePokemon() {
   const { pokemonName, pokemonId } = useParams()
@@ -14,15 +14,15 @@ export default function CreatePokemon() {
     queries: [
       {
         queryKey: ['pokemon', pokemonName],
-        queryFn: () => fetchSinglePokemon(pokemonName)
+        queryFn: () => fetchSinglePokemon(pokemonName),
       },
       {
         queryKey: ['createdPokemon', pokemonId],
-        queryFn: () => fetchCreatedPokemon(pokemonId)
+        queryFn: () => fetchCreatedPokemon(pokemonId),
       },
       {
         queryKey: ['held-items'],
-        queryFn: fetchHeldItems
+        queryFn: fetchHeldItems,
       },
     ],
   })
@@ -40,7 +40,11 @@ export default function CreatePokemon() {
       {loaded && (
         <>
           <h1>Updating {createdPokemon.name}</h1>
-          <FormCreatedPokemon pokemon={pokemon} createdPokemon={createdPokemon} heldItems={heldItems}/>
+          <FormCreatedPokemon
+            pokemon={pokemon}
+            createdPokemon={createdPokemon}
+            heldItems={heldItems}
+          />
         </>
       )}
     </>

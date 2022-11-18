@@ -17,7 +17,8 @@ interface Data {
   held_item: string
   moves: string[]
   stats: Stats,
-  user_id: number
+  user_id: number,
+  pokemon_id: number
 }
 
 export default function useUpdateCreatedPokemon(pokemon: Data, pokemonId?: string) {
@@ -45,22 +46,28 @@ export default function useUpdateCreatedPokemon(pokemon: Data, pokemonId?: strin
     onMutate: async () => {
       await queryClient.cancelQueries(['createdPokemon', pokemonId])
 
-      const previousTeams = queryClient.getQueryData([
+      const previousPokemon = queryClient.getQueryData([
         'createdPokemon',
         pokemonId,
       ]) as CreatedPokemon
-      console.log(pokemon)
       queryClient.setQueryData(
         ['createdPokemon', pokemonId],
         pokemon
       )
 
-      return { previousTeams }
+      const previousCreatedPokemon= queryClient.getQueryData(['usersPokemon', pokemon.user_id.toString()]) as CreatedPokemon[]
+      if(previousCreatedPokemon.length > 0){
+        const filterPrevious = previousCreatedPokemon.filter(previousPokemon => previousPokemon.id !== Number(pokemonId))
+        queryClient.setQueryData(['usersPokemon', pokemon.user_id.toString()], [...filterPrevious, {...pokemon, id: Number(pokemonId)}])
+        return { previousCreatedPokemon, previousPokemon }
+      }
+
+      return { previousPokemon }
     },
     onError: (err, team, context) => {
       queryClient.setQueryData(
         ['createdPokemon', pokemonId],
-        context?.previousTeams,
+        context?.previousPokemon,
       )
     },
     onSuccess: () => {

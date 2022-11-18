@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { formatString } from '../../../Utils/formatString'
-import useUpdateCreatedPokemon from '../../../Utils/post/useUpdateCreatedPokemon'
+import usePostCreatedPokemon from '../../../Utils/post/postCreatedPokemon'
 
 import { stats } from '../../../assets/stats'
 import { movesOrder } from '../../../assets/movesOrder'
@@ -14,60 +14,52 @@ import useHandleEvChange from '../../../Hooks/useHandleEvChange'
 import useHandleIvChange from '../../../Hooks/useHandleIvChange'
 
 import {
-  CreatedPokemon,
   HeldItem,
   Pokemon,
   IvStats,
-  EvStats
+  EvStats,
 } from '../../../Typescript/interfaces'
-import { useParams } from 'react-router-dom'
-
 
 interface Props {
   pokemon: Pokemon
-  createdPokemon: CreatedPokemon
   heldItems: HeldItem[]
 }
 
-export default function FormCreatedPokemon({
+export default function FormCreatePokemon({
   pokemon,
-  createdPokemon,
-  heldItems,
+  heldItems
 }: Props) {
   const { currentUser } = useUserContext()
-  const { pokemonId } = useParams()
 
-  const [name, setName ] = useState<string>(createdPokemon.name)
-  const [ability, setAbility] = useState<string>(createdPokemon.ability)
-  const [nature, setNature] = useState<string>(createdPokemon.nature)
-  const [heldItem, setHeldItem] = useState<string>(createdPokemon.held_item)
-  const [moves, setMoves] = useState<string[]>(createdPokemon.moves)
+  const [name, setName] = useState<string>(formatString(pokemon.name))
+  const [ability, setAbility] = useState<string>(pokemon.abilities[0].ability.name)
+  const [nature, setNature] = useState<string>(natures[0])
+  const [heldItem, setHeldItem] = useState<string>(heldItems[0].name)
+  const [moves, setMoves] = useState<string[]>([pokemon.moves[0].move.name, pokemon.moves[1].move.name, pokemon.moves[2].move.name, pokemon.moves[3].move.name,])
 
-  const { evs, decreaseEv, increaseEv, handleEvChange } = useHandleEvChange(
-    createdPokemon.stats,
+  const { evs, decreaseEv, increaseEv, handleEvChange } = useHandleEvChange()
+
+  const { ivs, decreaseIv, increaseIv, handleIvChange } = useHandleIvChange()
+
+  const postCreatedPokemonMutation = usePostCreatedPokemon(
+    {
+      name: name,
+      ability: ability,
+      nature: nature,
+      held_item: heldItem,
+      moves: moves,
+      stats: { ...evs, ...ivs },
+      user_id: currentUser.id,
+      pokemon_id: pokemon.id
+    },
+    `${currentUser.id}`
   )
 
-  const { ivs, decreaseIv, increaseIv, handleIvChange } = useHandleIvChange(
-    createdPokemon.stats,
-  )
-
-  const updateCreatedPokemonMutation = useUpdateCreatedPokemon({
-    name: name,
-    ability: ability,
-    nature: nature,
-    held_item: heldItem,
-    moves: moves,
-    stats: {...evs, ...ivs},
-    user_id: createdPokemon.user_id
-
-  }, pokemonId)
-
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event?.preventDefault()
-        if (currentUser === null) return
-       updateCreatedPokemonMutation.mutate()
-       console.log(updateCreatedPokemonMutation.isSuccess)
-    }
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event?.preventDefault()
+    if (currentUser === null) return
+    postCreatedPokemonMutation.mutate()
+  }
 
   return (
     <form
@@ -81,12 +73,15 @@ export default function FormCreatedPokemon({
         <h2>Pokemon Info</h2>
         <label className="flex flex-col">
           Name
-          <input value={name} onChange={(event)=> setName(event.target.value)} />
+          <input
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+          />
         </label>
         <label className="flex flex-col">
           Ability
           <select
-            onChange={(event)=> setAbility(event.target.value)}
+            onChange={(event) => setAbility(event.target.value)}
             value={ability}
           >
             {pokemon.abilities.map((ability) => {
@@ -102,7 +97,7 @@ export default function FormCreatedPokemon({
           Nature
           <select
             className="text-black"
-            onChange={(event)=> setNature(event.target.value)}
+            onChange={(event) => setNature(event.target.value)}
             value={nature}
           >
             {natures.map((nature: string) => {
@@ -113,7 +108,7 @@ export default function FormCreatedPokemon({
         <label className="flex flex-col">
           Held Item
           <select
-            onChange={(event)=> setHeldItem(event.target.value)}
+            onChange={(event) => setHeldItem(event.target.value)}
             value={heldItem}
           >
             {heldItems
@@ -145,7 +140,9 @@ export default function FormCreatedPokemon({
               <select
                 className="text-black"
                 value={moves[index]}
-                onChange={(event)=> setMoves([...moves, moves[index] = event.target.value])}
+                onChange={(event) =>
+                  setMoves([...moves, (moves[index] = event.target.value)])
+                }
               >
                 {pokemon.moves
                   .sort((a, b) => {
@@ -241,7 +238,7 @@ export default function FormCreatedPokemon({
         className="bg-slate-200 dark:bg-slate-600 p-4 rounded-xl w-full md:col-span-2"
         type="submit"
       >
-        Update Pokemon
+        Create Pokemon
       </button>
     </form>
   )
