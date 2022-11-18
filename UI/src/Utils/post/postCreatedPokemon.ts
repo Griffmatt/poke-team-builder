@@ -16,7 +16,7 @@ interface Data {
   moves: string[]
   stats: Stats,
   user_id: number,
-  pokemon_id: number
+  pokemon_name: string
 }
 
 export default function usePostCreatedPokemon(

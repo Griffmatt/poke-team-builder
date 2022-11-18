@@ -50,7 +50,7 @@ export default function FormCreatePokemon({
       moves: moves,
       stats: { ...evs, ...ivs },
       user_id: currentUser.id,
-      pokemon_id: pokemon.id
+      pokemon_name: pokemon.name
     },
     `${currentUser.id}`
   )

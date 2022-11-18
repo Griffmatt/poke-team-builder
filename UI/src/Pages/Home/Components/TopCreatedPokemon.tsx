@@ -21,7 +21,7 @@ export default function CreatedPokemon() {
             return (
               <div key={pokemon.id} className="p-2">
                 <PokemonCard
-                  pokemonName={pokemon.pokemon_id}
+                  pokemonName={pokemon.pokemon_name}
                   createdPokemonName={pokemon.name}
                 />
               </div>

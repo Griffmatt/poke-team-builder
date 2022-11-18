@@ -14,7 +14,7 @@ export interface Pokemon {
 export interface CreatedPokemon {
   id: number
   user_id: number
-  pokemon_id: number
+  pokemon_name: string
   name: string
   ability: string
   nature: string

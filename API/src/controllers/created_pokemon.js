@@ -28,7 +28,7 @@ const getPokemon = (req, res) => {
 const postPokemon = (req, res) => {
   const {
     user_id,
-    pokemon_id,
+    pokemon_name,
     name,
     ability,
     nature,
@@ -39,7 +39,7 @@ const postPokemon = (req, res) => {
 
   pool.query(
     `
-    WITH pokemon AS (INSERT INTO created_pokemon (user_id, pokemon_id, "name", ability, nature, held_item) VALUES (${user_id}, ${pokemon_id}, '${name}', '${ability}', '${nature}', '${heldItem}') RETURNING id), 
+    WITH pokemon AS (INSERT INTO created_pokemon (user_id, pokemon_name, "name", ability, nature, held_item) VALUES (${user_id}, '${pokemon_name}', '${name}', '${ability}', '${nature}', '${heldItem}') RETURNING id), 
     
     stats AS (INSERT INTO pokemon_stats (pokemon_id, stat, value) VALUES ((SELECT id FROM pokemon), 'hitpointsEv', ${stats.hitpointsEv}), ((SELECT id FROM pokemon), 'attackEv', ${stats.attackEv}), ((SELECT id FROM pokemon), 'defenseEv', ${stats.defenseEv}), ((SELECT id FROM pokemon), 'specialAttackEv', ${stats.specialAttackEv}), ((SELECT id FROM pokemon), 'specialDefenseEv', ${stats.specialDefenseEv}), ((SELECT id FROM pokemon), 'speedEv', ${stats.speedEv}), ((SELECT id FROM pokemon), 'hitpointsIv', ${stats.hitpointsIv}), ((SELECT id FROM pokemon), 'attackIv', ${stats.attackIv}), ((SELECT id FROM pokemon), 'defenseIv', ${stats.defenseIv}), ((SELECT id FROM pokemon), 'specialAttackIv', ${stats.specialAttackIv}), ((SELECT id FROM pokemon), 'specialDefenseIv', ${stats.specialDefenseIv}), ((SELECT id FROM pokemon), 'speedIv', ${stats.speedIv}))
 

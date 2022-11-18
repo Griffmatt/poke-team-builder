@@ -40,7 +40,7 @@ export default function CreateTeam() {
                     onClick={() => removePokemonFromTeam(pokemon.id)}
                   >
                     <PokemonCard
-                      pokemonName={pokemon.pokemon_id}
+                      pokemonName={pokemon.pokemon_name}
                       createdPokemonName={pokemon.name}
                     />
                   </div>
@@ -64,7 +64,7 @@ export default function CreateTeam() {
                 onClick={() => addPokemonToTeam(pokemon)}
               >
                 <PokemonCard
-                  pokemonName={pokemon.pokemon_id}
+                  pokemonName={pokemon.pokemon_name}
                   createdPokemonName={pokemon.name}
                 />
               </div>

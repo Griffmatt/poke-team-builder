@@ -32,7 +32,7 @@ export function useCreateTeam(userId?: number) {
     if (selectedPokemon.length < 6) return null
 
     const pokemonIds = selectedPokemon.map((pokemon) => {
-      return { created_pokemon_id: pokemon.id, name: pokemon.name, pokemon_id: pokemon.pokemon_id }
+      return { created_pokemon_id: pokemon.id }
     })
 
     if (userId == null) return
