@@ -8,7 +8,7 @@ import fetchUsersCreatedPokemon from '../../../Utils/fetch/Database/fetchUsersCr
 export default function CreateTeam() {
   const { currentUser } = useUserContext()
   const { data: pokemonArr, isLoading } = useQuery(['usersPokemon', currentUser.id], () =>
-    fetchUsersPokemon(currentUser.id.toString())
+    fetchUsersCreatedPokemon(currentUser.id.toString())
   )
 
   const { addPokemonToTeam, removePokemonFromTeam, createTeam, selectedPokemon, teamName, setTeamName } = useCreateTeam(currentUser.id)

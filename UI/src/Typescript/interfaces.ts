@@ -50,7 +50,7 @@ export interface UserTeam {
   team_name: string
   created_pokemon_id: number
   name: string
-  pokemon_id: number
+  pokemon_name: string
 }
 
 interface Pokemon_Type {

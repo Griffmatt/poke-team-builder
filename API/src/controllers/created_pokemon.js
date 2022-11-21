@@ -32,14 +32,14 @@ const postPokemon = (req, res) => {
     name,
     ability,
     nature,
-    heldItem,
+    held_item,
     moves,
     stats
   } = req.body
 
   pool.query(
     `
-    WITH pokemon AS (INSERT INTO created_pokemon (user_id, pokemon_name, "name", ability, nature, held_item) VALUES (${user_id}, '${pokemon_name}', '${name}', '${ability}', '${nature}', '${heldItem}') RETURNING id), 
+    WITH pokemon AS (INSERT INTO created_pokemon (user_id, pokemon_name, "name", ability, nature, held_item) VALUES (${user_id}, '${pokemon_name}', '${name}', '${ability}', '${nature}', '${held_item}') RETURNING id), 
     
     stats AS (INSERT INTO pokemon_stats (pokemon_id, stat, value) VALUES ((SELECT id FROM pokemon), 'hitpointsEv', ${stats.hitpointsEv}), ((SELECT id FROM pokemon), 'attackEv', ${stats.attackEv}), ((SELECT id FROM pokemon), 'defenseEv', ${stats.defenseEv}), ((SELECT id FROM pokemon), 'specialAttackEv', ${stats.specialAttackEv}), ((SELECT id FROM pokemon), 'specialDefenseEv', ${stats.specialDefenseEv}), ((SELECT id FROM pokemon), 'speedEv', ${stats.speedEv}), ((SELECT id FROM pokemon), 'hitpointsIv', ${stats.hitpointsIv}), ((SELECT id FROM pokemon), 'attackIv', ${stats.attackIv}), ((SELECT id FROM pokemon), 'defenseIv', ${stats.defenseIv}), ((SELECT id FROM pokemon), 'specialAttackIv', ${stats.specialAttackIv}), ((SELECT id FROM pokemon), 'specialDefenseIv', ${stats.specialDefenseIv}), ((SELECT id FROM pokemon), 'speedIv', ${stats.speedIv}))
 
@@ -61,14 +61,14 @@ const updatePokemon = (req, res) => {
     name,
     ability,
     nature,
-    heldItem,
+    held_item,
     moves,
     stats
   } = req.body
 
   pool.query(
     `
-    WITH pokemon AS (UPDATE created_pokemon SET "name" = '${name}', ability = '${ability}', nature = '${nature}', held_item = '${heldItem}' WHERE id = ${pokemonId}),
+    WITH pokemon AS (UPDATE created_pokemon SET "name" = '${name}', ability = '${ability}', nature = '${nature}', held_item = '${held_item}' WHERE id = ${pokemonId}),
 
     stats AS (UPDATE pokemon_stats as stats SET value = stat.value FROM (VALUES ('hitpointsEv', ${stats.hitpointsEv}), ('attackEv', ${stats.attackEv}), ('defenseEv', ${stats.defenseEv}), ('specialAttackEv', ${stats.specialAttackEv}), ('specialDefenseEv', ${stats.specialDefenseEv}), ('speedEv', ${stats.speedEv}), ('hitpointsIv', ${stats.hitpointsIv}), ('attackIv', ${stats.attackIv}), ('defenseIv', ${stats.defenseIv}), ('specialAttackIv', ${stats.specialAttackIv}), ('specialDefenseIv', ${stats.specialDefenseIv}), ('speedIv', ${stats.speedIv})) as stat(stat, value) WHERE stats.stat = stat.stat AND stats.pokemon_id = ${pokemonId})
 

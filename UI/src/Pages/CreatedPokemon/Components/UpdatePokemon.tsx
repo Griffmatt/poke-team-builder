@@ -5,9 +5,9 @@ import fetchSinglePokemon from '../../../Utils/fetch/Poke_Api/fetchSinglePokemon
 
 import fetchHeldItems from '../../../Utils/fetch/Poke_Api/fetchHeldItems'
 import fetchCreatedPokemon from '../../../Utils/fetch/Database/fetchCreatedPokemon'
-import FormCreatedPokemon from './FormUpdatePokemon'
+import FormUpdatePokemon from './FormUpdatePokemon'
 
-export default function CreatePokemon() {
+export default function UpdatePokemon() {
   const { pokemonName, pokemonId } = useParams()
 
   const results = useQueries({
@@ -40,7 +40,7 @@ export default function CreatePokemon() {
       {loaded && (
         <>
           <h1>Updating {createdPokemon.name}</h1>
-          <FormCreatedPokemon
+          <FormUpdatePokemon
             pokemon={pokemon}
             createdPokemon={createdPokemon}
             heldItems={heldItems}

@@ -11,7 +11,7 @@ export default function UsersCreatedPokemon() {
   const { userId } = useParams()
   const { currentUser } = useUserContext()
   const { data: pokemonArr, isLoading } = useQuery(['usersPokemon', userId], () =>
-    fetchUsersPokemon(userId),
+    fetchUsersCreatedPokemon(userId),
   )
   if (isLoading) return <div></div>
   return (

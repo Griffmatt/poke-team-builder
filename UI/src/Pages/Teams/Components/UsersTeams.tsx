@@ -12,6 +12,7 @@ export default function UsersTeams() {
     fetchUsersTeams(userId),
   )
 
+
   if (isLoading) return <div></div>
 
   return (

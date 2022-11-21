@@ -28,7 +28,7 @@ interface Props {
   heldItems: HeldItem[]
 }
 
-export default function FormCreatedPokemon({
+export default function FormUpdatePokemon({
   pokemon,
   heldItems,
   createdPokemon,
