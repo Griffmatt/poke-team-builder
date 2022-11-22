@@ -17,7 +17,7 @@ export default function CreatedPokemon() {
       <h1>Top Created pokemon</h1>
       {pokemonArr && (
         <PokemonGrid>
-          {pokemonArr.slice(0,6).map((pokemon) => {
+          {pokemonArr.slice(0, 6).map((pokemon) => {
             return (
               <div key={pokemon.id} className="p-2">
                 <PokemonCard

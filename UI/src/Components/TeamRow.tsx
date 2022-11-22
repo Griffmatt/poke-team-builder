@@ -15,22 +15,42 @@ export default function TeamRow({ team }: Props) {
   const { userId } = useParams()
   const { currentUser } = useUserContext()
 
-  const [showDeleteModal, setShowDeleteModal]= useState(false)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
 
   const { data: teamsUser, isLoading } = useQuery(['user', team.user_id], () =>
     fetchUser(team.user_id),
   )
   const deleteTeamMutation = useDeleteTeam(team.id, userId)
 
-  const DeleteTeamModal = ({name}: {name: string}) => {
+  const DeleteTeamModal = ({ name }: { name: string }) => {
     return (
-      <div className={`fixed top-0 left-0  w-screen h-screen place-items-center ${showDeleteModal? "grid": "hidden"}`} onClick={() => setShowDeleteModal(false)}>
-        <div className="bg-slate-500 rounded-xl p-4 grid gap-4" onClick={(event) => event?.stopPropagation()}>
-        <h2>Are you sure you want <br/> to delete {name}?</h2>
-        <div className="flex justify-around">
-          <button className="rounded py-1 px-2 bg-slate-400" onClick={() => setShowDeleteModal(false)}>Cancel</button>
-          <button className="rounded py-1 px-2 bg-slate-400" onClick={() => deleteTeamMutation.mutate()}>Confirm</button>
-        </div>
+      <div
+        className={`fixed top-0 left-0  w-screen h-screen place-items-center ${
+          showDeleteModal ? 'grid' : 'hidden'
+        }`}
+        onClick={() => setShowDeleteModal(false)}
+      >
+        <div
+          className="bg-slate-500 rounded-xl p-4 grid gap-4"
+          onClick={(event) => event?.stopPropagation()}
+        >
+          <h2>
+            Are you sure you want <br /> to delete {name}?
+          </h2>
+          <div className="flex justify-around">
+            <button
+              className="rounded py-1 px-2 bg-slate-400"
+              onClick={() => setShowDeleteModal(false)}
+            >
+              Cancel
+            </button>
+            <button
+              className="rounded py-1 px-2 bg-slate-400"
+              onClick={() => deleteTeamMutation.mutate()}
+            >
+              Confirm
+            </button>
+          </div>
         </div>
       </div>
     )
@@ -70,7 +90,7 @@ export default function TeamRow({ team }: Props) {
           </div>
         </div>
       )}
-      <DeleteTeamModal name={team.team_name}/>
+      <DeleteTeamModal name={team.team_name} />
     </>
   )
 }

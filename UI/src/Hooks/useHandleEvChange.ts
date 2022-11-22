@@ -1,29 +1,28 @@
-import { useState } from "react"
-import { EvStats } from "../Typescript/interfaces"
+import { useState } from 'react'
+import { EvStats } from '../Typescript/interfaces'
 
 export default function useHandleEvChange(defaultStats?: EvStats) {
-
   const [evs, setEvs] = useState({
     hitpointsEv: defaultStats?.hitpointsEv ?? 0,
     attackEv: defaultStats?.attackEv ?? 0,
     defenseEv: defaultStats?.defenseEv ?? 0,
     specialAttackEv: defaultStats?.specialAttackEv ?? 0,
     specialDefenseEv: defaultStats?.specialDefenseEv ?? 0,
-    speedEv: defaultStats?.speedEv ??0,
+    speedEv: defaultStats?.speedEv ?? 0,
   })
 
-const decreaseEv = (currentStat: string) => {
+  const decreaseEv = (currentStat: string) => {
     if (evs[currentStat as keyof EvStats] <= 0) return
-    
+
     setEvs({
       ...evs,
       [currentStat]:
         evs[currentStat as keyof EvStats] -
-        ((evs[currentStat as keyof EvStats] % 4) || 4),
+        (evs[currentStat as keyof EvStats] % 4 || 4),
     })
   }
 
-   const increaseEv = (currentStat: string) => {
+  const increaseEv = (currentStat: string) => {
     let total = 4
     for (const stat in evs) {
       total += evs[stat as keyof EvStats]
@@ -37,10 +36,10 @@ const decreaseEv = (currentStat: string) => {
     })
   }
 
-   const handleEvChange = (value: number, currentStat: string) => {
+  const handleEvChange = (value: number, currentStat: string) => {
     let total = 510
-    if(value < 0) {
-      setEvs({ ...evs, [currentStat]: 0 }) 
+    if (value < 0) {
+      setEvs({ ...evs, [currentStat]: 0 })
       return
     }
     for (const stat in evs) {

@@ -10,8 +10,9 @@ import fetchUsersCreatedPokemon from '../../../Utils/fetch/Database/fetchUsersCr
 export default function UsersCreatedPokemon() {
   const { userId } = useParams()
   const { currentUser } = useUserContext()
-  const { data: pokemonArr, isLoading } = useQuery(['usersPokemon', userId], () =>
-    fetchUsersCreatedPokemon(userId),
+  const { data: pokemonArr, isLoading } = useQuery(
+    ['usersPokemon', userId],
+    () => fetchUsersCreatedPokemon(userId),
   )
   if (isLoading) return <div></div>
   return (
@@ -21,7 +22,11 @@ export default function UsersCreatedPokemon() {
         <PokemonGrid>
           {[...pokemonArr].reverse().map((pokemon) => {
             return (
-              <Link to={`/pokemon/update/${pokemon.pokemon_name}/${pokemon.id}`} key={pokemon.id} className="p-2">
+              <Link
+                to={`/pokemon/update/${pokemon.pokemon_name}/${pokemon.id}`}
+                key={pokemon.id}
+                className="p-2"
+              >
                 <PokemonCard
                   pokemonName={pokemon.pokemon_name}
                   createdPokemonName={pokemon.name}

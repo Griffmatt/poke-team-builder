@@ -59,7 +59,7 @@ export default function FormUpdatePokemon({
       moves: moves,
       stats: { ...evs, ...ivs },
       user_id: createdPokemon.user_id,
-      pokemon_id: pokemon.id
+      pokemon_id: pokemon.id,
     },
     pokemonId,
   )

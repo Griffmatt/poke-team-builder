@@ -1,57 +1,55 @@
-import { useState } from "react"
-import { IvStats } from "../Typescript/interfaces"
-
+import { useState } from 'react'
+import { IvStats } from '../Typescript/interfaces'
 
 export default function useHandleEvChange(defaultStats?: IvStats) {
+  const [ivs, setIvs] = useState({
+    hitpointsIv: defaultStats?.hitpointsIv ?? 31,
+    attackIv: defaultStats?.attackIv ?? 31,
+    defenseIv: defaultStats?.defenseIv ?? 31,
+    specialAttackIv: defaultStats?.specialAttackIv ?? 31,
+    specialDefenseIv: defaultStats?.specialDefenseIv ?? 31,
+    speedIv: defaultStats?.speedIv ?? 31,
+  })
 
-    const [ivs, setIvs] = useState({
-      hitpointsIv: defaultStats?.hitpointsIv ?? 31,
-      attackIv: defaultStats?.attackIv ?? 31,
-      defenseIv: defaultStats?.defenseIv ?? 31,
-      specialAttackIv:  defaultStats?.specialAttackIv ?? 31,
-      specialDefenseIv: defaultStats?.specialDefenseIv ?? 31,
-      speedIv: defaultStats?.speedIv ?? 31,
-    })
-  
   const decreaseIv = (currentStat: string) => {
-      if (ivs[currentStat as keyof IvStats] <= 0) return
-      
+    if (ivs[currentStat as keyof IvStats] <= 0) return
+
+    setIvs({
+      ...ivs,
+      [currentStat]: ivs[currentStat as keyof IvStats] - 1,
+    })
+  }
+
+  const increaseIv = (currentStat: string) => {
+    if (ivs[currentStat as keyof IvStats] >= 31) return
+
+    setIvs({
+      ...ivs,
+      [currentStat]: ivs[currentStat as keyof IvStats] + 1,
+    })
+  }
+
+  const handleIvChange = (value: number, currentStat: string) => {
+    if (value > 31) {
       setIvs({
         ...ivs,
-        [currentStat]: ivs[currentStat as keyof IvStats] - 1
+        [currentStat]: 31,
       })
+
+      return
     }
-  
-     const increaseIv = (currentStat: string) => {
-        if (ivs[currentStat as keyof IvStats] >= 31) return
-      
-        setIvs({
-          ...ivs,
-          [currentStat]: ivs[currentStat as keyof IvStats] + 1
-        })
+
+    if (value < 0) {
+      setIvs({
+        ...ivs,
+        [currentStat]: 0,
+      })
+
+      return
     }
-  
-     const handleIvChange = (value: number, currentStat: string) => {
-        if (value > 31){
-            setIvs({
-                ...ivs,
-                [currentStat]: 31
-              })
 
-              return
-        }
-
-        if (value < 0){
-            setIvs({
-                ...ivs,
-                [currentStat]: 0
-              })
-
-              return
-        }
-
-        setIvs({ ...ivs, [currentStat]: value })
-    }
-  
-    return { ivs, decreaseIv, increaseIv, handleIvChange }
+    setIvs({ ...ivs, [currentStat]: value })
   }
+
+  return { ivs, decreaseIv, increaseIv, handleIvChange }
+}

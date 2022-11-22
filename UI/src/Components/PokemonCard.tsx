@@ -4,11 +4,14 @@ import fetchSinglePokemon from '../Utils/fetch/Poke_Api/fetchSinglePokemon'
 import { formatString } from '../Utils/formatString'
 
 interface Props {
-  pokemonName?: string | number,
+  pokemonName?: string
   createdPokemonName?: string
 }
 
-export default function PokemonCard({ pokemonName, createdPokemonName }: Props) {
+export default function PokemonCard({
+  pokemonName,
+  createdPokemonName,
+}: Props) {
   const { data: pokemon, isLoading } = useQuery(['pokemon', pokemonName], () =>
     fetchSinglePokemon(pokemonName),
   )
@@ -19,7 +22,7 @@ export default function PokemonCard({ pokemonName, createdPokemonName }: Props) 
       {pokemon && (
         <div className="text-center mx-auto bg-slate-200 dark:bg-slate-700 p-4 rounded-2xl h-fit aspect-[4/5] max-w-[32rem]">
           <div className="aspect-square lg:w-full">
-            <img src={pokemon.sprites.front_default} className="h-full"/>
+            <img src={pokemon.sprites.front_default} className="h-full" />
           </div>
           <h3>{formatString(createdPokemonName ?? pokemon.name)}</h3>
           <div className="flex justify-center gap-2">

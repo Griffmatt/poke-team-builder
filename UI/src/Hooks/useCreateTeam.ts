@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { CreatedPokemon } from '../Typescript/interfaces'
 import { postTeam } from '../Utils/post/postTeam'
 
-
 export function useCreateTeam(userId?: number) {
   const navigate = useNavigate()
   const [selectedPokemon, setSelectedPokemon] = useState<CreatedPokemon[]>([])

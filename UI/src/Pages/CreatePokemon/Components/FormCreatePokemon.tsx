@@ -25,17 +25,21 @@ interface Props {
   heldItems: HeldItem[]
 }
 
-export default function FormCreatePokemon({
-  pokemon,
-  heldItems
-}: Props) {
+export default function FormCreatePokemon({ pokemon, heldItems }: Props) {
   const { currentUser } = useUserContext()
 
   const [name, setName] = useState<string>(formatString(pokemon.name))
-  const [ability, setAbility] = useState<string>(pokemon.abilities[0].ability.name)
+  const [ability, setAbility] = useState<string>(
+    pokemon.abilities[0].ability.name,
+  )
   const [nature, setNature] = useState<string>(natures[0])
   const [heldItem, setHeldItem] = useState<string>(heldItems[0].name)
-  const [moves, setMoves] = useState<string[]>([pokemon.moves[0].move.name, pokemon.moves[1].move.name, pokemon.moves[2].move.name, pokemon.moves[3].move.name,])
+  const [moves, setMoves] = useState<string[]>([
+    pokemon.moves[0].move.name,
+    pokemon.moves[1].move.name,
+    pokemon.moves[2].move.name,
+    pokemon.moves[3].move.name,
+  ])
 
   const { evs, decreaseEv, increaseEv, handleEvChange } = useHandleEvChange()
 
@@ -50,9 +54,9 @@ export default function FormCreatePokemon({
       moves: moves,
       stats: { ...evs, ...ivs },
       user_id: currentUser.id,
-      pokemon_name: pokemon.name
+      pokemon_name: pokemon.name,
     },
-    `${currentUser.id}`
+    `${currentUser.id}`,
   )
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {

@@ -7,11 +7,19 @@ import fetchUsersCreatedPokemon from '../../../Utils/fetch/Database/fetchUsersCr
 
 export default function CreateTeam() {
   const { currentUser } = useUserContext()
-  const { data: pokemonArr, isLoading } = useQuery(['usersPokemon', currentUser.id], () =>
-    fetchUsersCreatedPokemon(currentUser.id.toString())
+  const { data: pokemonArr, isLoading } = useQuery(
+    ['usersPokemon', currentUser.id],
+    () => fetchUsersCreatedPokemon(currentUser.id.toString()),
   )
 
-  const { addPokemonToTeam, removePokemonFromTeam, createTeam, selectedPokemon, teamName, setTeamName } = useCreateTeam(currentUser.id)
+  const {
+    addPokemonToTeam,
+    removePokemonFromTeam,
+    createTeam,
+    selectedPokemon,
+    teamName,
+    setTeamName,
+  } = useCreateTeam(currentUser.id)
   const filteredPokemonArr = pokemonArr?.filter(
     (pokemon) =>
       !selectedPokemon.some((pokemonOnTeam) => pokemon.id === pokemonOnTeam.id),
@@ -49,7 +57,10 @@ export default function CreateTeam() {
             )}
           </div>
         )}
-        <button className="p-3 bg-slate-200 dark:bg-slate-600 rounded-2xl" onClick={createTeam}>
+        <button
+          className="p-3 bg-slate-200 dark:bg-slate-600 rounded-2xl"
+          onClick={createTeam}
+        >
           Create Team
         </button>
       </div>
