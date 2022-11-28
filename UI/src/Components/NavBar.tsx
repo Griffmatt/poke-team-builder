@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import { useLoginModalContext } from '../Context/loginModalContext'
 import { useThemeContext } from '../Context/themeContext'
-import LoginModal from './LoginModal'
+import LoginModal from './LoginModal/LoginModal'
 
 export default function NavBar() {
   const { darkMode, handleDarkMode } = useThemeContext()
@@ -39,7 +39,7 @@ export default function NavBar() {
       <button onClick={() => setShowLoginModal(true)}>
         {user ? 'Logout' : 'Login'}
       </button>
-      <LoginModal/>
+      <LoginModal />
     </div>
   )
 }
