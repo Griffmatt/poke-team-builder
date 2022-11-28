@@ -10,6 +10,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import { ThemeContextProvider } from './Context/themeContext'
 import { UserContextProvider } from './Context/userContext'
+import { LoginModalContextProvider } from './Context/loginModalContext'
 
 export const queryClient = new QueryClient()
 
@@ -20,7 +21,9 @@ root.render(
       <QueryClientProvider client={queryClient}>
         <ThemeContextProvider>
           <UserContextProvider>
-            <App />
+            <LoginModalContextProvider>
+              <App/>
+            </LoginModalContextProvider>
           </UserContextProvider>
         </ThemeContextProvider>
       </QueryClientProvider>
