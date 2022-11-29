@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { useLoginModalContext } from '../../Context/loginModalContext'
+import checkUserNameAvailable from '../../Utils/fetch/Database/checkUserNameAvailable'
+import { postCreatedUser } from '../../Utils/post/postCreatedUser'
 
 type ClickEvent = React.MouseEvent<HTMLButtonElement, MouseEvent>
 
@@ -11,12 +13,22 @@ export default function CreateUserForm() {
 
   const { setShowLoginModal, setCreatingUser } = useLoginModalContext()
 
-  const handleCreateUser = (event: ClickEvent) => {
+  const handleCreateUser = async (event: ClickEvent) => {
     event.preventDefault()
 
-    if(password === passwordConfirm){
-        setShowLoginModal(false)
-    }
+    if(password !== passwordConfirm) return
+    if(password.length < 6) return
+    const userNameTaken = await checkUserNameAvailable(userName)
+    if(userNameTaken) return
+
+    setName('')
+    setUserName('')
+    setPassword('')
+    setPasswordConfirm('')
+    setShowLoginModal(false)
+    setCreatingUser(false)
+
+    postCreatedUser({name: name, user_name: userName, password: password, is_admin: false})
   }
 
   const handleCancel = (event: ClickEvent) => {
@@ -30,6 +42,7 @@ export default function CreateUserForm() {
       <input
         type="text"
         placeholder="Enter Name"
+        autoComplete='name'
         value={name}
         onChange={(event) => setName(event.target.value)}
       />

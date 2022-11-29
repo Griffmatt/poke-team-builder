@@ -26,12 +26,14 @@ export default function LoginForm() {
         <input
           type="text"
           placeholder="Enter Username"
+          autoComplete='name'
           value={userName}
           onChange={(event) => setUserName(event.target.value)}
         />
         <input
           type="password"
           placeholder="Enter Password"
+          autoComplete='current-password'
           value={password}
           onChange={(event) => setPassword(event.target.value)}
         />

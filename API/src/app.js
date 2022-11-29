@@ -15,6 +15,6 @@ app.use(cors())
 
 app.use('/pokemon', createdPokemonRoutes)
 app.use('/teams', teamsRoutes)
-app.use('/users', usersRoutes)
+app.use('/user', usersRoutes)
 
 module.exports = app
