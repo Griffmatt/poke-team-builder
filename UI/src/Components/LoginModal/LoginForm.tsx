@@ -45,20 +45,20 @@ export default function LoginForm() {
         onChange={(event) => setPassword(event.target.value)}
       />
       <button
-        className="w-full text-center font-semibold underline hover:text-slate-500"
+        className="w-full text-center font-semibold underline bg-transparent hover:text-light-secondary dark:hover:text-dark-secondary"
         onClick={() => setCreatingUser(true)}
       >
         Create An Account
       </button>
       <div className="flex justify-around">
         <button
-          className="rounded py-1 px-2 bg-slate-200"
+          className="rounded py-1 px-2"
           onClick={(event) => handleCancel(event)}
         >
           Cancel
         </button>
         <button
-          className="rounded py-1 px-2 bg-slate-200"
+          className="rounded py-1 px-2"
           onClick={(event) => handleLogin(event)}
         >
           Login

@@ -65,20 +65,20 @@ export default function CreateUserForm() {
         onChange={(event) => setPasswordConfirm(event.target.value)}
       />
       <button
-        className="w-full text-center font-semibold underline hover:text-slate-500"
+        className="w-full text-center font-semibold underline"
         onClick={() => setCreatingUser(false)}
       >
         Back To Login
       </button>
       <div className="flex justify-around">
         <button
-          className="rounded py-1 px-2 bg-slate-200"
+          className="rounded py-1 px-2"
           onClick={(event) => handleCancel(event)}
         >
           Cancel
         </button>
         <button
-          className="rounded py-1 px-2 bg-slate-200"
+          className="rounded py-1 px-2"
           onClick={(event) => handleCreateUser(event)}
         >
           Create

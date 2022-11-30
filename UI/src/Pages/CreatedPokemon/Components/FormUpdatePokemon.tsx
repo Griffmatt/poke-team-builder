@@ -68,7 +68,6 @@ export default function FormUpdatePokemon({
     event?.preventDefault()
     if (currentUser === null) return
     updateCreatedPokemonMutation.mutate()
-    console.log(updateCreatedPokemonMutation.isSuccess)
   }
 
   return (
@@ -148,7 +147,7 @@ export default function FormUpdatePokemon({
             <label className="flex flex-col" key={order}>
               {order} Move
               <select
-                className="text-black"
+                className="text-dark"
                 value={moves[index]}
                 onChange={(event) =>
                   setMoves([...moves, (moves[index] = event.target.value)])
@@ -184,7 +183,7 @@ export default function FormUpdatePokemon({
               {stat.name}
               <div className="flex gap-2 w-full">
                 <button
-                  className="bg-slate-200 dark:bg-slate-600 w-8 rounded-xl"
+                  className="w-8 rounded-xl"
                   onClick={() => decreaseEv(stat.evValue)}
                   type="button"
                 >
@@ -199,7 +198,7 @@ export default function FormUpdatePokemon({
                   }
                 />
                 <button
-                  className="bg-slate-200 dark:bg-slate-600 w-8 rounded-xl"
+                  className="w-8 rounded-xl"
                   onClick={() => increaseEv(stat.evValue)}
                   type="button"
                 >
@@ -218,7 +217,7 @@ export default function FormUpdatePokemon({
               {stat.name}
               <div className="flex gap-2 w-full">
                 <button
-                  className="bg-slate-200 dark:bg-slate-600 w-8 rounded-xl"
+                  className="w-8 rounded-xl"
                   onClick={() => decreaseIv(stat.ivValue)}
                   type="button"
                 >
@@ -233,7 +232,7 @@ export default function FormUpdatePokemon({
                   }
                 />
                 <button
-                  className="bg-slate-200 dark:bg-slate-600 w-8 rounded-xl"
+                  className="w-8 rounded-xl"
                   onClick={() => increaseIv(stat.ivValue)}
                   type="button"
                 >
@@ -245,7 +244,7 @@ export default function FormUpdatePokemon({
         })}
       </div>
       <button
-        className="bg-slate-200 dark:bg-slate-600 p-4 rounded-xl w-full md:col-span-2"
+        className="p-4 rounded-xl w-full md:col-span-2"
         type="submit"
       >
         Update Pokemon

@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useLoginModalContext } from '../Context/loginModalContext'
 import { useThemeContext } from '../Context/themeContext'
 import { useUserContext } from '../Context/userContext'
@@ -8,11 +8,14 @@ export default function NavBar() {
   const { darkMode, handleDarkMode } = useThemeContext()
   const { currentUser, setCurrentUser } = useUserContext()
 
+  const navigate = useNavigate()
+
   const { setShowLoginModal } = useLoginModalContext()
 
   const logoutUser = () => {
     setCurrentUser(null)
     localStorage.setItem("currentUser", JSON.stringify(null))
+    navigate('/')
   }
 
   return (
@@ -20,7 +23,7 @@ export default function NavBar() {
       <NavLink
         to="/"
         className={({ isActive }) =>
-          isActive ? 'border-b-2 border-black dark:border-white' : undefined
+          isActive ? 'border-b-2 border-dark dark:border-light' : undefined
         }
       >
         Home
@@ -28,7 +31,7 @@ export default function NavBar() {
       <NavLink
         to="/pokemon"
         className={({ isActive }) =>
-          isActive ? 'border-b-2 border-black dark:border-white' : undefined
+          isActive ? 'border-b-2 border-dark dark:border-light' : undefined
         }
       >
         Pokemon
@@ -36,16 +39,16 @@ export default function NavBar() {
       <NavLink
         to="/teams"
         className={({ isActive }) =>
-          isActive ? 'border-b-2 border-black dark:border-white' : undefined
+          isActive ? 'border-b-2 border-dark dark:border-light' : undefined
         }
       >
         Teams
       </NavLink>
-      <button onClick={handleDarkMode}>{darkMode ? 'Light' : 'Dark'}</button>
+      <button onClick={handleDarkMode} className="bg-transparent text-dark dark:text-light">{darkMode ? 'Light' : 'Dark'}</button>
       {currentUser ? (
-        <button onClick={logoutUser}>Logout</button>
+        <button onClick={logoutUser} className="bg-transparent text-dark dark:text-light">Logout</button>
       ) : (
-        <button onClick={() => setShowLoginModal(true)}>Login</button>
+        <button onClick={() => setShowLoginModal(true)} className="bg-transparent text-dark dark:text-light">Login</button>
       )}
       <LoginModal />
     </div>

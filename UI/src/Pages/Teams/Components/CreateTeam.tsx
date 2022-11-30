@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import LoadingSpinner from '../../../Components/LoadingSpinner'
 import PokemonCard from '../../../Components/PokemonCard'
 import PokemonGrid from '../../../Components/PokemonGrid'
 import { useUserContext } from '../../../Context/userContext'
@@ -25,7 +26,7 @@ export default function CreateTeam() {
       !selectedPokemon.some((pokemonOnTeam) => pokemon.id === pokemonOnTeam.id),
   )
 
-  if (isLoading) return <div></div>
+  if (isLoading) return <LoadingSpinner/>
 
   return (
     <div className="grid gap-4">
@@ -37,7 +38,7 @@ export default function CreateTeam() {
           onChange={(event) => setTeamName(event?.target.value)}
         />
         {pokemonArr && (
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
+          <PokemonGrid>
             {selectedPokemon.length === 0 ? (
               <div className="w-full aspect-[4/5]"></div>
             ) : (
@@ -45,6 +46,7 @@ export default function CreateTeam() {
                 return (
                   <div
                     key={pokemon.id}
+                    className="p-2"
                     onClick={() => removePokemonFromTeam(pokemon.id)}
                   >
                     <PokemonCard
@@ -55,16 +57,16 @@ export default function CreateTeam() {
                 )
               })
             )}
-          </div>
+          </PokemonGrid>
         )}
         <button
-          className="p-3 bg-slate-200 dark:bg-slate-600 rounded-2xl"
+          className="p-3 rounded-2xl"
           onClick={createTeam}
         >
           Create Team
         </button>
       </div>
-      <h1>Griffin's Pokemon</h1>
+      <h1>{currentUser?.name}'s Pokemon</h1>
       {pokemonArr && (
         <PokemonGrid>
           {filteredPokemonArr?.map((pokemon) => {

@@ -14,7 +14,7 @@ export default function CreatedPokemon() {
           <Link
             to={'/pokemon'}
             className={`${
-              userId ? '' : 'border-b-2 border-black dark:border-white'
+              userId ? '' : 'border-b-2 border-dark dark:border-light'
             }`}
           >
             Create Pokemon
@@ -22,7 +22,7 @@ export default function CreatedPokemon() {
           <Link
             to={`/pokemon/${currentUser.id}`}
             className={`${
-              userId ? 'border-b-2 border-black dark:border-white' : ''
+              userId ? 'border-b-2 border-dark dark:border-light' : ''
             }`}
           >
             Your Pokemon

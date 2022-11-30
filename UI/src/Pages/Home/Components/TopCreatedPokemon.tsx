@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import LoadingSpinner from '../../../Components/LoadingSpinner'
 
 import PokemonCard from '../../../Components/PokemonCard'
 import PokemonGrid from '../../../Components/PokemonGrid'
@@ -11,7 +12,7 @@ export default function CreatedPokemon() {
     fetchAllCreatedPokemon,
   )
 
-  if (isLoading) return <div></div>
+  if (isLoading) return <LoadingSpinner/>
   return (
     <div className="grid gap-4">
       <h1>Top Created pokemon</h1>

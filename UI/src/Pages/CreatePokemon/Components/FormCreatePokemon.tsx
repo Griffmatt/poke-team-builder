@@ -100,7 +100,7 @@ export default function FormCreatePokemon({ pokemon, heldItems }: Props) {
         <label className="flex flex-col">
           Nature
           <select
-            className="text-black"
+            className="text-dark"
             onChange={(event) => setNature(event.target.value)}
             value={nature}
           >
@@ -142,7 +142,7 @@ export default function FormCreatePokemon({ pokemon, heldItems }: Props) {
             <label className="flex flex-col" key={order}>
               {order} Move
               <select
-                className="text-black"
+                className="text-dark"
                 value={moves[index]}
                 onChange={(event) =>
                   setMoves([...moves, (moves[index] = event.target.value)])
@@ -178,7 +178,7 @@ export default function FormCreatePokemon({ pokemon, heldItems }: Props) {
               {stat.name}
               <div className="flex gap-2 w-full">
                 <button
-                  className="bg-slate-200 dark:bg-slate-600 w-8 rounded-xl"
+                  className="w-8 rounded-xl"
                   onClick={() => decreaseEv(stat.evValue)}
                   type="button"
                 >
@@ -193,7 +193,7 @@ export default function FormCreatePokemon({ pokemon, heldItems }: Props) {
                   }
                 />
                 <button
-                  className="bg-slate-200 dark:bg-slate-600 w-8 rounded-xl"
+                  className="w-8 rounded-xl"
                   onClick={() => increaseEv(stat.evValue)}
                   type="button"
                 >
@@ -212,7 +212,7 @@ export default function FormCreatePokemon({ pokemon, heldItems }: Props) {
               {stat.name}
               <div className="flex gap-2 w-full">
                 <button
-                  className="bg-slate-200 dark:bg-slate-600 w-8 rounded-xl"
+                  className="w-8 rounded-xl"
                   onClick={() => decreaseIv(stat.ivValue)}
                   type="button"
                 >
@@ -227,7 +227,7 @@ export default function FormCreatePokemon({ pokemon, heldItems }: Props) {
                   }
                 />
                 <button
-                  className="bg-slate-200 dark:bg-slate-600 w-8 rounded-xl"
+                  className="w-8 rounded-xl"
                   onClick={() => increaseIv(stat.ivValue)}
                   type="button"
                 >
@@ -239,7 +239,7 @@ export default function FormCreatePokemon({ pokemon, heldItems }: Props) {
         })}
       </div>
       <button
-        className="bg-slate-200 dark:bg-slate-600 p-4 rounded-xl w-full md:col-span-2"
+        className="p-4 rounded-xl w-full md:col-span-2"
         type="submit"
       >
         Create Pokemon

@@ -24,7 +24,6 @@ interface Data {
 export default function useUpdateCreatedPokemon(pokemon: Data, pokemonId?: string) {
     const navigate = useNavigate()
   async function updateCreatedPokemon() {
-    console.log(pokemonId)
     const response = await axios.post<Data>(
       `${url}/pokemon/update/${pokemonId}`,
       pokemon,
@@ -56,7 +55,7 @@ export default function useUpdateCreatedPokemon(pokemon: Data, pokemonId?: strin
       )
 
       const previousCreatedPokemon= queryClient.getQueryData(['usersPokemon', pokemon.user_id.toString()]) as CreatedPokemon[]
-      if(previousCreatedPokemon.length > 0){
+      if(previousCreatedPokemon?.length > 0){
         const filterPrevious = previousCreatedPokemon.filter(previousPokemon => previousPokemon.id !== Number(pokemonId))
         queryClient.setQueryData(['usersPokemon', pokemon.user_id.toString()], [...filterPrevious, {...pokemon, id: Number(pokemonId)}])
         return { previousCreatedPokemon, previousPokemon }

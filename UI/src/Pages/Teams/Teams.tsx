@@ -14,7 +14,7 @@ export default function Teams() {
           <Link
             to={`/teams`}
             className={`${
-              userId ? '' : 'border-b-2 border-black dark:border-white'
+              userId ? '' : 'border-b-2 border-dark dark:border-light'
             }`}
           >
             Create Team
@@ -22,7 +22,7 @@ export default function Teams() {
           <Link
             to={`/teams/${currentUser.id}`}
             className={`${
-              userId ? 'border-b-2 border-black dark:border-white' : ''
+              userId ? 'border-b-2 border-dark dark:border-light' : ''
             }`}
           >
             Your Teams
