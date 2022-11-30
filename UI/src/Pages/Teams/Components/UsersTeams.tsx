@@ -16,7 +16,7 @@ export default function UsersTeams() {
 
   return (
     <div className="grid gap-6">
-      <h1>{currentUser.name}'s Teams</h1>
+      <h1>{currentUser?.name}'s Teams</h1>
       {pokeArr && <DisplayTeams pokeArr={pokeArr} />}
     </div>
   )

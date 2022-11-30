@@ -1,13 +1,19 @@
 import { NavLink } from 'react-router-dom'
 import { useLoginModalContext } from '../Context/loginModalContext'
 import { useThemeContext } from '../Context/themeContext'
+import { useUserContext } from '../Context/userContext'
 import LoginModal from './LoginModal/LoginModal'
 
 export default function NavBar() {
   const { darkMode, handleDarkMode } = useThemeContext()
-  const user = false
+  const { currentUser, setCurrentUser } = useUserContext()
 
   const { setShowLoginModal } = useLoginModalContext()
+
+  const logoutUser = () => {
+    setCurrentUser(null)
+    localStorage.setItem("currentUser", JSON.stringify(null))
+  }
 
   return (
     <div className="flex justify-around p-3 max-w-[40rem] mx-auto">
@@ -36,9 +42,11 @@ export default function NavBar() {
         Teams
       </NavLink>
       <button onClick={handleDarkMode}>{darkMode ? 'Light' : 'Dark'}</button>
-      <button onClick={() => setShowLoginModal(true)}>
-        {user ? 'Logout' : 'Login'}
-      </button>
+      {currentUser ? (
+        <button onClick={logoutUser}>Logout</button>
+      ) : (
+        <button onClick={() => setShowLoginModal(true)}>Login</button>
+      )}
       <LoginModal />
     </div>
   )

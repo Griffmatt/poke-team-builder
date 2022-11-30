@@ -9,6 +9,14 @@ const getUser = (req, res) => {
   })
 }
 
+const loginUser = (req, res) => {
+  const { user_name, password } = req.body
+  pool.query(queries.loginUser, [user_name, password], (error, results) => {
+    if (error) throw error
+    res.status(200).json(results.rows)
+  })
+}
+
 const createUser = (req, res) => {
   const { name, user_name, password, is_admin } = req.body
   pool.query(
@@ -36,5 +44,6 @@ const checkUserName = (req, res) => {
 module.exports = {
   getUser,
   createUser,
+  loginUser,
   checkUserName
 }

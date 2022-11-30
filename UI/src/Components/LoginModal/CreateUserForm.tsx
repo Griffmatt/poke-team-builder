@@ -28,7 +28,7 @@ export default function CreateUserForm() {
     setShowLoginModal(false)
     setCreatingUser(false)
 
-    postCreatedUser({name: name, user_name: userName, password: password, is_admin: false})
+    postCreatedUser({name: name, user_name: userName.toLowerCase(), password: password, is_admin: false})
   }
 
   const handleCancel = (event: ClickEvent) => {

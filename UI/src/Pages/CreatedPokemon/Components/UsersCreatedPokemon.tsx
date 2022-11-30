@@ -17,7 +17,7 @@ export default function UsersCreatedPokemon() {
   if (isLoading) return <div></div>
   return (
     <>
-      <h1>{currentUser.name}'s Pokemon</h1>
+      <h1>{currentUser?.name}'s Pokemon</h1>
       {pokemonArr && (
         <PokemonGrid>
           {[...pokemonArr].reverse().map((pokemon) => {

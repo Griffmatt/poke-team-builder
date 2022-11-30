@@ -3,7 +3,7 @@ import { CreatedPokemon } from '../../../Typescript/interfaces'
 
 const url = import.meta.env.VITE_BASE_URL
 
-export default async function fetchAllCreatedPokemon(createdPokemonId?: string) {
+export default async function fetchCreatedPokemon(createdPokemonId?: string) {
   const response = await axios.get<CreatedPokemon[]>(`${url}/pokemon/${createdPokemonId}`)
   return response.data[0]
 }

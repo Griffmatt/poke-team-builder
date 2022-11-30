@@ -67,7 +67,7 @@ export default function TeamRow({ team }: Props) {
               <h2>{team.team_name}</h2>
               <h2>{teamsUser.name}</h2>
             </div>
-            {Number(userId) === currentUser.id ? (
+            {Number(userId) === currentUser?.id ? (
               <button
                 className="bg-slate-200 dark:bg-slate-600 py-2 px-4 rounded-2xl"
                 onClick={() => setShowDeleteModal(true)}

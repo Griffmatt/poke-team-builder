@@ -1,41 +1,40 @@
-import {
-    createContext,
-    ReactNode,
-    useContext,
-    useState
-  } from 'react'
-  
-  interface User{
-    id: number,
-    name: string,
-    userName: string
-  }
+import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 
-  interface Context {
-    currentUser: User
-  }
-  interface Props {
-    children: ReactNode
-  }
-  
-  const UserContext = createContext({} as Context)
-  
-  export function useUserContext() {
-    return useContext(UserContext)
-  }
-  
-  export function UserContextProvider({ children }: Props) {
-    const [currentUser] = useState({
-        id: 1,
-        name:"text_user",
-        userName:"test_user"
+interface User {
+  id: number
+  name: string
+  user_name: string
+  is_admin: boolean
+}
 
-    })
-  
-    return (
-      <UserContext.Provider value={{ currentUser }}>
-        {children}
-      </UserContext.Provider>
-    )
-  }
-  
+interface Context {
+  currentUser: User | null
+  setCurrentUser: React.Dispatch<
+    React.SetStateAction<User | null>
+  >
+}
+interface Props {
+  children: ReactNode
+}
+
+const UserContext = createContext({} as Context)
+
+export function useUserContext() {
+  return useContext(UserContext)
+}
+
+export function UserContextProvider({ children }: Props) {
+  const [currentUser, setCurrentUser] = useState<User | null>(null)
+
+  useEffect(() => {
+    const user = localStorage.getItem("currentUser")
+    if(user === null) return
+    setCurrentUser(JSON.parse(user))
+  }, [])
+
+  return (
+    <UserContext.Provider value={{ currentUser, setCurrentUser }}>
+      {children}
+    </UserContext.Provider>
+  )
+}
