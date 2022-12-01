@@ -7,8 +7,8 @@ export default function LoginModal() {
 
   return (
     <div
-      className={`fixed top-0 left-0  w-screen h-screen place-items-center bg-dark/50 dark:bg-dark/25 ${
-        showLoginModal ? 'grid' : 'hidden'
+      className={`fixed top-0 left-0  w-screen h-screen place-items-center bg-dark/50 dark:bg-light/5 ${
+        showLoginModal ? 'grid grid-rows-3' : 'hidden'
       }`}
       onClick={() => setShowLoginModal(false)}
     >

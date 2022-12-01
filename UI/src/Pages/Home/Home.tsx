@@ -1,4 +1,4 @@
-import TopCreatedPokemon from './Components/TopCreatedPokemon'
+import TopCreatedPokemon from './Components/MostUsedPokemon'
 import TopTeams from './Components/TopTeams'
 
 export default function Home() {
