@@ -27,7 +27,7 @@ export default function useHandleEvChange(defaultStats?: EvStats) {
     for (const stat in evs) {
       total += evs[stat as keyof EvStats]
     }
-    if (total > 510 || evs[currentStat as keyof EvStats] + 4 > 252) return
+    if (total > 511 || evs[currentStat as keyof EvStats] + 4 > 255) return
     setEvs({
       ...evs,
       [currentStat]:
@@ -47,7 +47,8 @@ export default function useHandleEvChange(defaultStats?: EvStats) {
       total -= evs[stat as keyof EvStats]
     }
 
-    if (value > total || value > 252) {
+    if (value > total || value >= 252) {
+      console.log(value)
       setEvs({ ...evs, [currentStat]: Math.min(252, total) })
       return
     }

@@ -5,6 +5,8 @@ import PokemonCard from '../../../Components/PokemonCard'
 import PokemonGrid from '../../../Components/PokemonGrid'
 
 import fetchAllCreatedPokemon from '../../../Utils/fetch/Database/fetchAllCreatedPokemon'
+import { formatPercentage } from '../../../Utils/formatPercentage'
+import { formatPokemonData } from '../../../Utils/formatPokemonData'
 
 export default function MostUsedPokemon() {
   const { data: pokemonArr, isLoading } = useQuery(
@@ -12,30 +14,9 @@ export default function MostUsedPokemon() {
     fetchAllCreatedPokemon,
   )
 
-  const formatPokemonData = () => {
-    const pokemonNameMap = new Map<string, number>()
-    let pokemonCounted = [] as { name: string, amount: number}[]
+  const { pokemonData, totalPokemon} = formatPokemonData(pokemonArr ?? [])
 
-    pokemonArr?.forEach((pokemon) => {
-      const pokemonValue = pokemonNameMap.get(pokemon.pokemon_name)
-      pokemonNameMap.set(pokemon.pokemon_name, (pokemonValue ?? 0) + 1)
-    })
 
-    pokemonNameMap.forEach((value, key) =>{
-      pokemonCounted = [...pokemonCounted, { name: key, amount: value}]
-    })
-
-    const totalPokemon = pokemonCounted.reduce((a, b) => a + b.amount, 0) 
-    const pokemonData = pokemonCounted.sort((a, b) => b.amount - a.amount)
-    return {pokemonData, totalPokemon}
-  }
-
-  const { pokemonData, totalPokemon} = formatPokemonData()
-
-  const formatPercentage = (amount: number, total: number) => {
-    const percentage = (amount/total)*100
-    return percentage.toFixed(2)
-  }
 
   return (
     <div className="grid gap-4">
