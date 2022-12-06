@@ -14,7 +14,7 @@ export default function MostUsedPokemon() {
 
   return (
     <div className="grid gap-4">
-      <h1>Top Created pokemon</h1>
+      <h1>Most Used pokemon</h1>
       {isLoading ? (
         <LoadingSpinner />
       ) : (
@@ -25,7 +25,7 @@ export default function MostUsedPokemon() {
                 <div key={pokemon.id} className="p-2">
                   <PokemonCard
                     pokemonName={pokemon.pokemon_name}
-                    createdPokemonName={pokemon.name}
+                    amount={0}
                   />
                 </div>
               )

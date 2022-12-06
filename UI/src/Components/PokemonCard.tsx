@@ -7,11 +7,13 @@ import LoadingSpinner from './LoadingSpinner'
 interface Props {
   pokemonName?: string
   createdPokemonName?: string
+  amount?:number
 }
 
 export default function PokemonCard({
   pokemonName,
   createdPokemonName,
+  amount
 }: Props) {
   const { data: pokemon, isLoading } = useQuery(['pokemon', pokemonName], () =>
     fetchSinglePokemon(pokemonName),
@@ -26,7 +28,7 @@ export default function PokemonCard({
           </div>
           <h3>{formatString(createdPokemonName ?? pokemon.name)}</h3>
           <div className="flex justify-center gap-2">
-            {pokemon.types.map((type) => {
+            {amount !== undefined ? "percentage" : pokemon.types.map((type) => {
               return (
                 <h4 key={type.type.name}>{formatString(type.type.name)}</h4>
               )
