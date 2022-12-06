@@ -7,7 +7,7 @@ import LoadingSpinner from './LoadingSpinner'
 interface Props {
   pokemonName?: string
   createdPokemonName?: string
-  amount?:number
+  amount?:string
 }
 
 export default function PokemonCard({
@@ -28,7 +28,7 @@ export default function PokemonCard({
           </div>
           <h3>{formatString(createdPokemonName ?? pokemon.name)}</h3>
           <div className="flex justify-center gap-2">
-            {amount !== undefined ? "percentage" : pokemon.types.map((type) => {
+            {amount !== undefined ? `${amount}%` : pokemon.types.map((type) => {
               return (
                 <h4 key={type.type.name}>{formatString(type.type.name)}</h4>
               )
