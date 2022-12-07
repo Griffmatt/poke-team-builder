@@ -12,6 +12,7 @@ import { useUserContext } from '../../../Context/userContext'
 import PokemonCard from '../../../Components/PokemonCard'
 import useHandleEvChange from '../../../Hooks/useHandleEvChange'
 import useHandleIvChange from '../../../Hooks/useHandleIvChange'
+import { useLoginModalContext } from '../../../Context/loginModalContext'
 
 import {
   HeldItem,
@@ -34,6 +35,7 @@ export default function FormCreatePokemon({ pokemon, heldItems }: Props) {
   )
   const [nature, setNature] = useState<string>(natures[0])
   const [heldItem, setHeldItem] = useState<string>(heldItems[0].name)
+
   const [moves, setMoves] = useState<string[]>([
     pokemon.moves[0].move.name,
     pokemon.moves[1].move.name,
@@ -44,6 +46,8 @@ export default function FormCreatePokemon({ pokemon, heldItems }: Props) {
   const { evs, decreaseEv, increaseEv, handleEvChange } = useHandleEvChange()
 
   const { ivs, decreaseIv, increaseIv, handleIvChange } = useHandleIvChange()
+
+  const { setShowLoginModal } = useLoginModalContext()
 
   const postCreatedPokemonMutation = usePostCreatedPokemon(
     {
@@ -61,7 +65,9 @@ export default function FormCreatePokemon({ pokemon, heldItems }: Props) {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event?.preventDefault()
-    if (currentUser === null) return
+    if (currentUser === null) {
+      setShowLoginModal(true)
+    }
     postCreatedPokemonMutation.mutate()
   }
 
@@ -236,12 +242,11 @@ export default function FormCreatePokemon({ pokemon, heldItems }: Props) {
           )
         })}
       </div>
-      <button
-        className="p-4 rounded-xl w-full md:col-span-2"
-        type="submit"
-      >
+      <button className="p-4 rounded-xl w-full md:col-span-2" type="submit">
         Create Pokemon
       </button>
     </form>
   )
 }
+
+

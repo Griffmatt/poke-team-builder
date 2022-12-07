@@ -15,7 +15,7 @@ export default function DeleteTeamModal({ name, teamId, showDeleteModal, setShow
     
     return (
       <div
-        className={`fixed top-0 left-0  w-screen h-screen place-items-center bg-dark/50 dark:bg-light/5  ${
+        className={`fixed top-0 left-0  w-screen h-screen place-items-center bg-dark/50 dark:bg-light/5 z-50 ${
           showDeleteModal ? 'grid grid-rows-3' : 'hidden'
         }`}
         onClick={() => setShowDeleteModal(false)}
