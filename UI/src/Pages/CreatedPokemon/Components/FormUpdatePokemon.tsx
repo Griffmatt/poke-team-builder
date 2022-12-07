@@ -191,7 +191,6 @@ export default function FormUpdatePokemon({
                 </button>
                 <input
                   className="w-full"
-                  type="number"
                   value={evs[stat.evValue as keyof EvStats]}
                   onChange={(event) =>
                     handleEvChange(Number(event.target.value), stat.evValue)
@@ -225,7 +224,6 @@ export default function FormUpdatePokemon({
                 </button>
                 <input
                   className="w-full"
-                  type="number"
                   value={ivs[stat.ivValue as keyof IvStats]}
                   onChange={(event) =>
                     handleIvChange(Number(event.target.value), stat.ivValue)
