@@ -37,6 +37,7 @@ export default function useHandleEvChange(defaultStats?: EvStats) {
   }
 
   const handleEvChange = (value: number, currentStat: string) => {
+    if(isNaN(value)) return
     let total = 510
     if (value < 0) {
       setEvs({ ...evs, [currentStat]: 0 })

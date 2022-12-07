@@ -30,6 +30,7 @@ export default function useHandleEvChange(defaultStats?: IvStats) {
   }
 
   const handleIvChange = (value: number, currentStat: string) => {
+    if(isNaN(value)) return
     if (value > 31) {
       setIvs({
         ...ivs,
