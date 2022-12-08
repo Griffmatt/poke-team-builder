@@ -16,4 +16,4 @@ const pool = new Pool({
   port: 6302
 })
 
-module.exports = pool
+module.exports = devPool

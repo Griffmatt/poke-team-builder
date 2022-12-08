@@ -45,7 +45,7 @@ export default function LoginForm() {
         onChange={(event) => setPassword(event.target.value)}
       />
       <button
-        className="w-full text-center font-semibold underline bg-transparent hover:text-light-secondary dark:hover:text-dark-secondary"
+        className="w-full text-center font-semibold underline bg-transparent text-dark dark:text-light hover:text-dark-secondary/75 dark:hover:text-light-secondary/75"
         onClick={() => setCreatingUser(true)}
       >
         Create An Account

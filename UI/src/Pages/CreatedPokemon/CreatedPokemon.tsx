@@ -1,7 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import { useUserContext } from '../../Context/userContext'
 import CreatePokemonGrid from './Components/CreatePokemonGrid'
-import UsersCreatedPokemon from './Components/UsersCreatedPokemon'
 
 export default function CreatedPokemon() {
   const { userId } = useParams()
@@ -29,7 +28,7 @@ export default function CreatedPokemon() {
           </Link>
         </div>
       ) : null}
-      {userId ? <UsersCreatedPokemon /> : <CreatePokemonGrid />}
+      {userId ? null : <CreatePokemonGrid />}
     </>
   )
 }

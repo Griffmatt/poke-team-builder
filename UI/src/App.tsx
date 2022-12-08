@@ -8,7 +8,7 @@ import Team from './Pages/Team'
 import NavBar from './Components/NavBar'
 import CreatePokemon from './Pages/CreatePokemon/CreatePokemon'
 import CreatedPokemon from './Pages/CreatedPokemon/CreatedPokemon'
-import UpdatePokemon from './Pages/CreatedPokemon/Components/UpdatePokemon'
+import UpdatePokemon from './Pages/Profile/Components/UpdatePokemon'
 
 export default function App() {
   return (
