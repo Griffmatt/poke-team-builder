@@ -23,7 +23,7 @@ export default function SideNavBar({ user }: Props) {
       <NavLink to={''}>Pokemon</NavLink>
       <NavLink to={''}>Teams</NavLink>
       <DarkModeButton />
-      {currentUser ? <button onClick={logoutUser} className="bg-transparent text-dark dark:text-light">LogOut</button> : null}
+      {currentUser?.id === user.id ? <button onClick={logoutUser} className="bg-transparent text-dark dark:text-light">LogOut</button> : null}
     </>
   )
 }

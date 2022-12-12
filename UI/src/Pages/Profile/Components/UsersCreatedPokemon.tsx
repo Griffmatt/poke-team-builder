@@ -4,13 +4,15 @@ import LoadingSpinner from '../../../Components/UI/LoadingSpinner'
 
 import PokemonCard from '../../../Components/PokemonCard'
 import PokemonGrid from '../../../Components/PokemonGrid'
-import { useUserContext } from '../../../Context/userContext'
-
 import fetchUsersCreatedPokemon from '../../../Utils/fetch/Database/fetchUsersCreatedPokemon'
+import { User } from '../../../Typescript/interfaces'
 
-export default function UsersCreatedPokemon() {
+interface Props {
+  user: User
+}
+
+export default function UsersCreatedPokemon({user}: Props) {
   const { userId } = useParams()
-  const { currentUser } = useUserContext()
   const { data: pokemonArr, isLoading } = useQuery(
     ['usersPokemon', userId],
     () => fetchUsersCreatedPokemon(userId),
@@ -18,7 +20,7 @@ export default function UsersCreatedPokemon() {
   if (isLoading) return <LoadingSpinner />
   return (
     <>
-      <h1>{currentUser?.name}'s Pokemon</h1>
+      <h1>{user?.name}'s Pokemon</h1>
       {pokemonArr && (
         <PokemonGrid>
           {[...pokemonArr].reverse().map((pokemon) => {

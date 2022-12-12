@@ -21,7 +21,7 @@ export default function UserProfile() {
       <div className="w-1/4 flex flex-col gap-2 text-center">
         <SideNavBar user={user}/>
       </div>
-      <div className="w-3/4"><UsersTeams /> <UsersCreatedPokemon/></div>
+      <div className="w-3/4"><UsersTeams user={user}/> <UsersCreatedPokemon user={user}/></div>
     </div>: null}
     </>
   )
