@@ -36,6 +36,13 @@ export interface CreatedPokemon {
   }
 }
 
+export interface User{
+  id: number
+  name: string
+  user_name: string
+  is_admin: boolean
+}
+
 export interface UsersCreatedTeam {
   id: number
   user_id: number

@@ -1,22 +1,14 @@
-import { Link, NavLink, useNavigate } from 'react-router-dom'
+import {  NavLink } from 'react-router-dom'
 import { useLoginModalContext } from '../Context/loginModalContext'
-import { useThemeContext } from '../Context/themeContext'
 import { useUserContext } from '../Context/userContext'
 import LoginModal from './LoginModal/LoginModal'
+import DarkModeButton from './UI/DarkModeButton'
 
 export default function NavBar() {
-  const { darkMode, handleDarkMode } = useThemeContext()
-  const { currentUser, setCurrentUser } = useUserContext()
+  const { currentUser } = useUserContext()
 
-  const navigate = useNavigate()
 
   const { setShowLoginModal } = useLoginModalContext()
-
-  const logoutUser = () => {
-    setCurrentUser(null)
-    localStorage.setItem("currentUser", JSON.stringify(null))
-    navigate('/')
-  }
 
   return (
     <div className="flex justify-around p-3 max-w-[40rem] mx-auto">
@@ -44,11 +36,25 @@ export default function NavBar() {
       >
         Teams
       </NavLink>
-      <button onClick={handleDarkMode} className="bg-transparent text-dark dark:text-light">{darkMode ? 'Light' : 'Dark'}</button>
+      {currentUser ? null : (
+      <DarkModeButton />
+      )}
       {currentUser ? (
-        <Link className="bg-transparent text-dark dark:text-light" to={`/user-profile/${currentUser.id}`}>Profile</Link>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? 'border-b-2 border-dark dark:border-light' : undefined
+          }
+          to={`/user-profile/${currentUser.id}`}
+        >
+          Profile
+        </NavLink>
       ) : (
-        <button onClick={() => setShowLoginModal(true)} className="bg-transparent text-dark dark:text-light">Login</button>
+        <button
+          onClick={() => setShowLoginModal(true)}
+          className="bg-transparent text-dark dark:text-light"
+        >
+          Login
+        </button>
       )}
       <LoginModal />
     </div>

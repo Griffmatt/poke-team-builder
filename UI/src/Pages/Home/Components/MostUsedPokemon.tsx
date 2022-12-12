@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import LoadingSpinner from '../../../Components/LoadingSpinner'
+import LoadingSpinner from '../../../Components/UI/LoadingSpinner'
 
 import PokemonCard from '../../../Components/PokemonCard'
 import PokemonGrid from '../../../Components/PokemonGrid'
@@ -14,9 +14,7 @@ export default function MostUsedPokemon() {
     fetchAllCreatedPokemon,
   )
 
-  const { pokemonData, totalPokemon} = formatPokemonData(pokemonArr ?? [])
-
-
+  const { pokemonData, totalPokemon } = formatPokemonData(pokemonArr ?? [])
 
   return (
     <div className="grid gap-4">
@@ -29,7 +27,10 @@ export default function MostUsedPokemon() {
             {pokemonData.slice(0, 6).map((pokemon) => {
               return (
                 <div key={pokemon.name} className="p-2">
-                  <PokemonCard pokemonName={pokemon.name} amount={formatPercentage(pokemon.amount, totalPokemon)} />
+                  <PokemonCard
+                    pokemonName={pokemon.name}
+                    amount={formatPercentage(pokemon.amount, totalPokemon)}
+                  />
                 </div>
               )
             })}

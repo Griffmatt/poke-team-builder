@@ -1,6 +1,6 @@
 import { useQueries } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
-import LoadingSpinner from '../../Components/LoadingSpinner'
+import LoadingSpinner from '../../Components/UI/LoadingSpinner'
 
 import fetchHeldItems from '../../Utils/fetch/Poke_Api/fetchHeldItems'
 import fetchSinglePokemon from '../../Utils/fetch/Poke_Api/fetchSinglePokemon'
@@ -27,7 +27,7 @@ export default function CreatePokemon() {
   const pokemon = results[0].data
   const heldItems = results[1].data
 
-  if (results[0].isLoading) return <LoadingSpinner/>
+  if (results[0].isLoading) return <LoadingSpinner />
 
   return (
     <>

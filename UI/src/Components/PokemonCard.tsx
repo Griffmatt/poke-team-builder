@@ -2,23 +2,28 @@ import { useQuery } from '@tanstack/react-query'
 
 import fetchSinglePokemon from '../Utils/fetch/Poke_Api/fetchSinglePokemon'
 import { formatString } from '../Utils/formatString'
-import LoadingSpinner from './LoadingSpinner'
+import LoadingSpinner from './UI/LoadingSpinner'
 
 interface Props {
   pokemonName?: string
   createdPokemonName?: string
-  amount?:string
+  amount?: string
 }
 
 export default function PokemonCard({
   pokemonName,
   createdPokemonName,
-  amount
+  amount,
 }: Props) {
   const { data: pokemon, isLoading } = useQuery(['pokemon', pokemonName], () =>
     fetchSinglePokemon(pokemonName),
   )
-  if (isLoading) return <div className="text-center mx-auto p-4 rounded-2xl w-full  aspect-[4/5] max-w-[32rem]"><LoadingSpinner/></div>
+  if (isLoading)
+    return (
+      <div className="text-center mx-auto p-4 rounded-2xl w-full  aspect-[4/5] max-w-[32rem]">
+        <LoadingSpinner />
+      </div>
+    )
   return (
     <>
       {pokemon && (
@@ -28,11 +33,13 @@ export default function PokemonCard({
           </div>
           <h3>{formatString(createdPokemonName ?? pokemon.name)}</h3>
           <div className="flex justify-center gap-2">
-            {amount !== undefined ? `${amount}%` : pokemon.types.map((type) => {
-              return (
-                <h4 key={type.type.name}>{formatString(type.type.name)}</h4>
-              )
-            })}
+            {amount !== undefined
+              ? `${amount}%`
+              : pokemon.types.map((type) => {
+                  return (
+                    <h4 key={type.type.name}>{formatString(type.type.name)}</h4>
+                  )
+                })}
           </div>
         </div>
       )}

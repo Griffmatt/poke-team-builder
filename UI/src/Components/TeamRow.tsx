@@ -5,7 +5,7 @@ import { useUserContext } from '../Context/userContext'
 import { UsersCreatedTeam } from '../Typescript/interfaces'
 import fetchUser from '../Utils/fetch/Database/fetchUser'
 import { useState } from 'react'
-import LoadingSpinner from './LoadingSpinner'
+import LoadingSpinner from './UI/LoadingSpinner'
 import DeleteTeamModal from './DeleteTeamModal'
 
 interface Props {
@@ -22,8 +22,7 @@ export default function TeamRow({ team }: Props) {
     fetchUser(team.user_id),
   )
 
-
-  if (isLoading) return <LoadingSpinner/>
+  if (isLoading) return <LoadingSpinner />
 
   return (
     <>
@@ -57,7 +56,12 @@ export default function TeamRow({ team }: Props) {
           </div>
         </div>
       )}
-      <DeleteTeamModal name={team.team_name} teamId={team.id} showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal}/>
+      <DeleteTeamModal
+        name={team.team_name}
+        teamId={team.id}
+        showDeleteModal={showDeleteModal}
+        setShowDeleteModal={setShowDeleteModal}
+      />
     </>
   )
 }

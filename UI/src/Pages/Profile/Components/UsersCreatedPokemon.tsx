@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link, useParams } from 'react-router-dom'
-import LoadingSpinner from '../../../Components/LoadingSpinner'
+import LoadingSpinner from '../../../Components/UI/LoadingSpinner'
 
 import PokemonCard from '../../../Components/PokemonCard'
 import PokemonGrid from '../../../Components/PokemonGrid'
@@ -15,7 +15,7 @@ export default function UsersCreatedPokemon() {
     ['usersPokemon', userId],
     () => fetchUsersCreatedPokemon(userId),
   )
-  if (isLoading) return <LoadingSpinner/>
+  if (isLoading) return <LoadingSpinner />
   return (
     <>
       <h1>{currentUser?.name}'s Pokemon</h1>

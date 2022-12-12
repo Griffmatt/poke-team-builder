@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import LoadingSpinner from '../../../Components/LoadingSpinner'
+import LoadingSpinner from '../../../Components/UI/LoadingSpinner'
 import PokemonCard from '../../../Components/PokemonCard'
 import PokemonGrid from '../../../Components/PokemonGrid'
 import { Pokemon } from '../../../Typescript/interfaces'
@@ -26,7 +26,7 @@ export default function CreatePokemonGrid() {
     )
   }
 
-  if (isLoading) return <LoadingSpinner/>
+  if (isLoading) return <LoadingSpinner />
   return (
     <>
       <div className="flex justify-between flex-col md:flex-row">

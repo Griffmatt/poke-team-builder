@@ -3,7 +3,7 @@ import { useUserContext } from '../../../Context/userContext'
 import fetchUsersTeams from '../../../Utils/fetch/Database/fetchUsersTeams'
 import DisplayTeams from '../../../Components/DisplayTeams'
 import { useQuery } from '@tanstack/react-query'
-import LoadingSpinner from '../../../Components/LoadingSpinner'
+import LoadingSpinner from '../../../Components/UI/LoadingSpinner'
 
 export default function UsersTeams() {
   const { userId } = useParams()
@@ -13,7 +13,7 @@ export default function UsersTeams() {
     fetchUsersTeams(userId),
   )
 
-  if (isLoading) return <LoadingSpinner/>
+  if (isLoading) return <LoadingSpinner />
 
   return (
     <div className="grid gap-6">

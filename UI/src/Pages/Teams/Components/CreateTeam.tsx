@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import LoadingSpinner from '../../../Components/LoadingSpinner'
+import LoadingSpinner from '../../../Components/UI/LoadingSpinner'
 import PokemonCard from '../../../Components/PokemonCard'
 import PokemonGrid from '../../../Components/PokemonGrid'
 import { useUserContext } from '../../../Context/userContext'
@@ -26,7 +26,7 @@ export default function CreateTeam() {
       !selectedPokemon.some((pokemonOnTeam) => pokemon.id === pokemonOnTeam.id),
   )
 
-  if (isLoading) return <LoadingSpinner/>
+  if (isLoading) return <LoadingSpinner />
 
   return (
     <div className="grid gap-4">
@@ -59,10 +59,7 @@ export default function CreateTeam() {
             )}
           </PokemonGrid>
         )}
-        <button
-          className="p-3 rounded-2xl"
-          onClick={createTeam}
-        >
+        <button className="p-3 rounded-2xl" onClick={createTeam}>
           Create Team
         </button>
       </div>
