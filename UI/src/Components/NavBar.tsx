@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useLoginModalContext } from '../Context/loginModalContext'
 import { useThemeContext } from '../Context/themeContext'
 import { useUserContext } from '../Context/userContext'
@@ -46,7 +46,7 @@ export default function NavBar() {
       </NavLink>
       <button onClick={handleDarkMode} className="bg-transparent text-dark dark:text-light">{darkMode ? 'Light' : 'Dark'}</button>
       {currentUser ? (
-        <button onClick={logoutUser} className="bg-transparent text-dark dark:text-light">Logout</button>
+        <Link className="bg-transparent text-dark dark:text-light" to={`/user-profile/${currentUser.id}`}>Profile</Link>
       ) : (
         <button onClick={() => setShowLoginModal(true)} className="bg-transparent text-dark dark:text-light">Login</button>
       )}
