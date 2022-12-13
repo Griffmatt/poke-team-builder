@@ -22,7 +22,7 @@ export default function App() {
           <Route path="/teams/:userId" element={<Teams />} />
           <Route path="/teams/:userId/:teamId" element={<Team />} />
           <Route path="/pokemon" element={<CreatedPokemon />} />
-          <Route path="/pokemon/:userId" element={<CreatedPokemon />} />
+          <Route path="/pokemon/:recent" element={<CreatedPokemon />} />
           <Route path="/boxes/:userId" element={<UserBoxes />} />
           <Route path="/boxes/:userId/:teams" element={<UserBoxes />} />
           <Route

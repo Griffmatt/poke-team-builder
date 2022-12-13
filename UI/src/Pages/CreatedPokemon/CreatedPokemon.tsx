@@ -1,34 +1,31 @@
 import { Link, useParams } from 'react-router-dom'
-import { useUserContext } from '../../Context/userContext'
 import CreatePokemonGrid from './Components/CreatePokemonGrid'
+import RecentlyCreatedPokemon from './Components/RecentlyCreatedPokemon'
 
 export default function CreatedPokemon() {
-  const { userId } = useParams()
-  const { currentUser } = useUserContext()
+  const { recent } = useParams()
 
   return (
     <>
-      {currentUser ? (
-        <div className="flex gap-4 justify-center">
-          <Link
-            to={'/pokemon'}
-            className={`${
-              userId ? '' : 'border-b-2 border-dark dark:border-light'
-            }`}
-          >
-            Create Pokemon
-          </Link>
-          <Link
-            to={`/pokemon/${currentUser.id}`}
-            className={`${
-              userId ? 'border-b-2 border-dark dark:border-light' : ''
-            }`}
-          >
-            Your Pokemon
-          </Link>
-        </div>
-      ) : null}
-      {userId ? null : <CreatePokemonGrid />}
+      <div className="flex gap-4 justify-center">
+        <Link
+          to={'/pokemon'}
+          className={`${
+            recent ? '' : 'border-b-2 border-dark dark:border-light'
+          }`}
+        >
+          Create Pokemon
+        </Link>
+        <Link
+          to={`/pokemon/recent`}
+          className={`${
+            recent ? 'border-b-2 border-dark dark:border-light' : ''
+          }`}
+        >
+          Recent Pokemon
+        </Link>
+      </div>
+      {recent ? <RecentlyCreatedPokemon /> : <CreatePokemonGrid />}
     </>
   )
 }
