@@ -25,7 +25,7 @@ export default function Teams() {
               userId ? 'border-b-2 border-dark dark:border-light' : ''
             }`}
           >
-            Your Teams
+            Recent Teams
           </Link>
         </div>
       ) : null}

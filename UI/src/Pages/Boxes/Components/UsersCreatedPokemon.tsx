@@ -19,7 +19,7 @@ export default function UsersCreatedPokemon({user}: Props) {
   )
   if (isLoading) return <LoadingSpinner />
   return (
-    <>
+    <div className="grid gap-6">
       <h1>{user?.name}'s Pokemon</h1>
       {pokemonArr && (
         <PokemonGrid>
@@ -39,6 +39,6 @@ export default function UsersCreatedPokemon({user}: Props) {
           })}
         </PokemonGrid>
       )}
-    </>
+    </div>
   )
 }
