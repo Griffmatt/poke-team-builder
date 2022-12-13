@@ -1,11 +1,11 @@
 import { useQueries } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
 
-import fetchSinglePokemon from '../../../Utils/fetch/Poke_Api/fetchSinglePokemon'
+import fetchSinglePokemon from '../../Utils/fetch/Poke_Api/fetchSinglePokemon'
 
-import fetchHeldItems from '../../../Utils/fetch/Poke_Api/fetchHeldItems'
-import fetchCreatedPokemon from '../../../Utils/fetch/Database/fetchCreatedPokemon'
-import FormUpdatePokemon from './FormUpdatePokemon'
+import fetchHeldItems from '../../Utils/fetch/Poke_Api/fetchHeldItems'
+import fetchCreatedPokemon from '../../Utils/fetch/Database/fetchCreatedPokemon'
+import FormUpdatePokemon from './Components/FormUpdatePokemon'
 
 export default function UpdatePokemon() {
   const { pokemonName, pokemonId } = useParams()

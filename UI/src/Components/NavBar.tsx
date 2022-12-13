@@ -44,9 +44,9 @@ export default function NavBar() {
           className={({ isActive }) =>
             isActive ? 'border-b-2 border-dark dark:border-light' : undefined
           }
-          to={`/user-profile/${currentUser.id}`}
+          to={`/boxes/${currentUser.id}`}
         >
-          Profile
+          Boxes
         </NavLink>
       ) : (
         <button

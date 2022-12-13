@@ -8,8 +8,8 @@ import Team from './Pages/Team'
 import NavBar from './Components/NavBar'
 import CreatePokemon from './Pages/CreatePokemon/CreatePokemon'
 import CreatedPokemon from './Pages/CreatedPokemon/CreatedPokemon'
-import UpdatePokemon from './Pages/Profile/Components/UpdatePokemon'
-import UserProfile from './Pages/Profile/UserProfile'
+import UpdatePokemon from './Pages/Boxes/Components/UpdatePokemon'
+import UserBoxes from './Pages/Boxes/UserBoxes'
 
 export default function App() {
   return (
@@ -23,7 +23,8 @@ export default function App() {
           <Route path="/teams/:userId/:teamId" element={<Team />} />
           <Route path="/pokemon" element={<CreatedPokemon />} />
           <Route path="/pokemon/:userId" element={<CreatedPokemon />} />
-          <Route path="/user-profile/:userId" element={<UserProfile />} />
+          <Route path="/boxes/:userId" element={<UserBoxes />} />
+          <Route path="/boxes/:userId/teams" element={<UserBoxes />} />
           <Route
             path="/pokemon/update/:pokemonName/:pokemonId"
             element={<UpdatePokemon />}

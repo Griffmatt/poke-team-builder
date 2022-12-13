@@ -6,7 +6,7 @@ import SideNavBar from './Components/SideNavBar'
 import UsersCreatedPokemon from './Components/UsersCreatedPokemon'
 import UsersTeams from './Components/UsersTeams'
 
-export default function UserProfile() {
+export default function UserBoxes() {
   const { userId } = useParams()
   const { data: user, isLoading } = useQuery(['user', userId], () =>
     fetchUser(userId),
