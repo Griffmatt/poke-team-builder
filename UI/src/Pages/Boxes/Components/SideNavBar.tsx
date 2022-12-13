@@ -19,7 +19,7 @@ export default function SideNavBar({ user }: Props) {
   }
   return (
     <>
-      <h1>{user.user_name}'s Profile</h1>
+      <h1>{user.user_name}'s Boxes</h1>
       <DarkModeButton />
       {currentUser?.id === user.id ? <button onClick={logoutUser} className="bg-transparent text-dark dark:text-light">LogOut</button> : null}
     </>

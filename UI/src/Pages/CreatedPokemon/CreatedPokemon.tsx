@@ -1,17 +1,19 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import CreatePokemonGrid from './Components/CreatePokemonGrid'
 import RecentlyCreatedPokemon from './Components/RecentlyCreatedPokemon'
 
-export default function CreatedPokemon() {
-  const { recent } = useParams()
+interface Props {
+  recentlyCreated?: boolean
+}
 
+export default function CreatedPokemon({ recentlyCreated }: Props) {
   return (
     <>
       <div className="flex gap-4 justify-center">
         <Link
           to={'/pokemon'}
           className={`${
-            recent ? '' : 'border-b-2 border-dark dark:border-light'
+            recentlyCreated ? '' : 'border-b-2 border-dark dark:border-light'
           }`}
         >
           Create Pokemon
@@ -19,13 +21,13 @@ export default function CreatedPokemon() {
         <Link
           to={`/pokemon/recent`}
           className={`${
-            recent ? 'border-b-2 border-dark dark:border-light' : ''
+            recentlyCreated ? 'border-b-2 border-dark dark:border-light' : ''
           }`}
         >
           Recent Pokemon
         </Link>
       </div>
-      {recent ? <RecentlyCreatedPokemon /> : <CreatePokemonGrid />}
+      {recentlyCreated ? <RecentlyCreatedPokemon /> : <CreatePokemonGrid />}
     </>
   )
 }

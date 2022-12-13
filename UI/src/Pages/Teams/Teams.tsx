@@ -1,11 +1,23 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import TopTeams from './Components/TopTeams'
 import { useUserContext } from '../../Context/userContext'
 import CreateTeam from './Components/CreateTeam'
+import { useEffect } from 'react'
 
-export default function Teams() {
+interface Props {
+  create?: boolean
+}
+
+export default function Teams({ create }: Props) {
   const { currentUser } = useUserContext()
-  const { userId } = useParams()
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (currentUser === null) {
+      navigate('/teams')
+    }
+  }, [])
 
   return (
     <div>
@@ -14,22 +26,22 @@ export default function Teams() {
           <Link
             to={`/teams`}
             className={`${
-              userId ? '' : 'border-b-2 border-dark dark:border-light'
-            }`}
-          >
-            Create Team
-          </Link>
-          <Link
-            to={`/teams/${currentUser.id}`}
-            className={`${
-              userId ? 'border-b-2 border-dark dark:border-light' : ''
+              create ? '' : 'border-b-2 border-dark dark:border-light'
             }`}
           >
             Recent Teams
           </Link>
+          <Link
+            to={`/teams/create`}
+            className={`${
+              create ? 'border-b-2 border-dark dark:border-light' : ''
+            }`}
+          >
+            Create Team
+          </Link>
         </div>
       ) : null}
-      {userId ? <TopTeams /> : <CreateTeam />}
+      {create ? <CreateTeam /> : <TopTeams />}
     </div>
   )
 }

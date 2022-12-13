@@ -6,8 +6,12 @@ import SideNavBar from './Components/SideNavBar'
 import UsersCreatedPokemon from './Components/UsersCreatedPokemon'
 import UsersTeams from './Components/UsersTeams'
 
-export default function UserBoxes() {
-  const { userId, teams } = useParams()
+interface Props{
+  teams?: boolean
+}
+
+export default function UserBoxes({ teams }: Props) {
+  const { userId } = useParams()
   const { data: user, isLoading } = useQuery(['user', userId], () =>
     fetchUser(userId),
   )

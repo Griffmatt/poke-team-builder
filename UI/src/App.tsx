@@ -9,7 +9,7 @@ import NavBar from './Components/NavBar'
 import CreatePokemon from './Pages/CreatePokemon/CreatePokemon'
 import CreatedPokemon from './Pages/CreatedPokemon/CreatedPokemon'
 import UpdatePokemon from './Pages/UpdatePokemon/UpdatePokemon'
-import UserBoxes from './Pages/Boxes/Boxes'
+import UserBoxes from './Pages/Boxes/UserBoxes'
 
 export default function App() {
   return (
@@ -19,12 +19,12 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/teams" element={<Teams />} />
-          <Route path="/teams/:userId" element={<Teams />} />
+          <Route path="/teams/create" element={<Teams create={true}/>} />
           <Route path="/teams/:userId/:teamId" element={<Team />} />
           <Route path="/pokemon" element={<CreatedPokemon />} />
-          <Route path="/pokemon/:recent" element={<CreatedPokemon />} />
+          <Route path="/pokemon/recent" element={<CreatedPokemon recentlyCreated={true}/>} />
           <Route path="/boxes/:userId" element={<UserBoxes />} />
-          <Route path="/boxes/:userId/:teams" element={<UserBoxes />} />
+          <Route path="/boxes/:userId/teams" element={<UserBoxes teams={true}/>} />
           <Route
             path="/pokemon/update/:pokemonName/:pokemonId"
             element={<UpdatePokemon />}
