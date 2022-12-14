@@ -26,7 +26,6 @@ export default function MostUsedPokemon() {
                 <div key={pokemon.name} className="p-2">
                   <PokemonCard
                     pokemonName={pokemon.pokemon_name}
-                    createdPokemonName={pokemon.name}
                   />
                 </div>
               )

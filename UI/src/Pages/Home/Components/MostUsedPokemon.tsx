@@ -7,6 +7,7 @@ import PokemonGrid from '../../../Components/PokemonGrid'
 import fetchAllCreatedPokemon from '../../../Utils/fetch/Database/fetchAllCreatedPokemon'
 import { formatPercentage } from '../../../Utils/formatPercentage'
 import { formatPokemonData } from '../../../Utils/formatPokemonData'
+import { Link } from 'react-router-dom'
 
 export default function MostUsedPokemon() {
   const { data: pokemonArr, isLoading } = useQuery(
@@ -24,14 +25,15 @@ export default function MostUsedPokemon() {
       ) : (
         pokemonData && (
           <PokemonGrid>
-            {pokemonData.slice(0, 6).map((pokemon) => {
+            {pokemonData.map((pokemon) => {
               return (
-                <div key={pokemon.name} className="p-2">
+                <Link to={`/pokemon/create/${pokemon.name}`}key={pokemon.name} className="p-2">
+          
                   <PokemonCard
                     pokemonName={pokemon.name}
                     amount={formatPercentage(pokemon.amount, totalPokemon)}
                   />
-                </div>
+                </Link>
               )
             })}
           </PokemonGrid>
