@@ -2,6 +2,7 @@ import axios from 'axios'
 
 interface Data{
     pokemon_name: string
+    id: number
     teams: number[]
 }
 

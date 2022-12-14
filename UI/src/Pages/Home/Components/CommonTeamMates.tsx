@@ -24,31 +24,6 @@ export default function CommonTeamMates() {
 
   const { pokemonData, totalPokemon } = formatPokemonData(results[0].data ?? [])
 
-  const teammates = [] as string[][]
-
-  const commonTeams = () => {
-    pokemonData.forEach((pokemon, index) =>{
-        let teams = [] as number[]
-        teammates[index] = [pokemon.name]
-
-        pokemonOnTeam?.forEach(pokemonTeam => {
-            if(pokemonTeam.pokemon_name === pokemon.name){
-                teams.push(...pokemonTeam.teams)
-                console.log(...pokemonTeam.teams)
-            }
-        })
-
-        pokemonOnTeam?.forEach(pokemonTeamMates => {
-           if(pokemonTeamMates.teams.some(value => teams.includes(value))){
-            teammates[index].push(pokemonTeamMates.pokemon_name)
-           }
-        })
-    })
-    console.log(teammates)
-  }
-
-  commonTeams()
-
   return (
     <div className="grid gap-4">
       <h1>Common Teammates</h1>
