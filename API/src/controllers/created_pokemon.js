@@ -17,6 +17,13 @@ const getAllUsersPokemon = (req, res) => {
   })
 }
 
+const getAllPokemonOnTeam = (req, res) => {
+  pool.query(queries.getAllPokemonOnTeam, (error, results) => {
+    if (error) throw error
+    res.status(200).json(results.rows)
+  })
+}
+
 const getPokemon = (req, res) => {
   const pokemonId = parseInt(req.params.pokemonId)
   pool.query(queries.getPokemon, [pokemonId], (error, results) => {
@@ -87,6 +94,7 @@ module.exports = {
   getAllUsersPokemon,
   getPokemon,
   getAllCreatedPokemon,
+  getAllPokemonOnTeam,
   postPokemon,
   updatePokemon
 }
