@@ -3,13 +3,14 @@ import { Routes, Route } from 'react-router-dom'
 import Home from './Pages/Home/Home'
 
 import Teams from './Pages/Teams/Teams'
-import Team from './Pages/Team'
+import Team from './Pages/Team/Team'
 
 import NavBar from './Components/NavBar'
 import CreatePokemon from './Pages/CreatePokemon/CreatePokemon'
 import CreatedPokemon from './Pages/CreatedPokemon/CreatedPokemon'
 import UpdatePokemon from './Pages/UpdatePokemon/UpdatePokemon'
 import UserBoxes from './Pages/Boxes/UserBoxes'
+import CopyPokemon from './Pages/CopyPokemon/CopyPokemon'
 
 export default function App() {
   return (
@@ -33,6 +34,7 @@ export default function App() {
             path="/pokemon/create/:pokemonName"
             element={<CreatePokemon />}
           />
+          <Route path="/pokemon/copy/:pokemonName/:pokemonId" element={<CopyPokemon/>}/>
         </Routes>
       </div>
     </div>
