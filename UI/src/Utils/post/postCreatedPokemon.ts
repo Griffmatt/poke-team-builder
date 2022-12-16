@@ -54,7 +54,7 @@ export default function usePostCreatedPokemon(
       )
     },
     onSuccess: () => {
-      navigate(`/pokemon/${pokemon.user_id}`)
+      navigate(`/boxes/${pokemon.user_id}`)
     },
     onSettled: () => {
       queryClient.invalidateQueries(['usersPokemon',userId])

@@ -70,7 +70,7 @@ export default function useUpdateCreatedPokemon(pokemon: Data, pokemonId?: strin
       )
     },
     onSuccess: () => {
-      navigate(`/pokemon/${pokemon.user_id}`)
+      navigate(`/boxes/${pokemon.user_id}`)
     },
     onSettled: () => {
       queryClient.invalidateQueries(['createdPokemon', pokemonId])

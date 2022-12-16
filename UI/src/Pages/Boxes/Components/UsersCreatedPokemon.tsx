@@ -17,6 +17,7 @@ export default function UsersCreatedPokemon({user}: Props) {
     ['usersPokemon', userId],
     () => fetchUsersCreatedPokemon(userId),
   )
+
   if (isLoading) return <LoadingSpinner />
   return (
     <div className="grid gap-6">
