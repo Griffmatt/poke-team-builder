@@ -35,7 +35,7 @@ export default function FormCopyPokemon({
 }: Props) {
   const { currentUser } = useUserContext()
 
-  const [name, setName] = useState<string>(pokemon.name)
+  const [name, setName] = useState<string>(formatString(pokemon.name))
   const [ability, setAbility] = useState<string>(createdPokemon.ability)
   const [nature, setNature] = useState<string>(createdPokemon.nature)
   const [heldItem, setHeldItem] = useState<string>(createdPokemon.held_item)

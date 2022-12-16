@@ -5,6 +5,7 @@ import PokemonCard from '../../../Components/PokemonCard'
 import PokemonGrid from '../../../Components/PokemonGrid'
 
 import fetchAllCreatedPokemon from '../../../Utils/fetch/Database/fetchAllCreatedPokemon'
+import { Link } from 'react-router-dom'
 
 export default function MostUsedPokemon() {
   const { data: pokemonData, isLoading } = useQuery(
@@ -23,11 +24,11 @@ export default function MostUsedPokemon() {
           <PokemonGrid>
             {pokemonData.map((pokemon) => {
               return (
-                <div key={pokemon.name} className="p-2">
+                <Link to={`/pokemon/copy/${pokemon.pokemon_name}/${pokemon.id}`} key={pokemon.id} className="p-2">
                   <PokemonCard
                     pokemonName={pokemon.pokemon_name}
                   />
-                </div>
+                </Link>
               )
             })}
           </PokemonGrid>
