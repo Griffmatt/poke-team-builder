@@ -33,7 +33,7 @@ export default function UsersCreatedPokemon({user}: Props) {
               >
                 <PokemonCard
                   pokemonName={pokemon.pokemon_name}
-                  createdPokemonName={pokemon.name}
+                  createdPokemon={pokemon}
                 />
               </Link>
             )

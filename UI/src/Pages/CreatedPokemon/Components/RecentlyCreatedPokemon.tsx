@@ -27,6 +27,7 @@ export default function MostUsedPokemon() {
                 <Link to={`/pokemon/copy/${pokemon.pokemon_name}/${pokemon.id}`} key={pokemon.id} className="p-2">
                   <PokemonCard
                     pokemonName={pokemon.pokemon_name}
+                    createdPokemon={pokemon}
                   />
                 </Link>
               )
