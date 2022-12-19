@@ -46,7 +46,6 @@ export default function PokemonCard({
           </div>
           {createdPokemon && (
             <div>
-              <div className="grid grid-cols-2">
                 <div>
                   <h2>Ability</h2>
                   <p>{createdPokemon?.ability}</p>
@@ -55,14 +54,11 @@ export default function PokemonCard({
                   <h2>Nature</h2>
                   <p>{createdPokemon?.nature}</p>
                 </div>
-              </div>
               <div>
                 <h2>Moves</h2>
-                <div className="grid grid-cols-2">
                   {createdPokemon?.moves.map((move) => {
                     return <p>{move}</p>
                   })}
-                </div>
               </div>
               <div>
               <h3>EVs</h3>
