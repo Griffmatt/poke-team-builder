@@ -48,16 +48,7 @@ export interface UsersCreatedTeam {
   user_id: number
   team_name: string
   team_style: string
-  pokemon: UserTeam[]
-}
-export interface UserTeam {
-  id: number
-  user_id: number
-  team_style: string
-  team_name: string
-  created_pokemon_id: number
-  name: string
-  pokemon_name: string
+  pokemon: CreatedPokemon[]
 }
 
 interface Pokemon_Type {

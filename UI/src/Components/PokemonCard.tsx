@@ -8,19 +8,20 @@ import LoadingSpinner from './UI/LoadingSpinner'
 interface Props {
   pokemonName: string
   createdPokemon?: CreatedPokemon
+  createdPokemonName?: string
   amount?: string
 }
 
 export default function PokemonCard({
   pokemonName,
   createdPokemon,
+  createdPokemonName,
   amount,
 }: Props) {
   const { data: pokemon, isLoading } = useQuery(['pokemon', pokemonName], () =>
     fetchSinglePokemon(pokemonName),
   )
 
-  console.log(createdPokemon)
   if (isLoading)
     return (
       <div className="text-center mx-auto p-4 rounded-2xl w-full  aspect-[4/5] max-w-[32rem]">
@@ -34,7 +35,7 @@ export default function PokemonCard({
           <div className="aspect-square lg:w-full">
             <img src={pokemon.sprites.front_default} className="h-full" />
           </div>
-          <h3>{formatString(createdPokemon?.name ?? pokemon.name)}</h3>
+          <h3>{formatString(createdPokemonName ?? pokemon.name)}</h3>
           <div className="flex justify-center gap-2">
             {amount !== undefined
               ? `${amount}%`

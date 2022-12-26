@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { queryClient } from '../../main'
-import { CreatedPokemon, UserTeam } from '../../Typescript/interfaces'
+import { CreatedPokemon } from '../../Typescript/interfaces'
 
 const url = import.meta.env.VITE_BASE_URL
 
@@ -23,8 +23,8 @@ export default function useDeleteTeam(teamId: number, userId?: string) {
       const previousTeams = queryClient.getQueryData([
         'userTeams',
         userId,
-      ]) as UserTeam[]
-
+      ]) as CreatedPokemon[]
+      console.log(previousTeams)
       queryClient.setQueryData(
         ['userTeams', userId],
         previousTeams.filter((team) => team.id === teamId),

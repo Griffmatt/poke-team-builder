@@ -51,7 +51,7 @@ export default function CreateTeam() {
                   >
                     <PokemonCard
                       pokemonName={pokemon.pokemon_name}
-                      createdPokemonName={pokemon.name}
+                      createdPokemon={pokemon}
                     />
                   </div>
                 )
@@ -75,7 +75,7 @@ export default function CreateTeam() {
               >
                 <PokemonCard
                   pokemonName={pokemon.pokemon_name}
-                  createdPokemonName={pokemon.name}
+                  createdPokemon={pokemon}
                 />
               </div>
             )
