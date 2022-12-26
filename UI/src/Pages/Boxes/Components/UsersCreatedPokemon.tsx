@@ -23,7 +23,7 @@ export default function UsersCreatedPokemon({user}: Props) {
     <div className="grid gap-6">
       <h1>{user?.name}'s Pokemon</h1>
       {pokemonArr && (
-        <PokemonGrid>
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
           {[...pokemonArr].reverse().map((pokemon) => {
             return (
               <Link
@@ -38,7 +38,7 @@ export default function UsersCreatedPokemon({user}: Props) {
               </Link>
             )
           })}
-        </PokemonGrid>
+        </div>
       )}
     </div>
   )

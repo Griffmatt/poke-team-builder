@@ -40,10 +40,10 @@ export default function UserBoxes({ teams }: Props) {
         </div>
       {user ? (
         <div className="flex">
-          <div className="w-1/4 flex flex-col gap-2 text-center">
+          <div className="hidden w-1/4 md:flex flex-col gap-2 text-center">
             <SideNavBar user={user} />
           </div>
-          <div className="w-3/4">
+          <div className="w-full md:w-3/4">
             {teams ? (
               <UsersTeams user={user} />
             ) : (

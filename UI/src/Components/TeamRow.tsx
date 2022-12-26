@@ -42,7 +42,7 @@ export default function TeamRow({ team }: Props) {
               </button>
             ) : null}
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
             {team.pokemon.map((pokemon, index) => {
               return (
                 <div key={index} className="p-2">
