@@ -3,7 +3,6 @@ import { Link, useParams } from 'react-router-dom'
 import LoadingSpinner from '../../../Components/UI/LoadingSpinner'
 
 import PokemonCard from '../../../Components/PokemonCard'
-import PokemonGrid from '../../../Components/PokemonGrid'
 import fetchUsersCreatedPokemon from '../../../Utils/fetch/Database/fetchUsersCreatedPokemon'
 import { User } from '../../../Typescript/interfaces'
 
