@@ -69,6 +69,7 @@ export default function FormCopyPokemon({
     event?.preventDefault()
     if (currentUser === null) {
       setShowLoginModal(true)
+      return
     }
     postCreatedPokemonMutation.mutate()
   }
