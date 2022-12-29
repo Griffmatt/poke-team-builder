@@ -6,7 +6,7 @@ import { postTeam } from '../Utils/post/postTeam'
 export function useCreateTeam(userId?: number) {
   const navigate = useNavigate()
   const [selectedPokemon, setSelectedPokemon] = useState<CreatedPokemon[]>([])
-  const [teamName, setTeamName] = useState('New Team')
+  const [teamName, setTeamName] = useState('Team Name')
 
   const addPokemonToTeam = (pokemon: CreatedPokemon) => {
     if (selectedPokemon.length >= 6) return null
