@@ -8,7 +8,7 @@ router.get('/', getAllTeams)
 
 router.get('/:userId', getAllUsersTeams)
 
-router.get('/team/:userId', getTeam)
+router.get('/team/:teamId', getTeam)
 
 router.post('/', postTeam)
 

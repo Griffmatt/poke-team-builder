@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import PokemonCard from './PokemonCard'
 import { useUserContext } from '../Context/userContext'
 import { UsersCreatedTeam } from '../Typescript/interfaces'
@@ -42,7 +42,7 @@ export default function TeamRow({ team }: Props) {
               </button>
             ) : null}
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+          <Link to={`/teams/${team.user_id}/${team.id}`}className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
             {team.pokemon.map((pokemon, index) => {
               return (
                 <div key={index} className="p-2">
@@ -53,7 +53,7 @@ export default function TeamRow({ team }: Props) {
                 </div>
               )
             })}
-          </div>
+          </Link>
         </div>
       )}
       <DeleteTeamModal

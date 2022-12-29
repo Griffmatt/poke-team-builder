@@ -1,5 +1,5 @@
 import { useQueries } from '@tanstack/react-query'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import LoadingSpinner from '../../Components/UI/LoadingSpinner'
 import fetchCreatedPokemon from '../../Utils/fetch/Database/fetchCreatedPokemon'
 import fetchHeldItems from '../../Utils/fetch/Poke_Api/fetchHeldItems'
@@ -8,6 +8,8 @@ import FormCopyPokemon from './Components/FormCopyPokemon'
 
 export default function CopyPokemon() {
   const { pokemonName, pokemonId } = useParams()
+
+  const navigate = useNavigate()
 
   const results = useQueries({
     queries: [
@@ -36,8 +38,15 @@ export default function CopyPokemon() {
     <>
       {pokemon && heldItems && createdPokemon && (
         <>
+          <button onClick={() => navigate(-1)} className="bg-transparent">
+            Back
+          </button>
           <h1>Copying pokemon</h1>
-          <FormCopyPokemon pokemon={pokemon} heldItems={heldItems} createdPokemon={createdPokemon} />
+          <FormCopyPokemon
+            pokemon={pokemon}
+            heldItems={heldItems}
+            createdPokemon={createdPokemon}
+          />
         </>
       )}
     </>
