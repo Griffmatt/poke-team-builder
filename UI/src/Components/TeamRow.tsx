@@ -48,7 +48,7 @@ export default function TeamRow({ team }: Props) {
                 <div key={index} className="p-2">
                   <PokemonCard
                     pokemonName={pokemon.pokemon_name}
-                    createdPokemonName={pokemon.name}
+                    createdPokemon={pokemon}
                   />
                 </div>
               )

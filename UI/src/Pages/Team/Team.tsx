@@ -1,6 +1,6 @@
 import { useQueries } from '@tanstack/react-query'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import PokemonCard from '../../Components/PokemonCard'
+import PokemonCardWithStats from '../../Components/PokemonCardWithStats'
 import LoadingSpinner from '../../Components/UI/LoadingSpinner'
 import fetchSingleTeam from '../../Utils/fetch/Database/fetchSingleTeam'
 import fetchUser from '../../Utils/fetch/Database/fetchUser'
@@ -46,9 +46,9 @@ export default function Team() {
           return (
             <div key={index} className="p-2">
               <Link to={`/pokemon/copy/${pokemon.pokemon_name}/${pokemon.id}`}>
-                <PokemonCard
+                <PokemonCardWithStats
                   pokemonName={pokemon.pokemon_name}
-                  createdPokemonName={pokemon.name}
+                  createdPokemon={pokemon}
                 />
               </Link>
             </div>
