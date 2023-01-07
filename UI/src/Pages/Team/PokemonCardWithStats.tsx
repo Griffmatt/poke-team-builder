@@ -1,19 +1,41 @@
-import { useQuery } from '@tanstack/react-query'
-import { CreatedPokemon } from '../../Typescript/interfaces'
+import { useQueries } from '@tanstack/react-query'
 
 import fetchSinglePokemon from '../../Utils/fetch/Poke_Api/fetchSinglePokemon'
 import { formatString } from '../../Utils/formatString'
 import LoadingSpinner from '../../Components/UI/LoadingSpinner'
+import fetchCreatedPokemon from '../../Utils/fetch/Database/fetchCreatedPokemon'
 
 interface Props {
   pokemonName: string
-  createdPokemon: CreatedPokemon
+  pokemonInfo: {
+    name: string
+    id: number
+    pokemon_name: string
+  }
 }
 
-export default function PokemonCard({ pokemonName, createdPokemon }: Props) {
-  const { data: pokemon, isLoading } = useQuery(['pokemon', pokemonName], () =>
-    fetchSinglePokemon(pokemonName),
-  )
+export default function PokemonCardWithStats({ pokemonName, pokemonInfo }: Props) {
+
+
+  const results = useQueries({
+    queries: [
+      {
+        queryKey: ['pokemon', pokemonName],
+        queryFn: () => fetchSinglePokemon(pokemonName),
+      },
+      {
+        queryKey: ['createdPokemon', pokemonInfo.id],
+        queryFn: () => fetchCreatedPokemon(pokemonInfo.id),
+      },
+    ]
+  })
+
+  const pokemon = results[0].data
+  const createdPokemon = results[1].data
+
+  const isLoading = results[0].isLoading || results[1].isLoading
+
+  console.log(pokemon)
 
   if (isLoading)
     return (
@@ -23,12 +45,12 @@ export default function PokemonCard({ pokemonName, createdPokemon }: Props) {
     )
   return (
     <>
-      {pokemon && (
+      {pokemon && createdPokemon && (
         <div className="text-center mx-auto bg-light-secondary dark:bg-dark-secondary p-4 rounded-2xl w-full aspect-[4/5] max-w-[32rem]">
           <div className="aspect-square lg:w-full">
             <img src={pokemon.sprites.front_default} className="h-full" />
           </div>
-          <h3>{formatString(createdPokemon.name)}</h3>
+          <h2>{formatString(createdPokemon.name)}</h2>
           <div className="flex justify-center gap-2">
             {pokemon.types.map((type) => {
               return (

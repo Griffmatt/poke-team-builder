@@ -18,8 +18,8 @@ export default function CopyPokemon() {
         queryFn: () => fetchSinglePokemon(pokemonName),
       },
       {
-        queryKey: ['createdPokemon', pokemonId],
-        queryFn: () => fetchCreatedPokemon(pokemonId),
+        queryKey: ['createdPokemon', Number(pokemonId)],
+        queryFn: () => fetchCreatedPokemon(Number(pokemonId)),
       },
       {
         queryKey: ['held-items'],
@@ -32,7 +32,9 @@ export default function CopyPokemon() {
   const createdPokemon = results[1].data
   const heldItems = results[2].data
 
-  if (results[0].isLoading) return <LoadingSpinner />
+  const isLoading = results[0].isLoading || results[1].isLoading
+
+  if (isLoading) return <LoadingSpinner />
 
   return (
     <>

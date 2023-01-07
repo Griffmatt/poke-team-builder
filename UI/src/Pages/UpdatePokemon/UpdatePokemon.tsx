@@ -17,8 +17,8 @@ export default function UpdatePokemon() {
         queryFn: () => fetchSinglePokemon(pokemonName),
       },
       {
-        queryKey: ['createdPokemon', pokemonId],
-        queryFn: () => fetchCreatedPokemon(pokemonId),
+        queryKey: ['createdPokemon', Number(pokemonId)],
+        queryFn: () => fetchCreatedPokemon(Number(pokemonId)),
       },
       {
         queryKey: ['held-items'],

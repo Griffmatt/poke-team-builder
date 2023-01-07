@@ -48,7 +48,7 @@ export default function Team() {
               <Link to={`/pokemon/copy/${pokemon.pokemon_name}/${pokemon.id}`}>
                 <PokemonCardWithStats
                   pokemonName={pokemon.pokemon_name}
-                  createdPokemon={pokemon}
+                  pokemonInfo={pokemon}
                 />
               </Link>
             </div>
