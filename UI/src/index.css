@@ -11,7 +11,7 @@ body {
   }
 
   h2{
-    @apply font-bold text-lg;
+    @apply font-bold text-lg text-secondary;
   }
 
   h3{

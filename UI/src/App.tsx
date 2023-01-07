@@ -24,8 +24,9 @@ export default function App() {
           <Route path="/teams/:userId/:teamId" element={<Team />} />
           <Route path="/pokemon" element={<CreatedPokemon />} />
           <Route path="/pokemon/recent" element={<CreatedPokemon recentlyCreated={true}/>} />
-          <Route path="/boxes/:userId" element={<UserBoxes />} />
-          <Route path="/boxes/:userId/teams" element={<UserBoxes teams={true}/>} />
+          <Route path="/boxes/:userId" element={<UserBoxes selected={'pokemon'}/>} />
+          <Route path="/boxes/:userId/teams" element={<UserBoxes selected={'teams'}/>} />
+          <Route path="/boxes/:userId/profile" element={<UserBoxes selected={'profile'}/>} />
           <Route
             path="/pokemon/update/:pokemonName/:pokemonId"
             element={<UpdatePokemon />}
