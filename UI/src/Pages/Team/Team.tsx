@@ -1,6 +1,6 @@
 import { useQueries } from '@tanstack/react-query'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import PokemonCardWithStats from '../../Components/PokemonCardWithStats'
+import PokemonCardWithStats from './PokemonCardWithStats'
 import LoadingSpinner from '../../Components/UI/LoadingSpinner'
 import fetchSingleTeam from '../../Utils/fetch/Database/fetchSingleTeam'
 import fetchUser from '../../Utils/fetch/Database/fetchUser'

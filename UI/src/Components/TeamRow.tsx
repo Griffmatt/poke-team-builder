@@ -29,10 +29,10 @@ export default function TeamRow({ team }: Props) {
       {teamsUser && (
         <div className="grid gap-4">
           <div className="flex justify-between align-middle">
-            <div className="flex gap-3">
+            <Link to={`/boxes/${teamsUser.id}`} className="flex gap-3">
               <h2>{team.team_name}</h2>
               <h2>{teamsUser.name}</h2>
-            </div>
+            </Link>
             {Number(userId) === currentUser?.id ? (
               <button
                 className="py-2 px-4 rounded-2xl"
