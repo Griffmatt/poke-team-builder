@@ -20,7 +20,6 @@ export default function UsersCreatedPokemon({user}: Props) {
   if (isLoading) return <LoadingSpinner />
   return (
     <div className="grid gap-6">
-      <h1>{user?.name}'s Pokemon</h1>
       {pokemonArr && (
         <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
           {[...pokemonArr].reverse().map((pokemon) => {

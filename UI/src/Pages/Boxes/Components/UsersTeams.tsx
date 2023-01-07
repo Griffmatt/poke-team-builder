@@ -19,7 +19,6 @@ export default function UsersTeams({user}: Props) {
 
   return (
     <div className="grid gap-6">
-      <h1>{user?.name}'s Teams</h1>
       {pokeArr && pokeArr.length > 0 ? <DisplayTeams pokeArr={pokeArr} /> : <TeamsEmpty user={user}/>}
     </div>
   )

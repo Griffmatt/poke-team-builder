@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Link, useParams } from 'react-router-dom'
 import LoadingSpinner from '../../Components/UI/LoadingSpinner'
 import fetchUser from '../../Utils/fetch/Database/fetchUser'
+import { formatString } from '../../Utils/formatString'
 import Profile from './Components/Profile'
 import UsersCreatedPokemon from './Components/UsersCreatedPokemon'
 import UsersTeams from './Components/UsersTeams'
@@ -53,7 +54,7 @@ export default function UserBoxes({ selected }: Props) {
         </Link>
       </div>
       <div className="w-full">
-        <h1>Boxes</h1>
+        <h1>{`${formatString(user?.name ?? '')}'s` ?? null} Boxes</h1>
         {user && (
           <>
             {selected === 'pokemon' && <UsersCreatedPokemon user={user} />}
