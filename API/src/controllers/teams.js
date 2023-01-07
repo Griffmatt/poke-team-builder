@@ -18,7 +18,6 @@ const getAllTeams = (req, res) => {
 
 const getTeam = (req, res) => {
   const teamId = parseInt(req.params.teamId)
-  console.log(teamId)
   pool.query(queries.getTeam, [teamId], (error, results) => {
     if (error) throw error
     res.status(200).json(results.rows)
