@@ -5,32 +5,33 @@ import { postTeam } from '../Utils/post/postTeam'
 
 export function useCreateTeam(userId?: number) {
   const navigate = useNavigate()
-  const [selectedPokemon, setSelectedPokemon] = useState<CreatedPokemon[]>([])
+  const [pokemonOnTeam, setPokemonOnTeam] = useState<CreatedPokemon[]>([])
   const [teamName, setTeamName] = useState('Team Name')
+  const [selectedPokemon, setSelectedPokemon] = useState<{name: string, id: number} | null>(null)
 
   const addPokemonToTeam = (pokemon: CreatedPokemon) => {
-    if (selectedPokemon.length >= 6) return null
-    const containsPokemon = selectedPokemon.find(
+    if (pokemonOnTeam.length >= 6) return null
+    const containsPokemon = pokemonOnTeam.find(
       (pokemonOnTeam) => pokemonOnTeam.id === pokemon.id,
     )
 
     if (containsPokemon) return null
 
-    setSelectedPokemon([...selectedPokemon, pokemon])
+    setPokemonOnTeam([...pokemonOnTeam, pokemon])
   }
 
   const removePokemonFromTeam = (id: number) => {
-    const filterOutPokemon = selectedPokemon.filter(
+    const filterOutPokemon = pokemonOnTeam.filter(
       (pokemon) => pokemon.id !== id,
     )
 
-    setSelectedPokemon(filterOutPokemon)
+    setPokemonOnTeam(filterOutPokemon)
   }
 
   const createTeam = async () => {
-    if (selectedPokemon.length < 6) return null
+    if (pokemonOnTeam.length < 6) return null
 
-    const pokemonIds = selectedPokemon.map((pokemon) => {
+    const pokemonIds = pokemonOnTeam.map((pokemon) => {
       return { created_pokemon_id: pokemon.id }
     })
 
@@ -49,6 +50,8 @@ export function useCreateTeam(userId?: number) {
     removePokemonFromTeam,
     createTeam,
     selectedPokemon,
+    setSelectedPokemon,
+    pokemonOnTeam,
     teamName,
     setTeamName,
   }

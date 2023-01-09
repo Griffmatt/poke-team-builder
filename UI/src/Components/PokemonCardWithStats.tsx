@@ -1,22 +1,20 @@
 import { useQueries } from '@tanstack/react-query'
 
-import fetchSinglePokemon from '../../Utils/fetch/Poke_Api/fetchSinglePokemon'
-import { formatString } from '../../Utils/formatString'
-import LoadingSpinner from '../../Components/UI/LoadingSpinner'
-import fetchCreatedPokemon from '../../Utils/fetch/Database/fetchCreatedPokemon'
+import fetchSinglePokemon from '../Utils/fetch/Poke_Api/fetchSinglePokemon'
+import { formatString } from '../Utils/formatString'
+import LoadingSpinner from './UI/LoadingSpinner'
+import fetchCreatedPokemon from '../Utils/fetch/Database/fetchCreatedPokemon'
 
 interface Props {
   pokemonName: string
-  pokemonInfo: {
-    name: string
-    id: number
-    pokemon_name: string
-  }
+  pokemonId: number
+
 }
 
-export default function PokemonCardWithStats({ pokemonName, pokemonInfo }: Props) {
-
-
+export default function PokemonCardWithStats({
+  pokemonName,
+  pokemonId
+}: Props) {
   const results = useQueries({
     queries: [
       {
@@ -24,10 +22,10 @@ export default function PokemonCardWithStats({ pokemonName, pokemonInfo }: Props
         queryFn: () => fetchSinglePokemon(pokemonName),
       },
       {
-        queryKey: ['createdPokemon', pokemonInfo.id],
-        queryFn: () => fetchCreatedPokemon(pokemonInfo.id),
+        queryKey: ['createdPokemon', pokemonId],
+        queryFn: () => fetchCreatedPokemon(pokemonId),
       },
-    ]
+    ],
   })
 
   const pokemon = results[0].data
@@ -35,7 +33,6 @@ export default function PokemonCardWithStats({ pokemonName, pokemonInfo }: Props
 
   const isLoading = results[0].isLoading || results[1].isLoading
 
-  console.log(pokemon)
 
   if (isLoading)
     return (

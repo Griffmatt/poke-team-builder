@@ -5,6 +5,7 @@ import PokemonGrid from '../../../Components/PokemonGrid'
 import { useUserContext } from '../../../Context/userContext'
 import { useCreateTeam } from '../../../Hooks/useCreateTeam'
 import fetchUsersCreatedPokemon from '../../../Utils/fetch/Database/fetchUsersCreatedPokemon'
+import AddPokemonToTeamModal from './AddToTeamModal'
 
 export default function CreateTeam() {
   const { currentUser } = useUserContext()
@@ -18,12 +19,15 @@ export default function CreateTeam() {
     removePokemonFromTeam,
     createTeam,
     selectedPokemon,
+    setSelectedPokemon,
+    pokemonOnTeam,
     teamName,
     setTeamName,
   } = useCreateTeam(currentUser?.id)
+
   const filteredPokemonArr = pokemonArr?.filter(
     (pokemon) =>
-      !selectedPokemon.some((pokemonOnTeam) => pokemon.id === pokemonOnTeam.id),
+      !pokemonOnTeam.some((pokemonFilter) => pokemon.id === pokemonFilter.id),
   )
 
   if (isLoading) return <LoadingSpinner />
@@ -39,10 +43,10 @@ export default function CreateTeam() {
         />
         {pokemonArr && (
           <PokemonGrid>
-            {selectedPokemon.length === 0 ? (
+            {pokemonOnTeam.length === 0 ? (
               <div className="w-full aspect-[4/5]"></div>
             ) : (
-              selectedPokemon.map((pokemon) => {
+              pokemonOnTeam.map((pokemon) => {
                 return (
                   <div
                     key={pokemon.id}
@@ -71,7 +75,7 @@ export default function CreateTeam() {
               <div
                 key={pokemon.id}
                 className="p-2"
-                onClick={() => addPokemonToTeam(pokemon)}
+                onClick={() => setSelectedPokemon({name: pokemon.pokemon_name, id: pokemon.id})}
               >
                 <PokemonCard
                   pokemonName={pokemon.pokemon_name}
@@ -82,6 +86,7 @@ export default function CreateTeam() {
           })}
         </PokemonGrid>
       )}
+      <AddPokemonToTeamModal selectedPokemon={selectedPokemon} addPokemonToTeam={addPokemonToTeam}/>
     </div>
   )
 }
