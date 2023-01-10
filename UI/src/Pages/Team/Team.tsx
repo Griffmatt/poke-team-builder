@@ -41,15 +41,17 @@ export default function Team() {
         <button className="py-2 px-3 rounded-2xl">Copy Team</button>
       </div>
       <h2>{teamsUser?.name}'s Team</h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+      <div className="grid grid-cols-1 md:grid-cols-3">
         {team?.pokemon.map((pokemon, index) => {
           return (
             <div key={index} className="p-2">
               <Link to={`/pokemon/copy/${pokemon.pokemon_name}/${pokemon.id}`}>
-                <PokemonCardWithStats
-                  pokemonName={pokemon.pokemon_name}
-                  pokemonId={pokemon.id}
-                />
+                <div className="text-center mx-auto bg-light-secondary dark:bg-dark-secondary p-4 rounded-2xl w-full aspect-[4/5] max-w-[32rem]">
+                  <PokemonCardWithStats
+                    pokemonName={pokemon.pokemon_name}
+                    pokemonId={pokemon.id}
+                  />
+                </div>
               </Link>
             </div>
           )

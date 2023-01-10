@@ -7,7 +7,7 @@ export function useCreateTeam(userId?: number) {
   const navigate = useNavigate()
   const [pokemonOnTeam, setPokemonOnTeam] = useState<CreatedPokemon[]>([])
   const [teamName, setTeamName] = useState('Team Name')
-  const [selectedPokemon, setSelectedPokemon] = useState<{name: string, id: number} | null>(null)
+  const [selectedPokemon, setSelectedPokemon] = useState<CreatedPokemon | null>(null)
 
   const addPokemonToTeam = (pokemon: CreatedPokemon) => {
     if (pokemonOnTeam.length >= 6) return null

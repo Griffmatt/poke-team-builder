@@ -75,7 +75,7 @@ export default function CreateTeam() {
               <div
                 key={pokemon.id}
                 className="p-2"
-                onClick={() => setSelectedPokemon({name: pokemon.pokemon_name, id: pokemon.id})}
+                onClick={() => setSelectedPokemon(pokemon)}
               >
                 <PokemonCard
                   pokemonName={pokemon.pokemon_name}
@@ -86,7 +86,7 @@ export default function CreateTeam() {
           })}
         </PokemonGrid>
       )}
-      <AddPokemonToTeamModal selectedPokemon={selectedPokemon} addPokemonToTeam={addPokemonToTeam}/>
+      <AddPokemonToTeamModal selectedPokemon={selectedPokemon} setSelectedPokemon={setSelectedPokemon} addPokemonToTeam={addPokemonToTeam}/>
     </div>
   )
 }
