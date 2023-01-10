@@ -42,12 +42,13 @@ export default function PokemonCardWithStats({
     <>
       {pokemon && createdPokemon && (
         <>
-          <div className="md:flex justify-between">
-            <div className="aspect-square w-full">
-              <img src={pokemon.sprites.front_default} className="h-full" />
+        <h2>{formatString(createdPokemon.name)}</h2>
+          <div className="lg:flex justify-between">
+            <div className="w-full flex justify-center">
+              <img src={pokemon.sprites.front_default} className="h-full aspect-square" />
             </div>
-            <div className="grid gap-1">
-              <h2>{formatString(createdPokemon.name)}</h2>
+            <div className="lg:w-[50%]">
+              <h2>Type</h2>
               <div className="flex justify-center gap-2">
                 {pokemon.types.map((type) => {
                   return (

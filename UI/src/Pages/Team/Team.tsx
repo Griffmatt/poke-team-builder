@@ -46,7 +46,7 @@ export default function Team() {
           return (
             <div key={index} className="p-2">
               <Link to={`/pokemon/copy/${pokemon.pokemon_name}/${pokemon.id}`}>
-                <div className="text-center mx-auto bg-light-secondary dark:bg-dark-secondary p-4 rounded-2xl w-full aspect-[4/5] max-w-[32rem]">
+                <div className="text-center mx-auto bg-light-secondary dark:bg-dark-secondary p-4 rounded-2xl w-full aspect-[4/5]">
                   <PokemonCardWithStats
                     pokemonName={pokemon.pokemon_name}
                     pokemonId={pokemon.id}
