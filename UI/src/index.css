@@ -27,7 +27,7 @@ select{
 }
 
 button{
-  @apply bg-secondary text-light;
+  @apply bg-primary text-light;
 }
 
 button[type="button"]{
