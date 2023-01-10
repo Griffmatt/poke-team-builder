@@ -42,19 +42,24 @@ export default function PokemonCardWithStats({
     <>
       {pokemon && createdPokemon && (
         <>
-        <h2>{formatString(createdPokemon.name)}</h2>
-          <div className="lg:flex justify-between">
-            <div className="w-full flex justify-center">
-              <img src={pokemon.sprites.front_default} className="h-full aspect-square" />
-            </div>
-            <div className="lg:w-[50%]">
-              <h2>Type</h2>
-              <div className="flex justify-center gap-2">
-                {pokemon.types.map((type) => {
-                  return (
-                    <h4 key={type.type.name}>{formatString(type.type.name)}</h4>
-                  )
-                })}
+          <h2>{formatString(createdPokemon.name)}</h2>
+          <div className="lg:flex justify-between h-fit">
+            <img
+              src={pokemon.sprites.front_default}
+              className="aspect-square w-full"
+            />
+            <div className="h-fit lg:w-[50%]">
+              <div>
+                <h2>Type</h2>
+                <div className="flex justify-center gap-2">
+                  {pokemon.types.map((type) => {
+                    return (
+                      <h4 key={type.type.name}>
+                        {formatString(type.type.name)}
+                      </h4>
+                    )
+                  })}
+                </div>
               </div>
               <div>
                 <h2>Ability</h2>
@@ -64,69 +69,73 @@ export default function PokemonCardWithStats({
                 <h2>Nature</h2>
                 <p>{createdPokemon?.nature}</p>
               </div>
-              <div>
+              <div className="w-fit mx-auto">
                 <h2>Moves</h2>
-                {createdPokemon?.moves.map((move) => {
-                  return <p>{move}</p>
-                })}
+                <div className="grid grid-cols-2 lg:grid-cols-1 gap-1">
+                  {createdPokemon?.moves.map((move) => {
+                    return <p>{move}</p>
+                  })}
+                </div>
               </div>
             </div>
           </div>
-          <div>
-            <h3>EVs</h3>
-            <div className="grid grid-cols-3">
-              <div>
-                <h3>Hp</h3>
-                <p>{createdPokemon.stats.hitpointsEv}</p>
-              </div>
-              <div>
-                <h3>Att</h3>
-                <p>{createdPokemon.stats.attackEv}</p>
-              </div>
-              <div>
-                <h3>Def</h3>
-                <p>{createdPokemon.stats.defenseEv}</p>
-              </div>
-              <div>
-                <h3>Spa</h3>
-                <p>{createdPokemon.stats.specialAttackEv}</p>
-              </div>
-              <div>
-                <h3>Spd</h3>
-                <p>{createdPokemon.stats.specialDefenseEv}</p>
-              </div>
-              <div>
-                <h3>Spa</h3>
-                <p>{createdPokemon.stats.speedEv}</p>
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            <div>
+              <h3>EVs</h3>
+              <div className="grid grid-cols-3">
+                <div>
+                  <h3>Hp</h3>
+                  <p>{createdPokemon.stats.hitpointsEv}</p>
+                </div>
+                <div>
+                  <h3>Att</h3>
+                  <p>{createdPokemon.stats.attackEv}</p>
+                </div>
+                <div>
+                  <h3>Def</h3>
+                  <p>{createdPokemon.stats.defenseEv}</p>
+                </div>
+                <div>
+                  <h3>Spa</h3>
+                  <p>{createdPokemon.stats.specialAttackEv}</p>
+                </div>
+                <div>
+                  <h3>Spd</h3>
+                  <p>{createdPokemon.stats.specialDefenseEv}</p>
+                </div>
+                <div>
+                  <h3>Spa</h3>
+                  <p>{createdPokemon.stats.speedEv}</p>
+                </div>
               </div>
             </div>
-          </div>
-          <div>
-            <h3>IVs</h3>
-            <div className="grid grid-cols-3">
-              <div>
-                <h3>Hp</h3>
-                <p>{createdPokemon.stats.hitpointsIv}</p>
-              </div>
-              <div>
-                <h3>Att</h3>
-                <p>{createdPokemon.stats.attackEv}</p>
-              </div>
-              <div>
-                <h3>Def</h3>
-                <p>{createdPokemon.stats.defenseIv}</p>
-              </div>
-              <div>
-                <h3>Spa</h3>
-                <p>{createdPokemon.stats.specialAttackIv}</p>
-              </div>
-              <div>
-                <h3>Spd</h3>
-                <p>{createdPokemon.stats.specialDefenseIv}</p>
-              </div>
-              <div>
-                <h3>Spe</h3>
-                <p>{createdPokemon.stats.speedIv}</p>
+            <div>
+              <h3>IVs</h3>
+              <div className="grid grid-cols-3">
+                <div>
+                  <h3>Hp</h3>
+                  <p>{createdPokemon.stats.hitpointsIv}</p>
+                </div>
+                <div>
+                  <h3>Att</h3>
+                  <p>{createdPokemon.stats.attackEv}</p>
+                </div>
+                <div>
+                  <h3>Def</h3>
+                  <p>{createdPokemon.stats.defenseIv}</p>
+                </div>
+                <div>
+                  <h3>Spa</h3>
+                  <p>{createdPokemon.stats.specialAttackIv}</p>
+                </div>
+                <div>
+                  <h3>Spd</h3>
+                  <p>{createdPokemon.stats.specialDefenseIv}</p>
+                </div>
+                <div>
+                  <h3>Spe</h3>
+                  <p>{createdPokemon.stats.speedIv}</p>
+                </div>
               </div>
             </div>
           </div>
