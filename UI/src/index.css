@@ -11,7 +11,7 @@ body {
   }
 
   h2{
-    @apply font-bold text-lg text-secondary;
+    @apply font-bold text-lg ;
   }
 
   h3{
@@ -31,9 +31,9 @@ button{
 }
 
 button[type="button"]{
-  @apply bg-light-secondary dark:bg-dark-secondary text-secondary text-xl font-bold;
+  @apply bg-light-secondary dark:bg-dark-secondary text-primary text-xl font-bold;
 }
 
 button[type="submit"]{
-  @apply bg-secondary text-light;
+  @apply bg-primary text-light;
 }
