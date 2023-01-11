@@ -4,7 +4,6 @@ import { formatString } from '../../../Utils/formatString'
 import useUpdateCreatedPokemon from '../../../Utils/post/useUpdateCreatedPokemon'
 
 import { stats } from '../../../assets/stats'
-import { movesOrder } from '../../../assets/movesOrder'
 import { natures } from '../../../assets/natures'
 
 import { useUserContext } from '../../../Context/userContext'
@@ -21,6 +20,7 @@ import {
   EvStats,
 } from '../../../Typescript/interfaces'
 import { useParams } from 'react-router-dom'
+import MovesInput from '../../../Components/MovesInput'
 
 interface Props {
   pokemon: Pokemon
@@ -40,7 +40,17 @@ export default function FormUpdatePokemon({
   const [ability, setAbility] = useState<string>(createdPokemon.ability)
   const [nature, setNature] = useState<string>(createdPokemon.nature)
   const [heldItem, setHeldItem] = useState<string>(createdPokemon.held_item)
-  const [moves, setMoves] = useState<string[]>(createdPokemon.moves)
+ 
+  const [firstMove, setFirstMove] = useState<string>(createdPokemon.moves[0])
+  const [secondMove, setSecondMove] = useState<string>(
+    createdPokemon.moves[1]
+  )
+  const [thirdMove, setThirdMove] = useState<string>(createdPokemon.moves[2])
+  const [fourthMove, setFourthMove] = useState<string>(
+    createdPokemon.moves[3]
+  )
+
+  console.log(createdPokemon)
 
   const { evs, decreaseEv, increaseEv, handleEvChange } = useHandleEvChange(
     createdPokemon.stats,
@@ -56,7 +66,7 @@ export default function FormUpdatePokemon({
       ability: ability,
       nature: nature,
       held_item: heldItem,
-      moves: moves,
+      moves: [firstMove, secondMove, thirdMove, fourthMove],
       stats: { ...evs, ...ivs },
       user_id: createdPokemon.user_id,
       pokemon_id: pokemon.id,
@@ -91,7 +101,7 @@ export default function FormUpdatePokemon({
           Ability
           <select
             onChange={(event) => setAbility(event.target.value)}
-            value={ability}
+            value={formatString(ability)}
           >
             {pokemon.abilities.map((ability) => {
               return (
@@ -107,7 +117,7 @@ export default function FormUpdatePokemon({
           <select
             className="text-black"
             onChange={(event) => setNature(event.target.value)}
-            value={nature}
+            value={formatString(nature)}
           >
             {natures.map((nature: string) => {
               return <option key={nature}>{nature}</option>
@@ -118,7 +128,7 @@ export default function FormUpdatePokemon({
           Held Item
           <select
             onChange={(event) => setHeldItem(event.target.value)}
-            value={heldItem}
+            value={formatString(heldItem)}
           >
             {heldItems
               .sort((a, b) => {
@@ -142,38 +152,30 @@ export default function FormUpdatePokemon({
       </div>
       <div>
         <h2>Moves</h2>
-        {movesOrder.map((order, index) => {
-          return (
-            <label className="flex flex-col" key={order}>
-              {order} Move
-              <select
-                className="text-dark"
-                value={moves[index]}
-                onChange={(event) =>
-                  setMoves([...moves, (moves[index] = event.target.value)])
-                }
-              >
-                {pokemon.moves
-                  .sort((a, b) => {
-                    if (a.move.name < b.move.name) {
-                      return -1
-                    }
-                    if (a.move.name > b.move.name) {
-                      return 1
-                    }
-                    return 0
-                  })
-                  .map((move: { move: { name: string } }) => {
-                    return (
-                      <option key={move.move.name}>
-                        {formatString(move.move.name)}
-                      </option>
-                    )
-                  })}
-              </select>
-            </label>
-          )
-        })}
+        <MovesInput
+          order={'First'}
+          pokemon={pokemon}
+          move={firstMove}
+          setMove={setFirstMove}
+        />
+        <MovesInput
+          order={'Second'}
+          pokemon={pokemon}
+          move={secondMove}
+          setMove={setSecondMove}
+        />
+        <MovesInput
+          order={'Third'}
+          pokemon={pokemon}
+          move={thirdMove}
+          setMove={setThirdMove}
+        />
+        <MovesInput
+          order={'Fourth'}
+          pokemon={pokemon}
+          move={fourthMove}
+          setMove={setFourthMove}
+        />
       </div>
       <div>
         <h2>Evs</h2>

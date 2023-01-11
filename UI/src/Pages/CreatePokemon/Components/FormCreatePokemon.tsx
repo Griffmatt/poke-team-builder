@@ -4,7 +4,6 @@ import { formatString } from '../../../Utils/formatString'
 import usePostCreatedPokemon from '../../../Utils/post/postCreatedPokemon'
 
 import { stats } from '../../../assets/stats'
-import { movesOrder } from '../../../assets/movesOrder'
 import { natures } from '../../../assets/natures'
 
 import { useUserContext } from '../../../Context/userContext'
@@ -20,6 +19,7 @@ import {
   IvStats,
   EvStats,
 } from '../../../Typescript/interfaces'
+import MovesInput from '../../../Components/MovesInput'
 
 interface Props {
   pokemon: Pokemon
@@ -36,12 +36,14 @@ export default function FormCreatePokemon({ pokemon, heldItems }: Props) {
   const [nature, setNature] = useState<string>(natures[0])
   const [heldItem, setHeldItem] = useState<string>(heldItems[0].name)
 
-  const [moves, setMoves] = useState<string[]>([
-    pokemon.moves[0].move.name,
+  const [firstMove, setFirstMove] = useState<string>(pokemon.moves[0].move.name)
+  const [secondMove, setSecondMove] = useState<string>(
     pokemon.moves[1].move.name,
-    pokemon.moves[2].move.name,
+  )
+  const [thirdMove, setThirdMove] = useState<string>(pokemon.moves[2].move.name)
+  const [fourthMove, setFourthMove] = useState<string>(
     pokemon.moves[3].move.name,
-  ])
+  )
 
   const { evs, decreaseEv, increaseEv, handleEvChange } = useHandleEvChange()
 
@@ -55,7 +57,7 @@ export default function FormCreatePokemon({ pokemon, heldItems }: Props) {
       ability: ability,
       nature: nature,
       held_item: heldItem,
-      moves: moves,
+      moves: [firstMove, secondMove, thirdMove, fourthMove],
       stats: { ...evs, ...ivs },
       user_id: currentUser?.id ?? 0,
       pokemon_name: pokemon.name,
@@ -92,7 +94,7 @@ export default function FormCreatePokemon({ pokemon, heldItems }: Props) {
           Ability
           <select
             onChange={(event) => setAbility(event.target.value)}
-            value={ability}
+            value={formatString(ability)}
           >
             {pokemon.abilities.map((ability) => {
               return (
@@ -108,7 +110,7 @@ export default function FormCreatePokemon({ pokemon, heldItems }: Props) {
           <select
             className="text-dark"
             onChange={(event) => setNature(event.target.value)}
-            value={nature}
+            value={formatString(nature)}
           >
             {natures.map((nature: string) => {
               return <option key={nature}>{nature}</option>
@@ -119,7 +121,7 @@ export default function FormCreatePokemon({ pokemon, heldItems }: Props) {
           Held Item
           <select
             onChange={(event) => setHeldItem(event.target.value)}
-            value={heldItem}
+            value={formatString(heldItem)}
           >
             {heldItems
               .sort((a, b) => {
@@ -143,38 +145,30 @@ export default function FormCreatePokemon({ pokemon, heldItems }: Props) {
       </div>
       <div>
         <h2>Moves</h2>
-        {movesOrder.map((order, index) => {
-          return (
-            <label className="flex flex-col" key={order}>
-              {order} Move
-              <select
-                className="text-dark"
-                value={moves[index]}
-                onChange={(event) =>
-                  setMoves([...moves, (moves[index] = event.target.value)])
-                }
-              >
-                {pokemon.moves
-                  .sort((a, b) => {
-                    if (a.move.name < b.move.name) {
-                      return -1
-                    }
-                    if (a.move.name > b.move.name) {
-                      return 1
-                    }
-                    return 0
-                  })
-                  .map((move: { move: { name: string } }) => {
-                    return (
-                      <option key={move.move.name}>
-                        {formatString(move.move.name)}
-                      </option>
-                    )
-                  })}
-              </select>
-            </label>
-          )
-        })}
+        <MovesInput
+          order={'First'}
+          pokemon={pokemon}
+          move={firstMove}
+          setMove={setFirstMove}
+        />
+        <MovesInput
+          order={'Second'}
+          pokemon={pokemon}
+          move={secondMove}
+          setMove={setSecondMove}
+        />
+        <MovesInput
+          order={'Third'}
+          pokemon={pokemon}
+          move={thirdMove}
+          setMove={setThirdMove}
+        />
+        <MovesInput
+          order={'Fourth'}
+          pokemon={pokemon}
+          move={fourthMove}
+          setMove={setFourthMove}
+        />
       </div>
       <div>
         <h2>Evs</h2>
@@ -248,5 +242,3 @@ export default function FormCreatePokemon({ pokemon, heldItems }: Props) {
     </form>
   )
 }
-
-
