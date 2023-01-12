@@ -19,7 +19,7 @@ const loginUser = (req, res) => {
       if (error) throw error
       const compareHash = await bCrypt.compare(password, results.rows[0].password)
       const data = results.rows[0]
-      if (!compareHash) res.stats(400).json({error: 'Wrong UserName or Password!'})
+      if (!compareHash) res.stats(400).json({ error: 'Wrong UserName or Password!' })
       if (compareHash) res.status(200).json({ id: data.id, name: data.name, user_name: data.user_name, ia_admin: data.is_admin })
     }
   )
