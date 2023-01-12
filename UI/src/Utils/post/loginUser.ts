@@ -15,10 +15,11 @@ interface User {
 }
 
 export const loginUser = async (userData: UserData) => {
-  const response = await axios.post<User[]>(`${url}/user/login`, userData, {
+  const response = await axios.post<User>(`${url}/user/login`, userData, {
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
     },
   })
-  return response.data[0]
+  console.log(response.data)
+  return response.data
 }
