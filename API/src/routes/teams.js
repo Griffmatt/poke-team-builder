@@ -1,4 +1,5 @@
 const { Router } = require('express')
+const { validateToken } = require('../JWT')
 
 const { getAllTeams, getAllUsersTeams, getTeam, postTeam, deleteTeam } = require('../controllers/teams')
 
@@ -10,8 +11,8 @@ router.get('/:userId', getAllUsersTeams)
 
 router.get('/team/:teamId', getTeam)
 
-router.post('/', postTeam)
+router.post('/', validateToken, postTeam)
 
-router.delete('/team/:teamId', deleteTeam)
+router.delete('/team/:teamId', validateToken, deleteTeam)
 
 module.exports = router
