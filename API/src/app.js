@@ -12,7 +12,12 @@ const usersRoutes = require('./routes/users')
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(express.json({ type: 'application/vnd.api+json' }))
-app.use(cors())
+app.use(
+  cors({
+    origin: 'http://127.0.0.1:5173',
+    credentials: true
+  })
+)
 app.use(cookieParser())
 
 app.use('/pokemon', createdPokemonRoutes)

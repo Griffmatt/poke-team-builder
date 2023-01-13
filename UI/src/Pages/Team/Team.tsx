@@ -8,7 +8,6 @@ import fetchUser from '../../Utils/fetch/Database/fetchUser'
 export default function Team() {
   const { userId, teamId } = useParams()
 
-  console.log(userId)
   const results = useQueries({
     queries: [
       {
@@ -31,7 +30,6 @@ export default function Team() {
 
   if (isLoading) return <LoadingSpinner />
 
-  console.log(team?.pokemon)
   return (
     <div>
       <div className="flex justify-between">

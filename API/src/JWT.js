@@ -18,7 +18,7 @@ const createTokens = (user) => {
 
 const validateToken = (req, res, next) => {
   const accessToken = req.cookies['access-token']
-  if (!accessToken) res.status(400).json({ error: 'User not Authenticated!' })
+  if (!accessToken) return res.status(401).json({ error: 'User not Authenticated!' })
   try {
     const validToken = verify(accessToken, SECRET_KEY)
     if (validToken) {

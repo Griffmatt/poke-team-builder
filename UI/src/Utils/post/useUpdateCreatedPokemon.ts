@@ -28,6 +28,7 @@ export default function useUpdateCreatedPokemon(pokemon: Data, pokemonId?: strin
       `${url}/pokemon/update/${pokemonId}`,
       pokemon,
       {
+        withCredentials: true,
         params: {
           pokemonId,
         },

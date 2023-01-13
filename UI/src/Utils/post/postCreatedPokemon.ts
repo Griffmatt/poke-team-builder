@@ -26,6 +26,7 @@ export default function usePostCreatedPokemon(
   const navigate = useNavigate()
   async function postCreatedPokemon() {
     const response = await axios.post<Data>(`${url}/pokemon`, pokemon, {
+      withCredentials: true,
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },

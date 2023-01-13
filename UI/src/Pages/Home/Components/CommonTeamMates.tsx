@@ -20,7 +20,6 @@ export default function CommonTeamMates() {
   const isLoading = results[0].isLoading && results[1].isLoading
   const pokemonOnTeam = results[1].data
 
-  console.log(pokemonOnTeam)
 
   const { pokemonData, totalPokemon } = formatPokemonData(results[0].data ?? [])
 

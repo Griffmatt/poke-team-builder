@@ -13,6 +13,7 @@ interface TeamData {
 
 export const postTeam = async (teamData: TeamData) => {
   const response = await axios.post<number>(`${url}/teams`, teamData, {
+    withCredentials: true,
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
     },

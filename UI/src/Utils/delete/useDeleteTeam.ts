@@ -9,7 +9,7 @@ export default function useDeleteTeam(teamId: number, userId?: string) {
   const deleteTeam = async () => {
     const response = await axios.delete<CreatedPokemon[]>(
       `${url}/teams/team/${teamId}`,
-      { data: { teamId } },
+      { data: { teamId }, withCredentials: true  },
     )
     return response.status === 200 ? teamId : null
   }
@@ -24,7 +24,6 @@ export default function useDeleteTeam(teamId: number, userId?: string) {
         'userTeams',
         userId,
       ]) as CreatedPokemon[]
-      console.log(previousTeams)
       queryClient.setQueryData(
         ['userTeams', userId],
         previousTeams.filter((team) => team.id === teamId),

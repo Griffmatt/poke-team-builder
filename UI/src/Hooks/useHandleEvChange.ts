@@ -49,7 +49,6 @@ export default function useHandleEvChange(defaultStats?: EvStats) {
     }
 
     if (value > total || value >= 252) {
-      console.log(value)
       setEvs({ ...evs, [currentStat]: Math.min(252, total) })
       return
     }

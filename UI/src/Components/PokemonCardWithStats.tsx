@@ -73,7 +73,7 @@ export default function PokemonCardWithStats({
                 <h2>Moves</h2>
                 <div className="grid grid-cols-2 lg:grid-cols-1 gap-1">
                   {createdPokemon?.moves.map((move) => {
-                    return <p>{move}</p>
+                    return <p key={move}>{move}</p>
                   })}
                 </div>
               </div>

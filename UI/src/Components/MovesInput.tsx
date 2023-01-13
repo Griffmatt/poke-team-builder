@@ -10,7 +10,6 @@ interface Props {
 }
 
 export default function MovesInput({ order, pokemon, move, setMove }: Props) {
-  console.log(move)
   return (
     <label className="flex flex-col">
       {order} Move

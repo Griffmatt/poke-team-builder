@@ -50,8 +50,6 @@ export default function FormUpdatePokemon({
     createdPokemon.moves[3]
   )
 
-  console.log(createdPokemon)
-
   const { evs, decreaseEv, increaseEv, handleEvChange } = useHandleEvChange(
     createdPokemon.stats,
   )

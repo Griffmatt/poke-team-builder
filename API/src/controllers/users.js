@@ -4,7 +4,6 @@ const bCrypt = require('bcrypt')
 const { createTokens } = require('../JWT')
 
 const getUser = (req, res) => {
-  console.log(req.params.userId)
   const userId = parseInt(req.params.userId)
   pool.query(queries.getUser, [userId], (error, results) => {
     if (error) throw error
@@ -21,9 +20,9 @@ const loginUser = (req, res) => {
       res.status(400).json({ error: 'Wrong UserName or Password!' })
     }
     const data = results.rows[0]
-    const accessToken = createTokens(data)
     if (compareHash) {
-      res.cookie('access-token', accessToken, { maxAge: 2592000000, HttpOnly: true })
+      const accessToken = createTokens(data)
+      res.cookie('access-token', accessToken, { maxAge: 2592000000, HttpOnly: true, SameSite: 'none' })
       res.status(200).json({
         id: data.id,
         name: data.name,
@@ -55,15 +54,9 @@ const checkUserName = (req, res) => {
   })
 }
 
-const checkForCurrentUser = (req, res) => {
-  const accessToken = req.cookies['access-token']
-  console.log(accessToken)
-}
-
 module.exports = {
   getUser,
   createUser,
   loginUser,
-  checkUserName,
-  checkForCurrentUser
+  checkUserName
 }

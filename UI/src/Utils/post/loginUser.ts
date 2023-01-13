@@ -16,10 +16,10 @@ interface User {
 
 export const loginUser = async (userData: UserData) => {
   const response = await axios.post<User>(`${url}/user/login`, userData, {
+    withCredentials: true, 
     headers: {
       'Content-type': 'application/json; charset=UTF-8',
     },
   })
-  console.log(response.data)
   return response.data
 }
