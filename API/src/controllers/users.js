@@ -4,6 +4,7 @@ const bCrypt = require('bcrypt')
 const { createTokens } = require('../JWT')
 
 const getUser = (req, res) => {
+  console.log(req.params.userId)
   const userId = parseInt(req.params.userId)
   pool.query(queries.getUser, [userId], (error, results) => {
     if (error) throw error
@@ -13,17 +14,24 @@ const getUser = (req, res) => {
 
 const loginUser = (req, res) => {
   const { user_name, password } = req.body
-  pool.query(
-    queries.loginUser,
-    [user_name],
-    async (error, results) => {
-      if (error) throw error
-      const compareHash = await bCrypt.compare(password, results.rows[0].password)
-      if (!compareHash) res.stats(400).json({ error: 'Wrong UserName or Password!' })
-      const accessToken = createTokens(results.rows[0])
-      if (compareHash) res.cookie('access-token', accessToken, { maxAge: 2592000000 })
+  pool.query(queries.loginUser, [user_name], async (error, results) => {
+    if (error) throw error
+    const compareHash = await bCrypt.compare(password, results.rows[0].password)
+    if (!compareHash) {
+      res.status(400).json({ error: 'Wrong UserName or Password!' })
     }
-  )
+    const data = results.rows[0]
+    const accessToken = createTokens(data)
+    if (compareHash) {
+      res.cookie('access-token', accessToken, { maxAge: 2592000000, HttpOnly: true })
+      res.status(200).json({
+        id: data.id,
+        name: data.name,
+        user_name: data.user_name,
+        ia_admin: data.is_admin
+      })
+    }
+  })
 }
 
 const createUser = (req, res) => {
@@ -47,9 +55,15 @@ const checkUserName = (req, res) => {
   })
 }
 
+const checkForCurrentUser = (req, res) => {
+  const accessToken = req.cookies['access-token']
+  console.log(accessToken)
+}
+
 module.exports = {
   getUser,
   createUser,
   loginUser,
-  checkUserName
+  checkUserName,
+  checkForCurrentUser
 }

@@ -39,7 +39,10 @@ export default function AddPokemonToTeamModal({
               pokemonId={selectedPokemon.id}
             />
             <button
-              onClick={() => addPokemonToTeam(selectedPokemon)}
+              onClick={() => {
+                addPokemonToTeam(selectedPokemon)
+                setSelectedPokemon(null)
+              }}
               className="w-full px-4 py-2 rounded-xl mt-6"
             >
               Add To Team

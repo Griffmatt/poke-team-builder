@@ -1,5 +1,6 @@
 const { sign, verify } = require('jsonwebtoken')
-require('dotenv').config()
+
+const SECRET_KEY = process.env.JWT_SECRET_KEY
 
 const createTokens = (user) => {
   const accessToken = sign(
@@ -9,7 +10,7 @@ const createTokens = (user) => {
       user_name: user.user_name,
       ia_admin: user.is_admin
     },
-    process.env.JWT_SECRET_TOKEN
+    SECRET_KEY
   )
 
   return accessToken
@@ -17,11 +18,9 @@ const createTokens = (user) => {
 
 const validateToken = (req, res, next) => {
   const accessToken = req.cookies['access-token']
-
   if (!accessToken) res.status(400).json({ error: 'User not Authenticated!' })
-
   try {
-    const validToken = verify(accessToken, process.env.JWT_SECRET_TOKEN)
+    const validToken = verify(accessToken, SECRET_KEY)
     if (validToken) {
       req.authenticated = true
       return next()

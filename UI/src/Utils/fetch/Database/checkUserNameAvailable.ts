@@ -6,7 +6,7 @@ interface Response {
     exists: boolean
 }
 
-export default async function fetchAllCreatedPokemon(userName: string) {
+export default async function checkUserNameAvailable(userName: string) {
   const response = await axios.get<Response[]>(`${url}/user/user-name/${userName}`)
   return response.data[0].exists
 }
