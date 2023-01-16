@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { Link, useParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import LoadingSpinner from '../../../Components/UI/LoadingSpinner'
 
 import PokemonCard from '../../../Components/PokemonCard'

@@ -19,11 +19,22 @@ export default function useDeleteTeam(teamId: number, userId: number) {
 
     onMutate: async () => {
       await queryClient.cancelQueries(['userTeams', userId])
+      await queryClient.cancelQueries(['topTeams'])
 
       const previousTeams = queryClient.getQueryData([
         'userTeams',
         userId,
       ]) as CreatedPokemon[]
+      const topTeams = queryClient.getQueryData(['topTeams'])
+      if(topTeams){
+        console.log(topTeams)
+        queryClient.setQueryData(
+          ['topTeams'],
+          previousTeams.filter((team) => team.id === teamId),
+        )
+        const topTeams2 = queryClient.getQueryData(['topTeams'])
+        console.log(topTeams2)
+      }
       queryClient.setQueryData(
         ['userTeams', userId],
         previousTeams.filter((team) => team.id === teamId),

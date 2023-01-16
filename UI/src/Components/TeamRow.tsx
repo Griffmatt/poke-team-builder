@@ -42,7 +42,10 @@ export default function TeamRow({ team }: Props) {
               </button>
             ) : null}
           </div>
-          <Link to={`/teams/${team.user_id}/${team.id}`}className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+          <Link
+            to={`/teams/${team.user_id}/${team.id}`}
+            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6"
+          >
             {team.pokemon.map((pokemon, index) => {
               return (
                 <div key={index} className="p-2">
