@@ -11,7 +11,7 @@ export default function CreateTeam() {
   const { currentUser } = useUserContext()
   const { data: pokemonArr, isLoading } = useQuery(
     ['usersPokemon', currentUser?.id],
-    () => fetchUsersCreatedPokemon(currentUser?.id.toString()),
+    () => fetchUsersCreatedPokemon(currentUser?.id),
   )
 
   const {

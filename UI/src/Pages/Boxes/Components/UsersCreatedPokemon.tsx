@@ -11,10 +11,10 @@ interface Props {
 }
 
 export default function UsersCreatedPokemon({user}: Props) {
-  const { userId } = useParams()
+
   const { data: pokemonArr, isLoading } = useQuery(
-    ['usersPokemon', userId],
-    () => fetchUsersCreatedPokemon(userId),
+    ['usersPokemon', user.id],
+    () => fetchUsersCreatedPokemon(user.id),
   )
 
   if (isLoading) return <LoadingSpinner />
@@ -22,7 +22,7 @@ export default function UsersCreatedPokemon({user}: Props) {
     <div className="grid gap-6">
       {pokemonArr && (
         <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
-          {[...pokemonArr].reverse().map((pokemon) => {
+          {[...pokemonArr].map((pokemon) => {
             return (
               <Link
                 to={`/pokemon/update/${pokemon.pokemon_name}/${pokemon.id}`}

@@ -15,20 +15,17 @@ const loginUser = (req, res) => {
   const { user_name, password } = req.body
   pool.query(queries.loginUser, [user_name], async (error, results) => {
     if (error) throw error
-    const compareHash = await bCrypt.compare(password, results.rows[0].password)
+    const data = results.rows[0]
+    const compareHash = await bCrypt.compare(password, data.password)
     if (!compareHash) {
       res.status(400).json({ error: 'Wrong UserName or Password!' })
     }
-    const data = results.rows[0]
     if (compareHash) {
+      delete data.password
       const accessToken = createTokens(data)
+      console.log(data)
       res.cookie('access-token', accessToken, { maxAge: 2592000000, HttpOnly: true, SameSite: 'none' })
-      res.status(200).json({
-        id: data.id,
-        name: data.name,
-        user_name: data.user_name,
-        ia_admin: data.is_admin
-      })
+      res.status(200).json(data)
     }
   })
 }

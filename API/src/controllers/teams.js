@@ -26,6 +26,11 @@ const getTeam = (req, res) => {
 
 const postTeam = (req, res) => {
   const { user_id, pokemon_ids, team_name, team_style } = req.body
+  const id = req.id
+
+  if (user_id !== id) {
+    return res.sendStatus(401)
+  }
 
   pool.query(
     `
@@ -44,7 +49,13 @@ const postTeam = (req, res) => {
 }
 
 const deleteTeam = (req, res) => {
-  const teamId = parseInt(req.body.teamId)
+  const teamId = req.body.teamId
+  const user_id = req.body.userId
+  const id = req.id
+  if (user_id !== id) {
+    console.log(teamId)
+    return res.sendStatus(401)
+  }
   pool.query(queries.deleteTeam, [teamId], (error) => {
     if (error) {
       throw error

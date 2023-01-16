@@ -5,11 +5,11 @@ import { CreatedPokemon } from '../../Typescript/interfaces'
 
 const url = import.meta.env.VITE_BASE_URL
 
-export default function useDeleteTeam(teamId: number, userId?: string) {
+export default function useDeleteTeam(teamId: number, userId: number) {
   const deleteTeam = async () => {
     const response = await axios.delete<CreatedPokemon[]>(
       `${url}/teams/team/${teamId}`,
-      { data: { teamId }, withCredentials: true  },
+      { data: { userId, teamId }, withCredentials: true  },
     )
     return response.status === 200 ? teamId : null
   }

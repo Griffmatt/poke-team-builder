@@ -57,6 +57,7 @@ export default function TeamRow({ team }: Props) {
         </div>
       )}
       <DeleteTeamModal
+        userId={team.user_id}
         name={team.team_name}
         teamId={team.id}
         showDeleteModal={showDeleteModal}

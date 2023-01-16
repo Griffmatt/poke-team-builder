@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function UsersTeams({user}: Props) {
-  const { data: pokeArr, isLoading } = useQuery(['userTeams', user.id.toString()], () =>
+  const { data: pokeArr, isLoading } = useQuery(['userTeams', user.id], () =>
     fetchUsersTeams(user.id.toString()),
   )
 

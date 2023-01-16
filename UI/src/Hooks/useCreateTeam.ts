@@ -42,7 +42,7 @@ export function useCreateTeam(userId?: number) {
       team_name: teamName,
       team_style: 'double',
     })
-    if (response === 200) navigate(`/teams`)
+    if (response === 200) navigate(`/boxes/${userId}/teams`)
   }
 
   return {

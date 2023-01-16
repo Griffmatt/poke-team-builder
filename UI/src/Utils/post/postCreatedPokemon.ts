@@ -14,15 +14,12 @@ interface Data {
   nature: string
   held_item: string
   moves: string[]
-  stats: Stats,
-  user_id: number,
+  stats: Stats
+  user_id: number
   pokemon_name: string
 }
 
-export default function usePostCreatedPokemon(
-  pokemon: Data,
-  userId?: string
-) {
+export default function usePostCreatedPokemon(pokemon: Data, userId: number) {
   const navigate = useNavigate()
   async function postCreatedPokemon() {
     const response = await axios.post<Data>(`${url}/pokemon`, pokemon, {
@@ -40,25 +37,33 @@ export default function usePostCreatedPokemon(
     onMutate: async () => {
       await queryClient.cancelQueries(['usersPokemon', userId])
 
-      const previousCreatedPokemon= queryClient.getQueryData(['usersPokemon',userId]) as CreatedPokemon[]
-      if(previousCreatedPokemon){
-        queryClient.setQueryData(['usersPokemon',userId], [...previousCreatedPokemon, {...pokemon, id: 0}])
+      const previousCreatedPokemon = queryClient.getQueryData([
+        'usersPokemon',
+        userId,
+      ]) as CreatedPokemon[]
+      if (previousCreatedPokemon) {
+        queryClient.setQueryData(
+          ['usersPokemon', userId],
+          [...previousCreatedPokemon, { ...pokemon, id: 0 }],
+        )
         return { previousCreatedPokemon }
       }
-      queryClient.setQueryData(['usersPokemon',userId], [{...pokemon, id: 0}])
-      
+      queryClient.setQueryData(
+        ['usersPokemon', userId],
+        [{ ...pokemon, id: 0 }],
+      )
     },
     onError: (err, team, context) => {
       queryClient.setQueryData(
-        ['usersPokemon',userId],
-        context?.previousCreatedPokemon
+        ['usersPokemon', userId],
+        context?.previousCreatedPokemon,
       )
     },
     onSuccess: () => {
       navigate(`/boxes/${pokemon.user_id}`)
     },
     onSettled: () => {
-      queryClient.invalidateQueries(['usersPokemon',userId])
+      queryClient.invalidateQueries(['usersPokemon', userId])
     },
   })
 

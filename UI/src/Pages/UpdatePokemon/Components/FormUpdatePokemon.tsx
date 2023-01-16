@@ -19,7 +19,6 @@ import {
   IvStats,
   EvStats,
 } from '../../../Typescript/interfaces'
-import { useParams } from 'react-router-dom'
 import MovesInput from '../../../Components/MovesInput'
 
 interface Props {
@@ -34,7 +33,6 @@ export default function FormUpdatePokemon({
   createdPokemon,
 }: Props) {
   const { currentUser } = useUserContext()
-  const { pokemonId } = useParams()
 
   const [name, setName] = useState<string>(createdPokemon.name)
   const [ability, setAbility] = useState<string>(createdPokemon.ability)
@@ -69,7 +67,7 @@ export default function FormUpdatePokemon({
       user_id: createdPokemon.user_id,
       pokemon_id: pokemon.id,
     },
-    pokemonId,
+    createdPokemon.id
   )
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
