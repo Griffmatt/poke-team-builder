@@ -5,33 +5,30 @@ import { queryClient } from '../../main'
 import { CreatedPokemon } from '../../Typescript/interfaces'
 import { IvStats, EvStats } from '../../Typescript/interfaces'
 
-
 const url = import.meta.env.VITE_BASE_URL
 
 type Stats = IvStats & EvStats
 
 interface Data {
+  pokemonId: number
   name: string
   ability: string
   nature: string
   held_item: string
   moves: string[]
-  stats: Stats,
-  user_id: number,
+  stats: Stats
+  user_id: number
   pokemon_id: number
 }
 
-export default function useUpdateCreatedPokemon(pokemon: Data, pokemonId: number) {
-    const navigate = useNavigate()
+export default function useUpdateCreatedPokemon(pokemon: Data) {
+  const navigate = useNavigate()
   async function updateCreatedPokemon() {
     const response = await axios.post<Data>(
-      `${url}/pokemon/update/${pokemonId}`,
+      `${url}/pokemon/update/${pokemon.pokemonId}`,
       pokemon,
       {
         withCredentials: true,
-        params: {
-          pokemonId,
-        },
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
         },
@@ -44,24 +41,24 @@ export default function useUpdateCreatedPokemon(pokemon: Data, pokemonId: number
     mutationFn: updateCreatedPokemon,
 
     onMutate: async () => {
-      await queryClient.cancelQueries(['createdPokemon', pokemonId])
+      await queryClient.cancelQueries(['createdPokemon', pokemon.pokemonId])
 
       const previousPokemon = queryClient.getQueryData([
         'createdPokemon',
-        pokemonId,
+        pokemon.pokemonId,
       ]) as CreatedPokemon
-      queryClient.setQueryData(
-        ['createdPokemon', pokemonId],
-        pokemon
-      )
+      queryClient.setQueryData(['createdPokemon', pokemon.pokemonId], pokemon)
 
-      const previousCreatedPokemon= queryClient.getQueryData(['usersPokemon', pokemon.user_id]) as CreatedPokemon[]
-      if(previousCreatedPokemon?.length > 0){
-        const mapPrevious = previousCreatedPokemon.map(previousPokemon => {
-          if(previousPokemon.id === Number(pokemonId)){
-            return {...pokemon, id: Number(pokemonId)}
+      const previousCreatedPokemon = queryClient.getQueryData([
+        'usersPokemon',
+        pokemon.user_id,
+      ]) as CreatedPokemon[]
+      if (previousCreatedPokemon?.length > 0) {
+        const mapPrevious = previousCreatedPokemon.map((previousPokemon) => {
+          if (previousPokemon.id === pokemon.pokemonId) {
+            return { ...pokemon, id: pokemon.pokemonId }
           }
-          return {...previousPokemon}
+          return { ...previousPokemon }
         })
         queryClient.setQueryData(['usersPokemon', pokemon.user_id], mapPrevious)
         return { previousCreatedPokemon, previousPokemon }
@@ -71,7 +68,7 @@ export default function useUpdateCreatedPokemon(pokemon: Data, pokemonId: number
     },
     onError: (err, team, context) => {
       queryClient.setQueryData(
-        ['createdPokemon', pokemonId],
+        ['createdPokemon', pokemon.pokemonId],
         context?.previousPokemon,
       )
     },
@@ -79,7 +76,7 @@ export default function useUpdateCreatedPokemon(pokemon: Data, pokemonId: number
       navigate(`/boxes/${pokemon.user_id}`)
     },
     onSettled: () => {
-      queryClient.invalidateQueries(['createdPokemon', pokemonId])
+      queryClient.invalidateQueries(['createdPokemon', pokemon.pokemonId])
     },
   })
 

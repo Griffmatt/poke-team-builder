@@ -38,15 +38,11 @@ export default function FormUpdatePokemon({
   const [ability, setAbility] = useState<string>(createdPokemon.ability)
   const [nature, setNature] = useState<string>(createdPokemon.nature)
   const [heldItem, setHeldItem] = useState<string>(createdPokemon.held_item)
- 
+
   const [firstMove, setFirstMove] = useState<string>(createdPokemon.moves[0])
-  const [secondMove, setSecondMove] = useState<string>(
-    createdPokemon.moves[1]
-  )
+  const [secondMove, setSecondMove] = useState<string>(createdPokemon.moves[1])
   const [thirdMove, setThirdMove] = useState<string>(createdPokemon.moves[2])
-  const [fourthMove, setFourthMove] = useState<string>(
-    createdPokemon.moves[3]
-  )
+  const [fourthMove, setFourthMove] = useState<string>(createdPokemon.moves[3])
 
   const { evs, decreaseEv, increaseEv, handleEvChange } = useHandleEvChange(
     createdPokemon.stats,
@@ -56,19 +52,17 @@ export default function FormUpdatePokemon({
     createdPokemon.stats,
   )
 
-  const updateCreatedPokemonMutation = useUpdateCreatedPokemon(
-    {
-      name: name,
-      ability: ability,
-      nature: nature,
-      held_item: heldItem,
-      moves: [firstMove, secondMove, thirdMove, fourthMove],
-      stats: { ...evs, ...ivs },
-      user_id: createdPokemon.user_id,
-      pokemon_id: pokemon.id,
-    },
-    createdPokemon.id
-  )
+  const updateCreatedPokemonMutation = useUpdateCreatedPokemon({
+    pokemonId: createdPokemon.id,
+    name: name,
+    ability: ability,
+    nature: nature,
+    held_item: heldItem,
+    moves: [firstMove, secondMove, thirdMove, fourthMove],
+    stats: { ...evs, ...ivs },
+    user_id: createdPokemon.user_id,
+    pokemon_id: pokemon.id,
+  })
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event?.preventDefault()
@@ -239,10 +233,7 @@ export default function FormUpdatePokemon({
           )
         })}
       </div>
-      <button
-        className="p-4 rounded-xl w-full md:col-span-2"
-        type="submit"
-      >
+      <button className="p-4 rounded-xl w-full md:col-span-2" type="submit">
         Update Pokemon
       </button>
     </form>

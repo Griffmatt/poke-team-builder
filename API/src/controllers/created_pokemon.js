@@ -44,6 +44,12 @@ const postPokemon = (req, res) => {
     stats
   } = req.body
 
+  const id = req.id
+
+  if (user_id !== id) {
+    return res.sendStatus(401)
+  }
+
   pool.query(
     `
     WITH pokemon AS (INSERT INTO created_pokemon (user_id, pokemon_name, "name", ability, nature, held_item) VALUES (${user_id}, '${pokemon_name}', '${name}', '${ability}', '${nature}', '${held_item}') RETURNING id), 
@@ -63,15 +69,13 @@ const postPokemon = (req, res) => {
 }
 
 const updatePokemon = (req, res) => {
-  const pokemonId = parseInt(req.params.pokemonId)
-  const {
-    name,
-    ability,
-    nature,
-    held_item,
-    moves,
-    stats
-  } = req.body
+  const { name, ability, nature, held_item, moves, stats, user_id, pokemonId } = req.body
+
+  const id = req.id
+
+  if (user_id !== id) {
+    return res.sendStatus(401)
+  }
 
   pool.query(
     `
