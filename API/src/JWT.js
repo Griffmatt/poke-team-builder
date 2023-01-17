@@ -25,6 +25,7 @@ const validateToken = (req, res, next) => {
     const validToken = verify(accessToken, SECRET_KEY)
     if (validToken) {
       req.id = validToken.id
+      req.is_admin = validToken.ia_admin
       return next()
     }
   } catch (err) {

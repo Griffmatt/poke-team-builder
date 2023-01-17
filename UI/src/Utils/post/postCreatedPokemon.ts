@@ -41,17 +41,14 @@ export default function usePostCreatedPokemon(pokemon: Data, userId: number) {
         'usersPokemon',
         userId,
       ]) as CreatedPokemon[]
+
       if (previousCreatedPokemon) {
         queryClient.setQueryData(
           ['usersPokemon', userId],
-          [...previousCreatedPokemon, { ...pokemon, id: 0 }],
+          [{ ...pokemon, id: 0 }, ...previousCreatedPokemon],
         )
         return { previousCreatedPokemon }
       }
-      queryClient.setQueryData(
-        ['usersPokemon', userId],
-        [{ ...pokemon, id: 0 }],
-      )
     },
     onError: (err, team, context) => {
       queryClient.setQueryData(

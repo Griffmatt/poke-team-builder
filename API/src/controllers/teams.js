@@ -52,7 +52,8 @@ const deleteTeam = (req, res) => {
   const teamId = req.body.teamId
   const user_id = req.body.userId
   const id = req.id
-  if (user_id !== id) {
+  const is_admin = req.is_admin
+  if (user_id !== id && !is_admin) {
     console.log(teamId)
     return res.sendStatus(401)
   }

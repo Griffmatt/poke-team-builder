@@ -72,8 +72,8 @@ const updatePokemon = (req, res) => {
   const { name, ability, nature, held_item, moves, stats, user_id, pokemonId } = req.body
 
   const id = req.id
-
-  if (user_id !== id) {
+  const is_admin = req.is_admin
+  if (user_id !== id && !is_admin) {
     return res.sendStatus(401)
   }
 

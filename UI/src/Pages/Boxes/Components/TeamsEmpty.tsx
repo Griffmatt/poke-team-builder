@@ -9,7 +9,7 @@ interface Props {
 export default function TeamsEmpty({ user }: Props) {
   const { currentUser } = useUserContext()
   return (
-    <div className="rounded-2xl h-fit aspect-[2/1] bg-light-secondary dark:bg-dark-secondary flex align-middle justify-center">
+    <div className="mt-2 rounded-2xl h-fit aspect-[2/1] bg-light-secondary dark:bg-dark-secondary flex align-middle justify-center">
       {currentUser?.id === user.id ? (
         <div className="flex flex-col justify-center text-center gap-4">
           <h2>You haven't created any teams yet!</h2>
