@@ -24,8 +24,7 @@ const validateToken = (req, res, next) => {
   try {
     const validToken = verify(accessToken, SECRET_KEY)
     if (validToken) {
-      req.id = validToken.id
-      req.is_admin = validToken.ia_admin
+      req.user = validToken
       return next()
     }
   } catch (err) {
@@ -33,4 +32,17 @@ const validateToken = (req, res, next) => {
   }
 }
 
-module.exports = { createTokens, validateToken }
+const checkForValidToken = (req, res, next) => {
+  const accessToken = req.cookies['access-token']
+  try {
+    const validToken = verify(accessToken, SECRET_KEY)
+    if (validToken) {
+      req.user = validToken
+      return next()
+    }
+  } catch (err) {
+    return res.status(200).json(null)
+  }
+}
+
+module.exports = { createTokens, validateToken, checkForValidToken }

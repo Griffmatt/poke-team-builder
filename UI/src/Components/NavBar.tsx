@@ -10,6 +10,8 @@ export default function NavBar() {
 
   const { setShowLoginModal } = useLoginModalContext()
 
+  if(currentUser === undefined) return null
+
   return (
     <div className="flex justify-around p-3 max-w-[40rem] mx-auto">
       <NavLink

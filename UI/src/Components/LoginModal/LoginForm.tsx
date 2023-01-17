@@ -19,7 +19,6 @@ export default function LoginForm() {
 
     setShowLoginModal(false)
     setCurrentUser(user)
-    localStorage.setItem("currentUser", JSON.stringify(user))
   }
 
   const handleCancel = (event: ClickEvent) => {

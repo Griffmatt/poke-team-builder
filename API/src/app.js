@@ -8,6 +8,7 @@ const app = express()
 const createdPokemonRoutes = require('./routes/created_pokemon')
 const teamsRoutes = require('./routes/teams')
 const usersRoutes = require('./routes/users')
+const loginRoutes = require('./routes/login')
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
@@ -23,5 +24,6 @@ app.use(cookieParser())
 app.use('/pokemon', createdPokemonRoutes)
 app.use('/teams', teamsRoutes)
 app.use('/user', usersRoutes)
+app.use('/login', loginRoutes)
 
 module.exports = app

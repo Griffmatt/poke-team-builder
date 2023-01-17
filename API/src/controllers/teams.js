@@ -26,7 +26,7 @@ const getTeam = (req, res) => {
 
 const postTeam = (req, res) => {
   const { user_id, pokemon_ids, team_name, team_style } = req.body
-  const id = req.id
+  const { id } = req.user
 
   if (user_id !== id) {
     return res.sendStatus(401)
@@ -51,8 +51,7 @@ const postTeam = (req, res) => {
 const deleteTeam = (req, res) => {
   const teamId = req.body.teamId
   const user_id = req.body.userId
-  const id = req.id
-  const is_admin = req.is_admin
+  const { id, is_admin } = req.user
   if (user_id !== id && !is_admin) {
     console.log(teamId)
     return res.sendStatus(401)
