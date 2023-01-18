@@ -10,14 +10,29 @@ const createTokens = (user) => {
       user_name: user.user_name,
       ia_admin: user.is_admin
     },
-    SECRET_KEY
+    SECRET_KEY,
+    { expiresIn: '30min' }
   )
 
-  return accessToken
+  const refreshToken = sign(
+    {
+      id: user.id,
+      name: user.name,
+      user_name: user.user_name,
+      ia_admin: user.is_admin
+    },
+    SECRET_KEY,
+    { expiresIn: '30d' }
+  )
+
+  return { accessToken, refreshToken }
 }
 
 const validateToken = (req, res, next) => {
-  const accessToken = req.cookies['access-token']
+  const authorization = req.headers.authorization
+
+  const accessToken = authorization?.split(' ')[1]
+  console.log(accessToken)
   if (!accessToken) {
     return res.status(401).json({ error: 'User not Authenticated!' })
   }
@@ -28,12 +43,12 @@ const validateToken = (req, res, next) => {
       return next()
     }
   } catch (err) {
-    return res.status(400).json({ error: err })
+    return res.status(403).json({ error: err })
   }
 }
 
 const checkForValidToken = (req, res, next) => {
-  const accessToken = req.cookies['access-token']
+  const accessToken = req.cookies['refresh-token']
   try {
     const validToken = verify(accessToken, SECRET_KEY)
     if (validToken) {

@@ -7,12 +7,9 @@ import {
   useState,
 } from 'react'
 
-interface User {
-  id: number
-  name: string
-  user_name: string
-  is_admin: boolean
-}
+import { User } from '../Typescript/interfaces'
+
+
 
 interface Context {
   currentUser?: User | null
@@ -34,7 +31,7 @@ export function UserContextProvider({ children }: Props) {
   useEffect(() => {
     const loginUserWithToken = async () => {
       const url = import.meta.env.VITE_BASE_URL
-      const response = await axios.post<User>(`${url}/login/with-token`, [], {
+      const response = await axios.get<User>(`${url}/login/with-token`, {
         withCredentials: true,
         headers: {
           'Content-type': 'application/json; charset=UTF-8',

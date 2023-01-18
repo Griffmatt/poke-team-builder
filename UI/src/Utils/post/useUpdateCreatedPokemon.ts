@@ -21,7 +21,7 @@ interface Data {
   pokemon_id: number
 }
 
-export default function useUpdateCreatedPokemon(pokemon: Data) {
+export default function useUpdateCreatedPokemon(pokemon: Data, accessToken?: string) {
   const navigate = useNavigate()
   async function updateCreatedPokemon() {
     const response = await axios.post<Data>(
@@ -31,6 +31,7 @@ export default function useUpdateCreatedPokemon(pokemon: Data) {
         withCredentials: true,
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
+          'Authorization': `Bearer ${accessToken}`
         },
       },
     )

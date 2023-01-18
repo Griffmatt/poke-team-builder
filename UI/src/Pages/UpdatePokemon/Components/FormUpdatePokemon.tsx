@@ -62,7 +62,9 @@ export default function FormUpdatePokemon({
     stats: { ...evs, ...ivs },
     user_id: createdPokemon.user_id,
     pokemon_id: pokemon.id,
-  })
+  },
+  currentUser?.accessToken
+  )
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event?.preventDefault()

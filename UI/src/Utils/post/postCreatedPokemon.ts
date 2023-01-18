@@ -15,17 +15,17 @@ interface Data {
   held_item: string
   moves: string[]
   stats: Stats
-  user_id: number
   pokemon_name: string
 }
 
-export default function usePostCreatedPokemon(pokemon: Data, userId: number) {
+export default function usePostCreatedPokemon(pokemon: Data, userId = 0, accessToken?: string) {
   const navigate = useNavigate()
   async function postCreatedPokemon() {
     const response = await axios.post<Data>(`${url}/pokemon`, pokemon, {
       withCredentials: true,
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
+        'Authorization': `Bearer ${accessToken}`
       },
     })
     return response.status
@@ -57,7 +57,7 @@ export default function usePostCreatedPokemon(pokemon: Data, userId: number) {
       )
     },
     onSuccess: () => {
-      navigate(`/boxes/${pokemon.user_id}`)
+      navigate(`/boxes/${userId}`)
     },
     onSettled: () => {
       queryClient.invalidateQueries(['usersPokemon', userId])

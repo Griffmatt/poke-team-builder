@@ -6,16 +6,18 @@ interface Props {
   showDeleteModal: boolean
   setShowDeleteModal: React.Dispatch<React.SetStateAction<boolean>>
   teamId: number
+  accessToken?: string
 }
 
 export default function DeleteTeamModal({
   userId,
+  accessToken,
   name,
   teamId,
   showDeleteModal,
   setShowDeleteModal,
 }: Props) {
-  const deleteTeamMutation = useDeleteTeam(teamId, userId)
+  const deleteTeamMutation = useDeleteTeam(teamId, userId, accessToken)
 
   return (
     <div

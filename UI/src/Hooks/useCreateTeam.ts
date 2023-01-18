@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useUserContext } from '../Context/userContext'
 import { CreatedPokemon } from '../Typescript/interfaces'
 import { postTeam } from '../Utils/post/postTeam'
 
 export function useCreateTeam(userId?: number) {
+  const { currentUser } = useUserContext()
   const navigate = useNavigate()
   const [pokemonOnTeam, setPokemonOnTeam] = useState<CreatedPokemon[]>([])
   const [teamName, setTeamName] = useState('Team Name')
@@ -41,7 +43,7 @@ export function useCreateTeam(userId?: number) {
       pokemon_ids: pokemonIds,
       team_name: teamName,
       team_style: 'double',
-    })
+    }, currentUser?.accessToken)
     if (response === 200) navigate(`/boxes/${userId}/teams`)
   }
 

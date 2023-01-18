@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { User } from '../../Typescript/interfaces'
 
 const url = import.meta.env.VITE_BASE_URL
 
@@ -7,19 +8,17 @@ interface UserData {
   password: string
 }
 
-interface User {
-  id: number
-  name: string
-  user_name: string
-  is_admin: boolean
-}
 
 export const loginUser = async (userData: UserData) => {
-  const response = await axios.post<User>(`${url}/login`, userData, {
-    withCredentials: true, 
+  try{
+    const response = await axios.post<User>(`${url}/login`, userData, {
+    withCredentials: true,
     headers: {
-      'Content-type': 'application/json; charset=UTF-8',
+      'Content-type': 'application/json; charset=UTF-8'
     },
-  })
+  }) 
   return response.data
+} catch (error: any){
+  console.log(error.response.data.error)
+}
 }

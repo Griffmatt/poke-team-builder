@@ -59,10 +59,10 @@ export default function FormCreatePokemon({ pokemon, heldItems }: Props) {
       held_item: heldItem,
       moves: [firstMove, secondMove, thirdMove, fourthMove],
       stats: { ...evs, ...ivs },
-      user_id: currentUser?.id ?? 0,
       pokemon_name: pokemon.name,
     },
-    `${currentUser?.id}`,
+    currentUser?.id,
+    currentUser?.accessToken
   )
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {

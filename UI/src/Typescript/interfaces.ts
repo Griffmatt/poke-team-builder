@@ -41,6 +41,7 @@ export interface User{
   name: string
   user_name: string
   is_admin: boolean
+  accessToken: string
 }
 
 export interface UsersCreatedTeam {

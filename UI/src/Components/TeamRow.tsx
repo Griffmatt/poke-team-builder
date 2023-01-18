@@ -65,6 +65,7 @@ export default function TeamRow({ team }: Props) {
         teamId={team.id}
         showDeleteModal={showDeleteModal}
         setShowDeleteModal={setShowDeleteModal}
+        accessToken={currentUser?.accessToken}
       />
     </>
   )

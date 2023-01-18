@@ -8,38 +8,37 @@ const loginUser = (req, res) => {
   pool.query(queries.loginUser, [user_name], async (error, results) => {
     if (error) throw error
     const data = results.rows[0]
-    const compareHash = await bCrypt.compare(password, data.password)
+    console.log(data)
+    if (!data) return res.status(403).json({ error: 'Wrong UserName or Password!' })
+    const compareHash = await bCrypt.compare(password, data?.password)
     if (!compareHash) {
-      res.status(400).json({ error: 'Wrong UserName or Password!' })
+      return res.status(403).json({ error: 'Wrong UserName or Password!' })
     }
-    if (compareHash) {
-      delete data.password
-      const accessToken = createTokens(data)
-      res.cookie('access-token', accessToken, {
-        maxAge: 2592000000,
-        HttpOnly: true,
-        SameSite: 'none'
-      })
-      res.status(200).json(data)
-    }
+
+    delete data.password
+    const { accessToken, refreshToken } = createTokens(data)
+    res.cookie('refresh-token', refreshToken, {
+      maxAge: 2592000000,
+      HttpOnly: true,
+      SameSite: 'none'
+    })
+    res.status(200).json({ ...data, accessToken })
   })
 }
 
-const loginUserWithToken = (req, res) => {
-  res.status(200).json(req.user)
+const handleRefreshToken = (req, res) => {
+  const { accessToken } = createTokens(req.user)
+  res.status(200).json({ ...req.user, accessToken })
 }
 
 const logoutUser = (req, res) => {
   console.log('5')
-  res.cookie('access-token', {}, {
-    HttpOnly: true,
-    SameSite: 'none'
-  })
+  res.clearCookie('refresh-token')
   res.status(200).json({})
 }
 
 module.exports = {
   loginUser,
-  loginUserWithToken,
+  handleRefreshToken,
   logoutUser
 }
