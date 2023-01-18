@@ -25,6 +25,7 @@ export default function LoginForm({ error, setError }: Props) {
     })
     if (!user) {
       setError(true)
+      console.log(user)
       return null
     }
     setError(false)
